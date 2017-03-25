@@ -1,5 +1,5 @@
 ---
-url: "http://petstore.swagger.io/v2/swagger.json"
+url: "https://raw.githubusercontent.com/syscoin/syscoin-api/dev_2.1.3/server/nodejs/api/swagger.yaml"
 dom_id: "#swagger-ui"
 validatorUrl: "https://online.swagger.io/validator"
 oauth2RedirectUrl: "http://localhost:3200/oauth2-redirect.html"
