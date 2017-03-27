@@ -69,11 +69,12 @@
 
 <script src="./swagger-ui-bundle.js"> </script>
 <script src="./swagger-ui-standalone-preset.js"> </script>
+<script src="./swagger-spec.js"> </script>
 <script>
 window.onload = function() {
   // Build a system
   const ui = SwaggerUIBundle({
-    url: "https://raw.githubusercontent.com/syscoin/syscoin-api/master/generated-json/swagger.json",
+    spec: swaggerSpec,
     dom_id: '#swagger-ui',
     presets: [
       SwaggerUIBundle.presets.apis,
