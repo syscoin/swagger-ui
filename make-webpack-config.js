@@ -27,7 +27,7 @@ module.exports = function(options) {
     'json': 'json-loader',
     'txt|yaml': 'raw-loader',
     'png|jpg|jpeg|gif|svg': specialOptions.disableAssets ? 'null-loader' : 'url-loader',
-    'woff|woff2': specialOptions.disableAssets ? 'null-loader' : 'url-loader?limit=100000',
+    'woff|woff2': specialOptions.disableAssets ? 'null-loader' : 'url-loader',
     'ttf|eot':  specialOptions.disableAssets ? 'null-loader' : 'file-loader',
     "worker.js": ["worker-loader?inline=true", "babel"]
   }
