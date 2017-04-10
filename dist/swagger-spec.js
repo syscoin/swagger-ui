@@ -3192,7 +3192,7 @@ var swaggerSpec = {
       "x-swagger-router-controller" : "rpc"
     },
     "/verifymessage" : {
-      "post" : {
+      "get" : {
         "tags" : [ "General" ],
         "description" : "Verify a signed message",
         "operationId" : "verifymessage",
@@ -5188,7 +5188,7 @@ var swaggerSpec = {
           "description" : "An optional comment to store the name of the person or organization to which you're sending the transaction. This is not part of the transaction, it is just kept in your wallet."
         },
         "subtractfeefromamount" : {
-          "type" : "string",
+          "type" : "boolean",
           "description" : "The fee will be deducted from the amount being sent. The recipient will receive less syscoins than you enter in the amount field."
         }
       }
@@ -5201,7 +5201,7 @@ var swaggerSpec = {
           "description" : "The syscoin address to use for the private key."
         },
         "message" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "The message to create a signature of."
         }
       }
