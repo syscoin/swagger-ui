@@ -1,7 +1,7 @@
 var swaggerSpec = {
   "swagger" : "2.0",
   "info" : {
-    "version" : "2.1.3",
+    "version" : "1.0.0",
     "title" : "Syscoin API"
   },
   "host" : "localhost:8001",
@@ -289,6 +289,42 @@ var swaggerSpec = {
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/AliasNewRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/aliaspay" : {
+      "post" : {
+        "tags" : [ "Escrow" ],
+        "description" : "Send multiple times from an alias. Amounts are double-precision floating point numbers.",
+        "operationId" : "aliaspay",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/AliasPayRequest"
           }
         } ],
         "responses" : {
@@ -3192,7 +3228,7 @@ var swaggerSpec = {
       "x-swagger-router-controller" : "rpc"
     },
     "/verifymessage" : {
-      "get" : {
+      "post" : {
         "tags" : [ "General" ],
         "description" : "Verify a signed message",
         "operationId" : "verifymessage",
@@ -4792,6 +4828,27 @@ var swaggerSpec = {
         }
       }
     },
+    "AliasPayRequest" : {
+      "required" : [ "alias", "amounts" ],
+      "properties" : {
+        "alias" : {
+          "type" : "string",
+          "description" : "Alias you own to pay from"
+        },
+        "amounts" : {
+          "type" : "string",
+          "description" : "A json object with aliases and amounts { \"address\":amount   (numeric or string) The syscoin alias is the key, the numeric amount (can be string) in SYS is the value ,... }"
+        },
+        "minconf" : {
+          "type" : "number",
+          "description" : "Only use the balance confirmed at least this many times."
+        },
+        "comment" : {
+          "type" : "string",
+          "description" : "A comment"
+        }
+      }
+    },
     "GetNewAddressRequest" : {
       "properties" : {
         "account" : {
@@ -5188,7 +5245,7 @@ var swaggerSpec = {
           "description" : "An optional comment to store the name of the person or organization to which you're sending the transaction. This is not part of the transaction, it is just kept in your wallet."
         },
         "subtractfeefromamount" : {
-          "type" : "boolean",
+          "type" : "string",
           "description" : "The fee will be deducted from the amount being sent. The recipient will receive less syscoins than you enter in the amount field."
         }
       }
@@ -5201,7 +5258,7 @@ var swaggerSpec = {
           "description" : "The syscoin address to use for the private key."
         },
         "message" : {
-          "type" : "string",
+          "type" : "number",
           "description" : "The message to create a signature of."
         }
       }
@@ -5304,4 +5361,4 @@ var swaggerSpec = {
       }
     }
   }
-};
+}
