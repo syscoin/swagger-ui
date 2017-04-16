@@ -3228,7 +3228,7 @@ var swaggerSpec = {
       "x-swagger-router-controller" : "rpc"
     },
     "/verifymessage" : {
-      "post" : {
+      "get" : {
         "tags" : [ "General" ],
         "description" : "Verify a signed message",
         "operationId" : "verifymessage",
@@ -5258,7 +5258,7 @@ var swaggerSpec = {
           "description" : "The syscoin address to use for the private key."
         },
         "message" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "The message to create a signature of."
         }
       }
