@@ -2839,7 +2839,7 @@ var swaggerSpec = {
         } ],
         "responses" : {
           "200" : {
-            "description" : "Success",
+            "description" : "Success; Returns an array of 2 elements- tx id and offer GUID.",
             "schema" : {
               "type" : "array",
               "items" : {
@@ -2911,7 +2911,7 @@ var swaggerSpec = {
         } ],
         "responses" : {
           "200" : {
-            "description" : "Success",
+            "description" : "Success; Returns an array with 1 element- tx id.",
             "schema" : {
               "type" : "array",
               "items" : {
