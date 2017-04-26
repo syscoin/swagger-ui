@@ -3768,6 +3768,9 @@ var swaggerSpec = {
         "pending" : {
           "type" : "boolean"
         },
+        "time" : {
+          "type" : "string"
+        },
         "multisiginfo" : {
           "$ref" : "#/definitions/MultiSignatureInfo"
         }
@@ -3811,6 +3814,9 @@ var swaggerSpec = {
         },
         "alias" : {
           "type" : "string"
+        },
+        "time" : {
+          "type" : "string"
         }
       }
     },
@@ -3851,6 +3857,9 @@ var swaggerSpec = {
         },
         "expired" : {
           "type" : "boolean"
+        },
+        "time" : {
+          "type" : "string"
         }
       }
     },
@@ -3885,6 +3894,9 @@ var swaggerSpec = {
         },
         "expired" : {
           "type" : "boolean"
+        },
+        "time" : {
+          "type" : "string"
         }
       }
     },
@@ -3925,6 +3937,9 @@ var swaggerSpec = {
         },
         "height" : {
           "type" : "number"
+        },
+        "time" : {
+          "type" : "string"
         }
       }
     },
@@ -4424,6 +4439,9 @@ var swaggerSpec = {
         },
         "pay_message" : {
           "type" : "string"
+        },
+        "time" : {
+          "type" : "string"
         }
       }
     },
@@ -4544,6 +4562,9 @@ var swaggerSpec = {
         },
         "offers_sold" : {
           "type" : "number"
+        },
+        "time" : {
+          "type" : "string"
         }
       }
     },
@@ -5361,4 +5382,4 @@ var swaggerSpec = {
       }
     }
   }
-}
+};
