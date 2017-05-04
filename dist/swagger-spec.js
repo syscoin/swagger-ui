@@ -1,7 +1,7 @@
 var swaggerSpec = {
   "swagger" : "2.0",
   "info" : {
-    "version" : "1.0.1",
+    "version" : "1.0.2",
     "title" : "Syscoin API"
   },
   "host" : "localhost:8001",
@@ -161,7 +161,7 @@ var swaggerSpec = {
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/AliasListEntry"
+                "$ref" : "#/definitions/Alias"
               }
             }
           },
@@ -261,7 +261,7 @@ var swaggerSpec = {
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/AliasListEntry"
+                "$ref" : "#/definitions/Alias"
               }
             }
           },
@@ -428,7 +428,7 @@ var swaggerSpec = {
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/CertListEntry"
+                "$ref" : "#/definitions/Cert"
               }
             }
           },
@@ -540,7 +540,7 @@ var swaggerSpec = {
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/CertListEntry"
+                "$ref" : "#/definitions/Cert"
               }
             }
           },
@@ -3776,49 +3776,10 @@ var swaggerSpec = {
         }
       }
     },
-    "AliasListEntry" : {
-      "allOf" : [ {
-        "$ref" : "#/definitions/Alias"
-      } ]
-    },
     "AliasHistoryEntry" : {
       "allOf" : [ {
         "$ref" : "#/definitions/Alias"
       } ]
-    },
-    "CertListEntry" : {
-      "properties" : {
-        "cert" : {
-          "type" : "string"
-        },
-        "title" : {
-          "type" : "string"
-        },
-        "data" : {
-          "type" : "string"
-        },
-        "private" : {
-          "type" : "boolean"
-        },
-        "expires_in" : {
-          "type" : "number"
-        },
-        "expires_on" : {
-          "type" : "number"
-        },
-        "expired" : {
-          "type" : "boolean"
-        },
-        "address" : {
-          "type" : "string"
-        },
-        "alias" : {
-          "type" : "string"
-        },
-        "time" : {
-          "type" : "string"
-        }
-      }
     },
     "Cert" : {
       "properties" : {
@@ -3834,19 +3795,31 @@ var swaggerSpec = {
         "title" : {
           "type" : "string"
         },
+        "time" : {
+          "type" : "string"
+        },
         "data" : {
           "type" : "string"
         },
-        "private" : {
-          "type" : "boolean"
+        "pubdata" : {
+          "type" : "string"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "safesearch" : {
+          "type" : "string"
+        },
+        "safetylevel" : {
+          "type" : "number"
         },
         "ismine" : {
-          "type" : "boolean"
-        },
-        "address" : {
           "type" : "string"
         },
         "alias" : {
+          "type" : "string"
+        },
+        "transferviewonly" : {
           "type" : "string"
         },
         "expires_in" : {
@@ -3857,48 +3830,13 @@ var swaggerSpec = {
         },
         "expired" : {
           "type" : "boolean"
-        },
-        "time" : {
-          "type" : "string"
         }
       }
     },
     "CertHistoryEntry" : {
-      "properties" : {
-        "cert" : {
-          "type" : "string"
-        },
-        "certtype" : {
-          "type" : "string"
-        },
-        "private" : {
-          "type" : "boolean"
-        },
-        "data" : {
-          "type" : "string"
-        },
-        "txid" : {
-          "type" : "string"
-        },
-        "address" : {
-          "type" : "string"
-        },
-        "alias" : {
-          "type" : "string"
-        },
-        "expires_in" : {
-          "type" : "number"
-        },
-        "expires_on" : {
-          "type" : "number"
-        },
-        "expired" : {
-          "type" : "boolean"
-        },
-        "time" : {
-          "type" : "string"
-        }
-      }
+      "allOf" : [ {
+        "$ref" : "#/definitions/Cert"
+      } ]
     },
     "EscrowHistoryEntry" : {
       "properties" : {
