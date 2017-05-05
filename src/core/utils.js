@@ -1,5 +1,4 @@
 import Im from "immutable"
-import assign from "object-assign"
 import shallowEqual from "shallowequal"
 
 import camelCase from "lodash/camelCase"
@@ -85,7 +84,7 @@ export function objReduce(obj, fn) {
   return Object.keys(obj).reduce((newObj, key) => {
     let res = fn(obj[key], key)
     if(res && typeof res === "object")
-      assign(newObj, res)
+      Object.assign(newObj, res)
     return newObj
   }, {})
 }
@@ -453,13 +452,13 @@ export const propChecker = (props, nextProps, objectList=[], ignoreList=[]) => {
 }
 
 const validateNumber = ( val ) => {
-  if ( !/^\d+(.?\d+)?$/.test(val)) {
+  if ( !/^-?\d+(.?\d+)?$/.test(val)) {
     return "Value must be a number"
   }
 }
 
 const validateInteger = ( val ) => {
-  if ( !/^\d+$/.test(val)) {
+  if ( !/^-?\d+$/.test(val)) {
     return "Value must be integer"
   }
 }
@@ -546,4 +545,35 @@ export const parseSeach = () => {
   }
 
   return map
+}
+
+export const btoa = (str) => {
+  let buffer
+
+  if (str instanceof Buffer) {
+    buffer = str
+  } else {
+    buffer = new Buffer(str.toString(), "utf-8")
+  }
+
+  return buffer.toString("base64")
+}
+
+export const sorters = {
+  operationsSorter: {
+    alpha: (a, b) => a.get("path").localeCompare(b.get("path")),
+    method: (a, b) => a.get("method").localeCompare(b.get("method"))
+  }
+}
+
+export const buildFormData = (data) => {
+  let formArr = []
+
+  for (let name in data) {
+    let val = data[name]
+    if (val !== undefined && val !== "") {
+      formArr.push([name, "=", encodeURIComponent(val).replace(/%20/g,"+")].join(""))
+    }
+  }
+  return formArr.join("&")
 }

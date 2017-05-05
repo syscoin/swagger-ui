@@ -16,7 +16,7 @@ export class Container extends React.Component {
     if(fullscreen)
       return <section {...rest}/>
 
-    let containerClass = "container" + (full ? "-full" : "")
+    let containerClass = "swagger-container" + (full ? "-full" : "")
     return (
       <section {...rest} className={xclass(rest.className, containerClass)}/>
     )
@@ -127,7 +127,7 @@ export const Input = (props) => <input {...props} />
 
 export class Select extends React.Component {
   static propTypes = {
-    allowedValues: PropTypes.object,
+    allowedValues: PropTypes.array,
     value: PropTypes.any,
     onChange: PropTypes.func,
     multiple: PropTypes.bool,

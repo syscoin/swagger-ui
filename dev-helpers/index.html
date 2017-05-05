@@ -1,9 +1,9 @@
-<!-- HTML for static distribution bundle build -->
+<!-- HTML for dev server -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Syscoin API</title>
+  <title>Swagger UI</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
   <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
@@ -69,12 +69,13 @@
 
 <script src="./swagger-ui-bundle.js"> </script>
 <script src="./swagger-ui-standalone-preset.js"> </script>
-<script src="./swagger-spec.js"> </script>
 <script>
 window.onload = function() {
+  window["SwaggerUIBundle"] = window["swagger-ui-bundle"]
+  window["SwaggerUIStandalonePreset"] = window["swagger-ui-standalone-preset"]
   // Build a system
   const ui = SwaggerUIBundle({
-    spec: swaggerSpec,
+    url: "http://petstore.swagger.io/v2/swagger.json",
     dom_id: '#swagger-ui',
     presets: [
       SwaggerUIBundle.presets.apis,
