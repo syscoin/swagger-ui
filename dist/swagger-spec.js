@@ -4305,6 +4305,9 @@ var swaggerSpec = {
         "GUID" : {
           "type" : "string"
         },
+        "txid" : {
+          "type" : "string"
+        },
         "time" : {
           "type" : "number"
         },
@@ -4327,23 +4330,29 @@ var swaggerSpec = {
         "offer" : {
           "type" : "string"
         },
-        "title" : {
-          "type" : "string"
-        },
         "id" : {
           "type" : "string"
         },
-        "btctxid" : {
+        "txid" : {
           "type" : "string"
         },
-        "alias" : {
+        "title" : {
           "type" : "string"
         },
-        "buyer" : {
+        "exttxid" : {
+          "type" : "string"
+        },
+        "paymentoption" : {
+          "type" : "number"
+        },
+        "paymentoption_display" : {
           "type" : "string"
         },
         "height" : {
           "type" : "number"
+        },
+        "time" : {
+          "type" : "string"
         },
         "quantity" : {
           "type" : "number"
@@ -4351,16 +4360,13 @@ var swaggerSpec = {
         "currency" : {
           "type" : "string"
         },
-        "linkofferaccept" : {
-          "type" : "string"
-        },
         "offer_discount_percentage" : {
           "type" : "number"
         },
-        "escrowlink" : {
-          "type" : "string"
-        },
         "systotal" : {
+          "type" : "number"
+        },
+        "sysprice" : {
           "type" : "number"
         },
         "price" : {
@@ -4369,16 +4375,37 @@ var swaggerSpec = {
         "total" : {
           "type" : "number"
         },
+        "buyer" : {
+          "type" : "string"
+        },
+        "seller" : {
+          "type" : "string"
+        },
         "ismine" : {
           "type" : "boolean"
         },
         "status" : {
           "type" : "string"
         },
-        "pay_message" : {
+        "buyer_fedback" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "seller_fedback" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "avg_rating" : {
+          "type" : "number"
+        },
+        "avg_rating_display" : {
           "type" : "string"
         },
-        "time" : {
+        "pay_message" : {
           "type" : "string"
         }
       }
