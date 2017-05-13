@@ -153,10 +153,7 @@ var swaggerSpec = {
           "200" : {
             "description" : "Success",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
+              "type" : "number"
             }
           },
           "default" : {
