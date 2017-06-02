@@ -146,7 +146,7 @@ var swaggerSpec = {
           "name" : "minconf",
           "in" : "query",
           "description" : "﻿Only include transactions confirmed at least this many times. default=1.",
-          "required" : true,
+          "required" : false,
           "type" : "number"
         } ],
         "responses" : {
