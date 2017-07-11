@@ -1,4 +1,5 @@
-var swaggerSpec = {
+var swaggerSpec = 
+{
   "swagger" : "2.0",
   "info" : {
     "version" : "1.0.2",
@@ -3737,6 +3738,24 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "any error messages"
         }
+      },
+      "example" : {
+        "protocolversion" : 6.02745618307040320615897144307382404804229736328125,
+        "relayfee" : 1.231513536777255612975068288506008684635162353515625,
+        "timeoffset" : 2.3021358869347654518833223846741020679473876953125,
+        "blocks" : 5.63737665663332876420099637471139430999755859375,
+        "version" : 0.80082819046101150206595775671303272247314453125,
+        "keypoolsize" : 2.027123023002321833274663731572218239307403564453125,
+        "unlocked_until" : 4.1456080298839363962315474054776132106781005859375,
+        "paytxfee" : 7.3862819483858839220147274318151175975799560546875,
+        "difficulty" : 9.301444243932575517419536481611430644989013671875,
+        "proxy" : "aeiou",
+        "walletversion" : 1.46581298050294517310021547018550336360931396484375,
+        "balance" : 5.962133916683182377482808078639209270477294921875,
+        "keypoololdest" : 3.61607674925191080461672754609026014804840087890625,
+        "testnet" : true,
+        "connections" : 7.061401241503109105224211816675961017608642578125,
+        "errors" : "aeiou"
       }
     },
     "MiningInfo" : {
@@ -3786,6 +3805,19 @@ var swaggerSpec = {
           "type" : "boolean",
           "description" : "If the generation is on or off (see getgenerate or setgenerate calls)"
         }
+      },
+      "example" : {
+        "difficulty" : 5.962133916683182377482808078639209270477294921875,
+        "chain" : "aeiou",
+        "currentblocktx" : 1.46581298050294517310021547018550336360931396484375,
+        "blocks" : 0.80082819046101150206595775671303272247314453125,
+        "networkhashps" : 2.3021358869347654518833223846741020679473876953125,
+        "currentblocksize" : 6.02745618307040320615897144307382404804229736328125,
+        "genproclimit" : 5.63737665663332876420099637471139430999755859375,
+        "testnet" : true,
+        "pooledtx" : 7.061401241503109105224211816675961017608642578125,
+        "generate" : true,
+        "errors" : "aeiou"
       }
     },
     "PeerInfoResponse" : {
@@ -3974,6 +4006,16 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "DEPRECATED. The account associated with the address, \"\" is the default account"
         }
+      },
+      "example" : {
+        "address" : "aeiou",
+        "isscript" : true,
+        "iscompressed" : true,
+        "ismine" : true,
+        "isvalid" : true,
+        "iswatchonly" : true,
+        "account" : "aeiou",
+        "pubkey" : "aeiou"
       }
     },
     "ErrorResponse" : {
@@ -4071,7 +4113,45 @@ var swaggerSpec = {
         },
         "multisiginfo" : {
           "$ref" : "#/definitions/MultiSignatureInfo"
+        },
+        "pubkey" : {
+          "type" : "string"
         }
+      },
+      "example" : {
+        "alias_peg" : "aeiou",
+        "buyer_rating_display" : "aeiou",
+        "seller_rating_display" : "aeiou",
+        "lastupdate_height" : 3.61607674925191080461672754609026014804840087890625,
+        "safesearch" : "aeiou",
+        "expires_on" : 4.1456080298839363962315474054776132106781005859375,
+        "pending" : true,
+        "ismine" : true,
+        "buyer_ratingcount" : 5.962133916683182377482808078639209270477294921875,
+        "arbiter_ratingcount" : 9.301444243932575517419536481611430644989013671875,
+        "password" : "aeiou",
+        "expired" : true,
+        "balance" : 0.80082819046101150206595775671303272247314453125,
+        "arbiter_rating_display" : "aeiou",
+        "seller_ratingcount" : 2.3021358869347654518833223846741020679473876953125,
+        "value" : "aeiou",
+        "expires_in" : 2.027123023002321833274663731572218239307403564453125,
+        "multisiginfo" : {
+          "reqsigners" : "aeiou",
+          "reqsigs" : 7.3862819483858839220147274318151175975799560546875,
+          "redeemscript" : "aeiou"
+        },
+        "buyer_rating" : 1.46581298050294517310021547018550336360931396484375,
+        "address" : "aeiou",
+        "txid" : "aeiou",
+        "seller_rating" : 5.63737665663332876420099637471139430999755859375,
+        "privatevalue" : "aeiou",
+        "safetylevel" : 6.02745618307040320615897144307382404804229736328125,
+        "acceptcerttransfers" : "aeiou",
+        "arbiter_rating" : 7.061401241503109105224211816675961017608642578125,
+        "name" : "aeiou",
+        "time" : "aeiou",
+        "pubkey" : "aeiou"
       }
     },
     "AliasHistoryEntry" : {
@@ -4129,6 +4209,24 @@ var swaggerSpec = {
         "expired" : {
           "type" : "boolean"
         }
+      },
+      "example" : {
+        "data" : "aeiou",
+        "safesearch" : "aeiou",
+        "expires_on" : 5.962133916683182377482808078639209270477294921875,
+        "txid" : "aeiou",
+        "ismine" : "aeiou",
+        "cert" : "aeiou",
+        "safetylevel" : 6.02745618307040320615897144307382404804229736328125,
+        "transferviewonly" : "aeiou",
+        "title" : "aeiou",
+        "pubdata" : "aeiou",
+        "expired" : true,
+        "alias" : "aeiou",
+        "time" : "aeiou",
+        "category" : "aeiou",
+        "expires_in" : 1.46581298050294517310021547018550336360931396484375,
+        "height" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "CertHistoryEntry" : {
@@ -4255,6 +4353,44 @@ var swaggerSpec = {
         "avg_rating_display" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "escrowtype" : "aeiou",
+        "seller" : "aeiou",
+        "sysfee" : 6.02745618307040320615897144307382404804229736328125,
+        "pay_message" : "aeiou",
+        "fee" : "aeiou",
+        "redeem_txid" : "aeiou",
+        "offer" : "aeiou",
+        "total" : "aeiou",
+        "paymemntoption_display" : "aeiou",
+        "expired" : 5.63737665663332876420099637471139430999755859375,
+        "arbiter_feedback" : [ "aeiou" ],
+        "price" : "aeiou",
+        "avg_rating" : 2.027123023002321833274663731572218239307403564453125,
+        "escrow" : "aeiou",
+        "systotal" : 0.80082819046101150206595775671303272247314453125,
+        "currency" : "aeiou",
+        "escrowaddress" : "aeiou",
+        "avg_rating_display" : "aeiou",
+        "totalwithfee" : 1.46581298050294517310021547018550336360931396484375,
+        "height" : "aeiou",
+        "avg_seller_feedback" : 7.061401241503109105224211816675961017608642578125,
+        "quantity" : "aeiou",
+        "paymentoption" : 5.962133916683182377482808078639209270477294921875,
+        "txid" : "aeiou",
+        "offerlink_seller" : "aeiou",
+        "buyer" : "aeiou",
+        "arbiter" : "aeiou",
+        "avg_arbiter_rating" : 9.301444243932575517419536481611430644989013671875,
+        "exttxid" : "aeiou",
+        "seller_feedback" : [ "aeiou" ],
+        "offertitle" : "aeiou",
+        "avg_buyer_rating" : 2.3021358869347654518833223846741020679473876953125,
+        "time" : "aeiou",
+        "buyer_feedback" : [ "aeiou" ],
+        "avg_rating_count" : 3.61607674925191080461672754609026014804840087890625,
+        "status" : "aeiou"
       }
     },
     "EscrowRefundRequest" : {
@@ -4329,6 +4465,25 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "Raw data for transaction"
         }
+      },
+      "example" : {
+        "amount" : "aeiou",
+        "blockhash" : "aeiou",
+        "timereceived" : 5.63737665663332876420099637471139430999755859375,
+        "blocktime" : 1.46581298050294517310021547018550336360931396484375,
+        "txid" : "aeiou",
+        "details" : [ {
+          "amount" : 2.3021358869347654518833223846741020679473876953125,
+          "address" : "aeiou",
+          "label" : "aeiou",
+          "category" : "aeiou",
+          "account" : "aeiou",
+          "vout" : 7.061401241503109105224211816675961017608642578125
+        } ],
+        "hex" : "aeiou",
+        "time" : 5.962133916683182377482808078639209270477294921875,
+        "confirmations" : 0.80082819046101150206595775671303272247314453125,
+        "blockindex" : 6.02745618307040320615897144307382404804229736328125
       }
     },
     "TransactionDetailEntry" : {
@@ -4357,6 +4512,14 @@ var swaggerSpec = {
           "type" : "number",
           "description" : "the vout value"
         }
+      },
+      "example" : {
+        "amount" : 2.3021358869347654518833223846741020679473876953125,
+        "address" : "aeiou",
+        "label" : "aeiou",
+        "category" : "aeiou",
+        "account" : "aeiou",
+        "vout" : 7.061401241503109105224211816675961017608642578125
       }
     },
     "WalletInfo" : {
@@ -4397,6 +4560,17 @@ var swaggerSpec = {
           "type" : "number",
           "description" : "the transaction fee configuration, set in SYS/kB"
         }
+      },
+      "example" : {
+        "walletversion" : 0.80082819046101150206595775671303272247314453125,
+        "balance" : 6.02745618307040320615897144307382404804229736328125,
+        "txcount" : 5.63737665663332876420099637471139430999755859375,
+        "keypoololdest" : 2.3021358869347654518833223846741020679473876953125,
+        "unconfirmed_balance" : 1.46581298050294517310021547018550336360931396484375,
+        "immature_balance" : 5.962133916683182377482808078639209270477294921875,
+        "keypoolsize" : 7.061401241503109105224211816675961017608642578125,
+        "unlocked_until" : 9.301444243932575517419536481611430644989013671875,
+        "paytxfee" : 3.61607674925191080461672754609026014804840087890625
       }
     },
     "AddressGrouping" : {
@@ -4413,6 +4587,11 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "(optional) The account (DEPRECATED)"
         }
+      },
+      "example" : {
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "syscoinaddress" : "aeiou",
+        "account" : "aeiou"
       }
     },
     "Account" : {
@@ -4437,6 +4616,13 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "A comment for the address/transaction, if any"
         }
+      },
+      "example" : {
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "involvesWatchonly" : true,
+        "label" : "aeiou",
+        "confirmations" : 6.02745618307040320615897144307382404804229736328125,
+        "account" : "aeiou"
       }
     },
     "ListSinceBlockResponse" : {
@@ -4451,6 +4637,27 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "The hash of the last block"
         }
+      },
+      "example" : {
+        "lastblock" : "aeiou",
+        "transactions" : [ {
+          "amount" : 0.80082819046101150206595775671303272247314453125,
+          "address" : "aeiou",
+          "fee" : 1.46581298050294517310021547018550336360931396484375,
+          "txid" : "aeiou",
+          "label" : "aeiou",
+          "confirmations" : 5.962133916683182377482808078639209270477294921875,
+          "vout" : 6.02745618307040320615897144307382404804229736328125,
+          "blockhash" : "aeiou",
+          "timereceived" : 9.301444243932575517419536481611430644989013671875,
+          "blocktime" : 2.3021358869347654518833223846741020679473876953125,
+          "comment" : "aeiou",
+          "time" : 7.061401241503109105224211816675961017608642578125,
+          "to" : "aeiou",
+          "category" : "aeiou",
+          "blockindex" : 5.63737665663332876420099637471139430999755859375,
+          "account" : "aeiou"
+        } ]
       }
     },
     "SinceBlockTransactionEntry" : {
@@ -4519,6 +4726,24 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "If a comment to is associated with the transaction."
         }
+      },
+      "example" : {
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "address" : "aeiou",
+        "fee" : 1.46581298050294517310021547018550336360931396484375,
+        "txid" : "aeiou",
+        "label" : "aeiou",
+        "confirmations" : 5.962133916683182377482808078639209270477294921875,
+        "vout" : 6.02745618307040320615897144307382404804229736328125,
+        "blockhash" : "aeiou",
+        "timereceived" : 9.301444243932575517419536481611430644989013671875,
+        "blocktime" : 2.3021358869347654518833223846741020679473876953125,
+        "comment" : "aeiou",
+        "time" : 7.061401241503109105224211816675961017608642578125,
+        "to" : "aeiou",
+        "category" : "aeiou",
+        "blockindex" : 5.63737665663332876420099637471139430999755859375,
+        "account" : "aeiou"
       }
     },
     "TransactionListEntry" : {
@@ -4591,6 +4816,25 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "For the 'move' category of transactions, the account the funds came from (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)."
         }
+      },
+      "example" : {
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "address" : "aeiou",
+        "fee" : 1.46581298050294517310021547018550336360931396484375,
+        "txid" : "aeiou",
+        "label" : "aeiou",
+        "otheraccount" : "aeiou",
+        "confirmations" : 5.962133916683182377482808078639209270477294921875,
+        "vout" : 6.02745618307040320615897144307382404804229736328125,
+        "blockhash" : "aeiou",
+        "timereceived" : 7.061401241503109105224211816675961017608642578125,
+        "trusted" : true,
+        "blocktime" : 5.63737665663332876420099637471139430999755859375,
+        "comment" : "aeiou",
+        "time" : 2.3021358869347654518833223846741020679473876953125,
+        "category" : "aeiou",
+        "blockindex" : "aeiou",
+        "account" : "aeiou"
       }
     },
     "Message" : {
@@ -4616,6 +4860,15 @@ var swaggerSpec = {
         "message" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "subject" : "aeiou",
+        "GUID" : "aeiou",
+        "txid" : "aeiou",
+        "from" : "aeiou",
+        "time" : 0.80082819046101150206595775671303272247314453125,
+        "to" : "aeiou",
+        "message" : "aeiou"
       }
     },
     "OfferAccept" : {
@@ -4701,6 +4954,33 @@ var swaggerSpec = {
         "pay_message" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "seller" : "aeiou",
+        "paymentoption_display" : "aeiou",
+        "pay_message" : "aeiou",
+        "ismine" : true,
+        "sysprice" : 2.3021358869347654518833223846741020679473876953125,
+        "title" : "aeiou",
+        "offer" : "aeiou",
+        "total" : 9.301444243932575517419536481611430644989013671875,
+        "price" : 7.061401241503109105224211816675961017608642578125,
+        "avg_rating" : 3.61607674925191080461672754609026014804840087890625,
+        "buyer_fedback" : [ "aeiou" ],
+        "currency" : "aeiou",
+        "systotal" : 5.63737665663332876420099637471139430999755859375,
+        "id" : "aeiou",
+        "avg_rating_display" : "aeiou",
+        "height" : 6.02745618307040320615897144307382404804229736328125,
+        "offer_discount_percentage" : 5.962133916683182377482808078639209270477294921875,
+        "quantity" : 1.46581298050294517310021547018550336360931396484375,
+        "paymentoption" : 0.80082819046101150206595775671303272247314453125,
+        "txid" : "aeiou",
+        "seller_fedback" : [ "aeiou" ],
+        "buyer" : "aeiou",
+        "exttxid" : "aeiou",
+        "time" : "aeiou",
+        "status" : "aeiou"
       }
     },
     "OfferWhitelistEntry" : {
@@ -4714,6 +4994,11 @@ var swaggerSpec = {
         "offer_discount_percentage" : {
           "type" : "number"
         }
+      },
+      "example" : {
+        "expiresin" : 0.80082819046101150206595775671303272247314453125,
+        "offer_discount_percentage" : 6.02745618307040320615897144307382404804229736328125,
+        "alias" : "aeiou"
       }
     },
     "OfferHistoryEntry" : {
@@ -4824,6 +5109,41 @@ var swaggerSpec = {
         "time" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "alias_peg" : "aeiou",
+        "private" : true,
+        "safesearch" : "aeiou",
+        "offers_sold" : 4.1456080298839363962315474054776132106781005859375,
+        "ismine" : true,
+        "description" : "aeiou",
+        "cert" : "aeiou",
+        "sysprice" : 5.962133916683182377482808078639209270477294921875,
+        "title" : "aeiou",
+        "offer" : "aeiou",
+        "expired" : true,
+        "price" : 5.63737665663332876420099637471139430999755859375,
+        "alias_rating_count" : 2.027123023002321833274663731572218239307403564453125,
+        "currency" : "aeiou",
+        "commission" : 2.3021358869347654518833223846741020679473876953125,
+        "expires_in" : 0.80082819046101150206595775671303272247314453125,
+        "height" : 1.46581298050294517310021547018550336360931396484375,
+        "quantity" : "aeiou",
+        "address" : "aeiou",
+        "offerlink" : true,
+        "txid" : "aeiou",
+        "alias_rating" : 3.61607674925191080461672754609026014804840087890625,
+        "expired_block" : 6.02745618307040320615897144307382404804229736328125,
+        "safetylevel" : 7.061401241503109105224211816675961017608642578125,
+        "offerlink_guid" : "aeiou",
+        "paymentoptions" : 9.301444243932575517419536481611430644989013671875,
+        "paymentoptions_display" : "aeiou",
+        "offerlink_seller" : "aeiou",
+        "alias_rating_display" : "aeiou",
+        "alias\"" : "aeiou",
+        "time" : "aeiou",
+        "category" : "aeiou",
+        "geolocation" : "aeiou"
       }
     },
     "AddMultisigAddressRequest" : {
@@ -5580,6 +5900,11 @@ var swaggerSpec = {
         "redeemscript" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "reqsigners" : "aeiou",
+        "reqsigs" : 7.3862819483858839220147274318151175975799560546875,
+        "redeemscript" : "aeiou"
       }
     },
     "EscrowFeedbackRequest" : {
@@ -5637,6 +5962,11 @@ var swaggerSpec = {
         "token" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "success" : true,
+        "message" : "aeiou",
+        "token" : "aeiou"
       }
     },
     "GetBlockResponse" : {
@@ -5720,6 +6050,27 @@ var swaggerSpec = {
           "type" : "string",
           "description" : "(for verbose=false) A string that is serialized, hex-encoded data for block 'hash'."
         }
+      },
+      "example" : {
+        "tx" : [ "aeiou" ],
+        "mediantime" : 9.301444243932575517419536481611430644989013671875,
+        "data" : "aeiou",
+        "previousblockhash" : "aeiou",
+        "bits" : "aeiou",
+        "weight" : 5.962133916683182377482808078639209270477294921875,
+        "versionHex" : "aeiou",
+        "confirmations" : 0.80082819046101150206595775671303272247314453125,
+        "version" : 2.3021358869347654518833223846741020679473876953125,
+        "nonce" : 3.61607674925191080461672754609026014804840087890625,
+        "nextblockhash" : "aeiou",
+        "difficulty" : 2.027123023002321833274663731572218239307403564453125,
+        "chainwork" : "aeiou",
+        "size" : 6.02745618307040320615897144307382404804229736328125,
+        "merkleroot" : "aeiou",
+        "strippedsize" : 1.46581298050294517310021547018550336360931396484375,
+        "time" : 7.061401241503109105224211816675961017608642578125,
+        "hash" : "aeiou",
+        "height" : 5.63737665663332876420099637471139430999755859375
       }
     },
     "GetBlockchainInfoResponse" : {
@@ -5777,7 +6128,21 @@ var swaggerSpec = {
           "description" : "status of BIP9 softforks in progress",
           "properties" : { }
         }
+      },
+      "example" : {
+        "difficulty" : 1.46581298050294517310021547018550336360931396484375,
+        "headers" : 6.02745618307040320615897144307382404804229736328125,
+        "bip9_softforks" : "{}",
+        "chain" : "aeiou",
+        "chainwork" : "aeiou",
+        "mediantime" : 5.962133916683182377482808078639209270477294921875,
+        "verificationprogress" : 5.63737665663332876420099637471139430999755859375,
+        "blocks" : 0.80082819046101150206595775671303272247314453125,
+        "pruned" : true,
+        "softforks" : [ "{}" ],
+        "pruneheight" : 2.3021358869347654518833223846741020679473876953125,
+        "bestblockhash" : "aeiou"
       }
     }
   }
-};
+}
