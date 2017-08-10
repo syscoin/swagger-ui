@@ -2630,7 +2630,7 @@ var swaggerSpec =
     },
     "/messagereceivecount" : {
       "get" : {
-        "tags" : [ "Messages" ],
+        "tags" : [ "Messaging" ],
         "description" : "Count received messages that an array of aliases own.",
         "operationId" : "messagereceivecount",
         "parameters" : [ {
@@ -2718,7 +2718,7 @@ var swaggerSpec =
     },
     "/messagesentcount" : {
       "get" : {
-        "tags" : [ "Messages" ],
+        "tags" : [ "Messaging" ],
         "description" : "Count sent messages that an array of aliases own.",
         "operationId" : "messagesentcount",
         "parameters" : [ {
