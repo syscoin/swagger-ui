@@ -1307,7 +1307,7 @@ var swaggerSpec =
     },
     "/escrowcount" : {
       "get" : {
-        "tags" : [ "Escroew" ],
+        "tags" : [ "Escrow" ],
         "description" : "Count escrows that an array of aliases own.",
         "operationId" : "escrowcount",
         "parameters" : [ {
