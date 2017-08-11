@@ -2957,7 +2957,7 @@ var swaggerSpec =
           "name" : "filtersales",
           "in" : "query",
           "required" : false,
-          "type" : "number"
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
@@ -3058,7 +3058,7 @@ var swaggerSpec =
           "name" : "filtersales",
           "in" : "query",
           "required" : false,
-          "type" : "number"
+          "type" : "boolean"
         }, {
           "name" : "count",
           "in" : "query",
