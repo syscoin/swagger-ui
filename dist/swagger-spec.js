@@ -1300,10 +1300,26 @@ var swaggerSpec =
     "/escrowcount" : {
       "get" : {
         "tags" : [ "Escrow" ],
-        "description" : "Count escrows that an array of aliases own.",
+        "description" : "Count escrows that an set of aliases are involved in.",
         "operationId" : "escrowcount",
         "parameters" : [ {
-          "name" : "aliases",
+          "name" : "buyerAliases",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sellerAliases",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "arbiterAliases",
           "in" : "query",
           "required" : false,
           "type" : "array",
@@ -1520,13 +1536,31 @@ var swaggerSpec =
     "/escrowlist" : {
       "get" : {
         "tags" : [ "Escrow" ],
-        "description" : "List escrows that an array of aliases are involved in. Set of aliases to look up based on alias, and private key to decrypt any data found in escrow.",
+        "description" : "List escrows that an array of aliases are involved in.",
         "operationId" : "escrowlist",
         "parameters" : [ {
-          "name" : "aliases",
+          "name" : "buyerAliases",
           "in" : "query",
-          "description" : "List of aliases to display escrows from",
-          "required" : true,
+          "description" : "List of buyer aliases to display escrows from",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sellerAliases",
+          "in" : "query",
+          "description" : "List of seller aliases to display escrows from",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "arbiterAliases",
+          "in" : "query",
+          "description" : "List of arbiter aliases to display escrows from",
+          "required" : false,
           "type" : "array",
           "items" : {
             "type" : "string"
@@ -2901,6 +2935,53 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
+    "/offeracceptcount" : {
+      "get" : {
+        "tags" : [ "Offers" ],
+        "description" : "list count of offer accept for a set of aliases. filterpurchases filters results for count of accepts that have been bought with aliases passed in(as buyer), filtersales filters results for count of accepts purchased by aliases passed in(as merchant or affiliate).",
+        "operationId" : "offeracceptcount",
+        "parameters" : [ {
+          "name" : "aliases",
+          "in" : "query",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterpurchases",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "filtersales",
+          "in" : "query",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OfferAccept"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
     "/offeracceptfeedback" : {
       "post" : {
         "tags" : [ "Offers" ],
@@ -2964,10 +3045,20 @@ var swaggerSpec =
             "type" : "string"
           }
         }, {
-          "name" : "acceptguid",
+          "name" : "guid",
           "in" : "query",
           "required" : false,
           "type" : "string"
+        }, {
+          "name" : "filterpurchases",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean"
+        }, {
+          "name" : "filtersales",
+          "in" : "query",
+          "required" : false,
+          "type" : "number"
         }, {
           "name" : "count",
           "in" : "query",
@@ -3079,7 +3170,7 @@ var swaggerSpec =
     "/offercount" : {
       "get" : {
         "tags" : [ "Offers" ],
-        "description" : "Count offers that an array of aliases own. Set of aliases to look up based on alias. Myaccepts represents offers that have been bought from aliases passed in(as merchant or affiliate), false for offers aliases passed in have bought.",
+        "description" : "Count offers that an array of aliases own.",
         "operationId" : "offercount",
         "parameters" : [ {
           "name" : "aliases",
@@ -3089,16 +3180,6 @@ var swaggerSpec =
           "items" : {
             "type" : "string"
           }
-        }, {
-          "name" : "accepts",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
-        }, {
-          "name" : "myaccepts",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
@@ -3284,7 +3365,7 @@ var swaggerSpec =
     "/offerlist" : {
       "get" : {
         "tags" : [ "Offers" ],
-        "description" : "list offers that an array of aliases own. Set of aliases to look up based on alias. Myaccepts represents offers that have been bought from aliases passed in(as merchant or affiliate), false for offers aliases passed in have bought.",
+        "description" : "list offers that an array of aliases own.",
         "operationId" : "offerlist",
         "parameters" : [ {
           "name" : "aliases",
@@ -3299,16 +3380,6 @@ var swaggerSpec =
           "in" : "query",
           "required" : false,
           "type" : "string"
-        }, {
-          "name" : "accepts",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
-        }, {
-          "name" : "myaccepts",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
         }, {
           "name" : "count",
           "in" : "query",
