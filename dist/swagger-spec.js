@@ -2938,7 +2938,7 @@ var swaggerSpec =
     "/offeracceptcount" : {
       "get" : {
         "tags" : [ "Offers" ],
-        "description" : "list count of offer accept for a set of aliases. filterpurchases filters results for count of accepts that have been bought with aliases passed in(as buyer), filtersales filters results for count of accepts purchased by aliases passed in(as merchant or affiliate).",
+        "description" : "List count of offer accept for a set of aliases. filterpurchases filters results for count of accepts that have been bought with aliases passed in(as buyer), filtersales filters results for count of accepts purchased by aliases passed in(as merchant or affiliate).",
         "operationId" : "offeracceptcount",
         "parameters" : [ {
           "name" : "aliases",
@@ -2963,10 +2963,7 @@ var swaggerSpec =
           "200" : {
             "description" : "Success",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/OfferAccept"
-              }
+              "type" : "number"
             }
           },
           "default" : {
@@ -3034,7 +3031,7 @@ var swaggerSpec =
     "/offeracceptlist" : {
       "get" : {
         "tags" : [ "Offers" ],
-        "description" : "list my offer accepts",
+        "description" : "List offer accepts for a set of aliases. filterpurchases filters results for accepts that have been bought with aliases passed in(as buyer), filtersales filters results for accepts purchased by aliases passed in(as merchant or affiliate).",
         "operationId" : "offeracceptlist",
         "parameters" : [ {
           "name" : "aliases",
