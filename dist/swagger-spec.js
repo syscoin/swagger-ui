@@ -5737,15 +5737,11 @@ var swaggerSpec =
       }
     },
     "MessageNewRequest" : {
-      "required" : [ "fromalias", "message", "subject", "toalias" ],
+      "required" : [ "fromalias", "frommessage", "subject", "toalias", "tomessage" ],
       "properties" : {
         "subject" : {
           "type" : "string",
           "description" : "Subject of message."
-        },
-        "message" : {
-          "type" : "string",
-          "description" : "Message to send to alias."
         },
         "fromalias" : {
           "type" : "string",
@@ -5755,9 +5751,13 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Alias to send message to."
         },
-        "hex" : {
+        "frommessage" : {
           "type" : "string",
-          "description" : "Is data an hex based message(only To-Message will be displayed). No by default."
+          "description" : "Message encrypted to from alias."
+        },
+        "tomessage" : {
+          "type" : "string",
+          "description" : "Message encrypted to sending alias."
         }
       }
     },
