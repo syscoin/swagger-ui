@@ -58,6 +58,39 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "blockmarket"
     },
+    "/storedata" : {
+      "post" : {
+        "tags" : [ "Blockmarket" ],
+        "description" : "Store an arbitrary piece of data on a decentralized network of data storage warehouses and return the client an array of URLs through which the data can be accessed.",
+        "operationId" : "storedata",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/StoreDataRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/StoreDataResponse"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "blockmarket"
+    },
     "/getblock" : {
       "get" : {
         "tags" : [ "General" ],
@@ -6390,6 +6423,65 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The pass phrase to encrypt the wallet with. It must be at least 1 character, but should be long."
         }
+      }
+    },
+    "StoreDataRequest" : {
+      "required" : [ "data" ],
+      "properties" : {
+        "data" : {
+          "type" : "string",
+          "description" : "The data to be stored on the decentralized storage facility. Max size 5mb"
+        },
+        "storeLocations" : {
+          "type" : "array",
+          "description" : "Array of data warehousing facilities to use to store the data, valid values: BFAZURE",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "StoreDataResponse" : {
+      "required" : [ "dataLocations" ],
+      "properties" : {
+        "dataLocations" : {
+          "type" : "array",
+          "description" : "The data to be stored on the decentralized storage facility. Max size 5mb",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "storeLocations" : {
+          "type" : "array",
+          "description" : "Array of objects which describe where data is stored offchain",
+          "items" : {
+            "$ref" : "#/definitions/DataStoreLocation"
+          }
+        }
+      },
+      "example" : {
+        "storeLocations" : [ {
+          "dataUrl" : "aeiou",
+          "dataProof" : "aeiou"
+        } ],
+        "dataLocations" : [ "aeiou" ]
+      }
+    },
+    "DataStoreLocation" : {
+      "required" : [ "dataProof", "dataUrl" ],
+      "properties" : {
+        "dataProof" : {
+          "type" : "string",
+          "description" : "Hash of the data to be stored to help verify it hasn't been tampered with between creation and access."
+        },
+        "dataUrl" : {
+          "type" : "string",
+          "description" : "URL from which the data can be fetched"
+        }
+      },
+      "example" : {
+        "dataUrl" : "aeiou",
+        "dataProof" : "aeiou"
       }
     }
   }
