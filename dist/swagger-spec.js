@@ -6430,7 +6430,7 @@ var swaggerSpec =
       "properties" : {
         "data" : {
           "type" : "string",
-          "description" : "The data to be stored on the decentralized storage facility. Max size 5mb"
+          "description" : "The data to be stored on the decentralized storage facility. Max size 500kb."
         },
         "storeLocations" : {
           "type" : "array",
@@ -6442,15 +6442,8 @@ var swaggerSpec =
       }
     },
     "StoreDataResponse" : {
-      "required" : [ "dataLocations" ],
+      "required" : [ "storeLocations" ],
       "properties" : {
-        "dataLocations" : {
-          "type" : "array",
-          "description" : "The data to be stored on the decentralized storage facility. Max size 5mb",
-          "items" : {
-            "type" : "string"
-          }
-        },
         "storeLocations" : {
           "type" : "array",
           "description" : "Array of objects which describe where data is stored offchain",
@@ -6461,27 +6454,20 @@ var swaggerSpec =
       },
       "example" : {
         "storeLocations" : [ {
-          "dataUrl" : "aeiou",
-          "dataProof" : "aeiou"
-        } ],
-        "dataLocations" : [ "aeiou" ]
+          "dataUrl" : "aeiou"
+        } ]
       }
     },
     "DataStoreLocation" : {
-      "required" : [ "dataProof", "dataUrl" ],
+      "required" : [ "dataUrl" ],
       "properties" : {
-        "dataProof" : {
-          "type" : "string",
-          "description" : "Hash of the data to be stored to help verify it hasn't been tampered with between creation and access."
-        },
         "dataUrl" : {
           "type" : "string",
           "description" : "URL from which the data can be fetched"
         }
       },
       "example" : {
-        "dataUrl" : "aeiou",
-        "dataProof" : "aeiou"
+        "dataUrl" : "aeiou"
       }
     }
   }
