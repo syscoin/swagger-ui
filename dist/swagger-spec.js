@@ -6443,7 +6443,7 @@ var swaggerSpec =
       }
     },
     "EncryptWalletRequest" : {
-      "required" : [ "passphrase" ],
+      "required" : [ "passphrase2" ],
       "properties" : {
         "passphrase" : {
           "type" : "string",
