@@ -1,4 +1,4 @@
-var swaggerSpec =
+var swaggerSpec = 
 {
   "swagger" : "2.0",
   "info" : {
@@ -6454,13 +6454,21 @@ var swaggerSpec =
     "StoreDataRequest" : {
       "required" : [ "data" ],
       "properties" : {
+        "existingDataId" : {
+          "type" : "string",
+          "description" : "Identifier for existing data to update."
+        },
+        "dataType" : {
+          "type" : "string",
+          "description" : "The type of data being stored, ie: 'aliasdata'."
+        },
         "data" : {
           "type" : "string",
           "description" : "The data to be stored on the decentralized storage facility. Max size 500kb."
         },
         "storeLocations" : {
           "type" : "array",
-          "description" : "Array of data warehousing facilities to use to store the data, valid values: BFAZURE",
+          "description" : "Array of data warehousing facilities to use to store the data, valid values: BFAZURE.",
           "items" : {
             "type" : "string"
           }
