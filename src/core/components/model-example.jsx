@@ -1,5 +1,5 @@
-import React, { PropTypes } from "react"
-
+import React from "react"
+import PropTypes from "prop-types"
 
 export default class ModelExample extends React.Component {
   static propTypes = {
@@ -7,14 +7,19 @@ export default class ModelExample extends React.Component {
     specSelectors: PropTypes.object.isRequired,
     schema: PropTypes.object.isRequired,
     example: PropTypes.any.isRequired,
-    isExecute: PropTypes.bool
+    isExecute: PropTypes.bool,
+    getConfigs: PropTypes.func.isRequired
   }
 
   constructor(props, context) {
     super(props, context)
-
+    let { getConfigs } = this.props
+    let { defaultModelRendering } = getConfigs()
+    if (defaultModelRendering !== "example" && defaultModelRendering !== "model") {
+      defaultModelRendering = "example"
+    }
     this.state = {
-      activeTab: "example"
+      activeTab: defaultModelRendering
     }
   }
 
@@ -27,27 +32,28 @@ export default class ModelExample extends React.Component {
   }
 
   render() {
-    let { getComponent, specSelectors, schema, example, isExecute } = this.props
-    const Model = getComponent("model")
+    let { getComponent, specSelectors, schema, example, isExecute, getConfigs } = this.props
+    let { defaultModelExpandDepth } = getConfigs()
+    const ModelWrapper = getComponent("ModelWrapper")
 
     return <div>
       <ul className="tab">
         <li className={ "tabitem" + ( isExecute || this.state.activeTab === "example" ? " active" : "") }>
           <a className="tablinks" data-name="example" onClick={ this.activeTab }>Example Value</a>
         </li>
-        <li className={ "tabitem" + ( !isExecute && this.state.activeTab === "model" ? " active" : "") }>
+        { schema ? <li className={ "tabitem" + ( !isExecute && this.state.activeTab === "model" ? " active" : "") }>
           <a className={ "tablinks" + ( isExecute ? " inactive" : "" )} data-name="model" onClick={ this.activeTab }>Model</a>
-        </li>
+        </li> : null }
       </ul>
       <div>
         {
           (isExecute || this.state.activeTab === "example") && example
         }
         {
-          !isExecute && this.state.activeTab === "model" && <Model schema={ schema }
+          !isExecute && this.state.activeTab === "model" && <ModelWrapper schema={ schema }
                                                      getComponent={ getComponent }
                                                      specSelectors={ specSelectors }
-                                                     expandDepth={ 1 } />
+                                                     expandDepth={ defaultModelExpandDepth } />
 
 
         }

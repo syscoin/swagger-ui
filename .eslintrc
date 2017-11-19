@@ -16,13 +16,14 @@
   "extends": ["eslint:recommended", "plugin:react/recommended"],
 
   "plugins": [
-    "react"
+    "react",
+    "mocha"
   ],
 
   "rules": {
     "semi": [2, "never"],
     "strict": 0,
-    "quotes": 2,
+    "quotes": [2, "double", { "allowTemplateLiterals": true }],
     "no-unused-vars": 2,
     "no-multi-spaces": 1,
     "camelcase": 1,
@@ -32,6 +33,7 @@
     "comma-dangle": 0,
     "no-console": ["error", { allow: ["warn", "error"] }],
     "react/jsx-no-bind": 1,
-    "react/display-name": 0
+    "react/display-name": 0,
+    "mocha/no-exclusive-tests": "error"
   }
 }

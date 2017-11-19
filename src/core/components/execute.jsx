@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from "react"
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 export default class Execute extends Component {
 
@@ -7,7 +8,6 @@ export default class Execute extends Component {
     specActions: PropTypes.object.isRequired,
     operation: PropTypes.object.isRequired,
     path: PropTypes.string.isRequired,
-    getComponent: PropTypes.func.isRequired,
     method: PropTypes.string.isRequired,
     onExecute: PropTypes.func
   }

@@ -1,20 +1,22 @@
-import React, { Component, PropTypes } from "react"
-
+import React, { Component } from "react"
+import PropTypes from "prop-types"
 
 export default class Models extends Component {
   static propTypes = {
     getComponent: PropTypes.func,
     specSelectors: PropTypes.object,
     layoutSelectors: PropTypes.object,
-    layoutActions: PropTypes.object
+    layoutActions: PropTypes.object,
+    getConfigs: PropTypes.func.isRequired
   }
 
   render(){
-    let { specSelectors, getComponent, layoutSelectors, layoutActions } = this.props
+    let { specSelectors, getComponent, layoutSelectors, layoutActions, getConfigs } = this.props
     let definitions = specSelectors.definitions()
-    let showModels = layoutSelectors.isShown("models", true)
+    let { docExpansion, defaultModelExpandDepth } = getConfigs()
+    let showModels = layoutSelectors.isShown("models", docExpansion === "full" || docExpansion === "list" )
 
-    const Model = getComponent("model")
+    const ModelWrapper = getComponent("ModelWrapper")
     const Collapse = getComponent("Collapse")
 
     if (!definitions.size) return null
@@ -23,16 +25,16 @@ export default class Models extends Component {
       <h4 onClick={() => layoutActions.show("models", !showModels)}>
         <span>Models</span>
         <svg width="20" height="20">
-          <use xlinkHref="#large-arrow" />
+          <use xlinkHref={showModels ? "#large-arrow-down" : "#large-arrow"} />
         </svg>
       </h4>
-      <Collapse isOpened={showModels} animated>
+      <Collapse isOpened={showModels}>
         {
           definitions.entrySeq().map( ( [ name, model ])=>{
             return <div className="model-container" key={ `models-section-${name}` }>
-              <Model name={ name }
+              <ModelWrapper name={ name }
+                     expandDepth={ defaultModelExpandDepth }
                      schema={ model }
-                     isRef={ true }
                      getComponent={ getComponent }
                      specSelectors={ specSelectors }/>
               </div>

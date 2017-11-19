@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 
 export default class ApiKeyAuth extends React.Component {
   static propTypes = {
@@ -50,11 +51,14 @@ export default class ApiKeyAuth extends React.Component {
 
     return (
       <div>
-        <h4>Api key authorization<JumpToPath path={[ "securityDefinitions", name ]} /></h4>
+        <h4>
+          <code>{ name || schema.get("name") }</code>&nbsp;
+          (apiKey)
+          <JumpToPath path={[ "securityDefinitions", name ]} />
+        </h4>
         { value && <h6>Authorized</h6>}
         <Row>
-          <Markdown options={{html: true, typographer: true, linkify: true, linkTarget: "_blank"}}
-                    source={ schema.get("description") } />
+          <Markdown source={ schema.get("description") } />
         </Row>
         <Row>
           <p>Name: <code>{ schema.get("name") }</code></p>

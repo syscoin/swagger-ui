@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import ImPropTypes from "react-immutable-proptypes"
 
 export default class BasicAuth extends React.Component {
@@ -59,8 +60,7 @@ export default class BasicAuth extends React.Component {
         <h4>Basic authorization<JumpToPath path={[ "securityDefinitions", name ]} /></h4>
         { username && <h6>Authorized</h6> }
         <Row>
-          <Markdown options={{html: true, typographer: true, linkify: true, linkTarget: "_blank"}}
-                    source={ schema.get("description") } />
+          <Markdown source={ schema.get("description") } />
         </Row>
         <Row>
           <label>Username:</label>
