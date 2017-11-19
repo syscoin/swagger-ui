@@ -1,8 +1,8 @@
-var swaggerSpec = 
+var swaggerSpec =
 {
   "swagger" : "2.0",
   "info" : {
-    "version" : "1.1.1",
+    "version" : "1.1.2",
     "title" : "Syscoin API"
   },
   "host" : "localhost:8001",
