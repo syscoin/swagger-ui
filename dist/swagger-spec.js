@@ -3,7 +3,7 @@ var swaggerSpec =
   "swagger" : "2.0",
   "info" : {
     "version" : "1.1.2",
-    "title" : "Syscoin API U"
+    "title" : "Syscoin API V"
   },
   "host" : "localhost:8001",
   "tags" : [ {
