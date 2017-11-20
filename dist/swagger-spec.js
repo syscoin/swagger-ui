@@ -1,4 +1,4 @@
-var swaggerSpec =
+var swaggerSpec = 
 {
   "swagger" : "2.0",
   "info" : {
@@ -6452,7 +6452,7 @@ var swaggerSpec =
       }
     },
     "StoreDataRequest" : {
-      "required" : [ "data" ],
+      "required" : [ "data", "dataType" ],
       "properties" : {
         "existingDataId" : {
           "type" : "string",
