@@ -2,7 +2,7 @@ var swaggerSpec =
 {
   "swagger" : "2.0",
   "info" : {
-    "version" : "1.1.2",
+    "version" : "1.0.4",
     "title" : "Syscoin API"
   },
   "host" : "localhost:8001",
@@ -12,9 +12,6 @@ var swaggerSpec =
   }, {
     "name" : "Aliases",
     "description" : "Operations related to aliases."
-  }, {
-    "name" : "Messaging",
-    "description" : "Operations related to messaging."
   }, {
     "name" : "Offers",
     "description" : "Operations related to offers and the decentralized marketplace functionality."
@@ -94,7 +91,7 @@ var swaggerSpec =
     "/getblock" : {
       "get" : {
         "tags" : [ "General" ],
-        "description" : "﻿If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'. If verbose is true, returns an Object with information about block <hash>.",
+        "description" : "If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'. If verbose is true, returns an Object with information about block <hash>.",
         "operationId" : "getblock",
         "parameters" : [ {
           "name" : "hash",
@@ -391,48 +388,13 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/aliasaffiliates" : {
-      "get" : {
+    "/aliasaddscript" : {
+      "post" : {
         "tags" : [ "Aliases" ],
-        "description" : "list affiliations with merchant offers.",
-        "operationId" : "aliasaffiliates",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "object",
-                "properties" : { }
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/aliasauthenticate" : {
-      "get" : {
-        "tags" : [ "Aliases" ],
-        "description" : "Authenticates an alias with a provided password and returns the private key if successful. Warning: Calling this function over a public network can lead to someone reading your password/private key in plain text.",
-        "operationId" : "aliasauthenticate",
+        "description" : "Add redeemscript to local wallet for signing smart contract based alias transactions.",
+        "operationId" : "aliasaddscript",
         "parameters" : [ {
-          "name" : "alias",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "password",
+          "name" : "redeemscript",
           "in" : "query",
           "required" : true,
           "type" : "string"
@@ -441,75 +403,8 @@ var swaggerSpec =
           "200" : {
             "description" : "Success",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "object",
-                "properties" : { }
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/aliasbalance" : {
-      "get" : {
-        "tags" : [ "Aliases" ],
-        "description" : "Returns the total amount received by the given alias in transactions with at least minconf confirmations.",
-        "operationId" : "aliasbalance",
-        "parameters" : [ {
-          "name" : "alias",
-          "in" : "query",
-          "description" : "The syscoin alias for transactions",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "minconf",
-          "in" : "query",
-          "description" : "﻿Only include transactions confirmed at least this many times. default=1.",
-          "required" : false,
-          "type" : "number"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "number"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/aliascount" : {
-      "get" : {
-        "tags" : [ "Aliases" ],
-        "description" : "Count aliases that an array of aliases own.",
-        "operationId" : "aliascount",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "number"
+              "type" : "object",
+              "properties" : { }
             }
           },
           "default" : {
@@ -528,30 +423,24 @@ var swaggerSpec =
     "/aliasfilter" : {
       "get" : {
         "tags" : [ "Aliases" ],
-        "description" : "Scan and filter aliases aliasfilter \"\" 5 # list aliases updated in last 5 blocks aliasfilter \"^alias\" # list all aliases starting with \"alias\" aliasfilter 36000 0 0 stat # display stats (number of aliases) on active aliases",
+        "description" : "scan and filter aliases",
         "operationId" : "aliasfilter",
         "parameters" : [ {
-          "name" : "regexp",
+          "name" : "query",
           "in" : "query",
-          "description" : "apply [regexp] on aliases, empty means all aliases",
+          "description" : "Generic filter query to pass into syscoinquery",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "show results from this GUID [from], empty means first",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "number of results to return.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "safesearch",
-          "in" : "query",
-          "description" : "shows all aliases that are safe to display (not on the ban list)",
+          "description" : "Show results from this GUID [from], empty means first",
           "required" : false,
           "type" : "string"
         } ],
@@ -561,7 +450,7 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Alias"
+                "$ref" : "#/definitions/AliasIndex"
               }
             }
           },
@@ -584,9 +473,22 @@ var swaggerSpec =
         "description" : "List all stored values of an alias.",
         "operationId" : "aliashistory",
         "parameters" : [ {
-          "name" : "aliasname",
+          "name" : "query",
           "in" : "query",
+          "description" : "Generic filter query to pass into syscoinquery",
           "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "Show results from this GUID [from], empty means first",
+          "required" : false,
           "type" : "string"
         } ],
         "responses" : {
@@ -595,8 +497,200 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/AliasHistoryEntry"
+                "$ref" : "#/definitions/AliasHistoryIndex"
               }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/aliastxhistory" : {
+      "get" : {
+        "tags" : [ "Aliases" ],
+        "description" : "List all stored transactions related to an alias.",
+        "operationId" : "aliastxhistory",
+        "parameters" : [ {
+          "name" : "query",
+          "in" : "query",
+          "description" : "Generic filter query to pass into syscoinquery",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "Show results from this GUID [from], empty means first",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AliasTxHistoryIndex"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/aliasupdatewhitelist" : {
+      "post" : {
+        "tags" : [ "Aliases" ],
+        "description" : "Update to the whitelist(controls who can resell). Array of whitelist entries in parameter 1.",
+        "operationId" : "aliasupdatewhitelist",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/AliasUpdateWhitelistRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/aliasclearwhitelist" : {
+      "post" : {
+        "tags" : [ "Aliases" ],
+        "description" : "Clear your whitelist(controls who can resell).",
+        "operationId" : "aliasclearwhitelist",
+        "parameters" : [ {
+          "name" : "owneralias",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "witness",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "object",
+              "properties" : { }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/aliaswhitelist" : {
+      "get" : {
+        "tags" : [ "Aliases" ],
+        "description" : "List all affiliates for this alias.",
+        "operationId" : "aliaswhitelist",
+        "parameters" : [ {
+          "name" : "alias",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "witness",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/WhitelistEntry"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/aliasbalance" : {
+      "get" : {
+        "tags" : [ "Aliases" ],
+        "description" : "Returns the total amount received by the given alias in transactions with at least 1 confirmation.",
+        "operationId" : "aliasbalance",
+        "parameters" : [ {
+          "name" : "alias",
+          "in" : "query",
+          "description" : "The syscoin alias to get balance for",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "object",
+              "properties" : { }
             }
           },
           "default" : {
@@ -628,53 +722,6 @@ var swaggerSpec =
             "description" : "Success",
             "schema" : {
               "$ref" : "#/definitions/Alias"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/aliaslist" : {
-      "get" : {
-        "tags" : [ "Aliases" ],
-        "description" : "List my own aliases.",
-        "operationId" : "aliaslist",
-        "parameters" : [ {
-          "name" : "aliasname",
-          "in" : "query",
-          "description" : "Alias name to use as filter.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "The number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "The number of results to skip",
-          "required" : false,
-          "type" : "number"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Alias"
-              }
             }
           },
           "default" : {
@@ -798,17 +845,49 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/certcount" : {
-      "get" : {
-        "tags" : [ "Certificates" ],
-        "description" : "Count certificates that an array of aliases own.",
-        "operationId" : "certcount",
+    "/syscoinsendrawtransaction" : {
+      "post" : {
+        "tags" : [ "General" ],
+        "description" : "Signed raw transaction (serialized, hex-encoded) sent out to the network.",
+        "operationId" : "syscoinsendrawtransaction",
         "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
+          "in" : "body",
+          "name" : "hexstring",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SendRawTransactionRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/syscoindecoderawtransaction" : {
+      "post" : {
+        "tags" : [ "General" ],
+        "description" : "Decode raw syscoin transaction (serialized, hex-encoded) and display information pertaining to the service that is included in the transactiion data output(OP_RETURN).",
+        "operationId" : "syscoindecoderawtransaction",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "hexstring",
+          "required" : true,
+          "schema" : {
             "type" : "string"
           }
         } ],
@@ -816,7 +895,8 @@ var swaggerSpec =
           "200" : {
             "description" : "Success",
             "schema" : {
-              "type" : "number"
+              "type" : "object",
+              "properties" : { }
             }
           },
           "default" : {
@@ -832,75 +912,29 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/certfilter" : {
+    "/syscoinquery" : {
       "get" : {
-        "tags" : [ "Certificates" ],
-        "description" : "scan and filter certs certfilter \"\" 5 = list certs updated in last 5 blocks certfilter \"^cert\" = list all certs starting with \"cert\" certfilter 36000 0 0 stat = display stats (number of certs) on active certs",
-        "operationId" : "certfilter",
+        "tags" : [ "Aliases" ],
+        "description" : "Query the indexer for information in a collection.",
+        "operationId" : "syscoinquery",
         "parameters" : [ {
-          "name" : "regexp",
+          "name" : "collection",
           "in" : "query",
-          "description" : "apply [regexp] on certes, empty means all certs",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "show results from number [from]",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "the number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "safesearch",
-          "in" : "query",
-          "description" : "shows all certs that are safe to display (not on the ban list)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "category",
-          "in" : "query",
-          "description" : "category you want to search in, empty for all",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Cert"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/certhistory" : {
-      "get" : {
-        "tags" : [ "Certificates" ],
-        "description" : "List all stored values of an cert.",
-        "operationId" : "certhistory",
-        "parameters" : [ {
-          "name" : "certname",
-          "in" : "query",
+          "description" : "Collection name, either \\\"alias\\\", \\\"aliashistory\\\", \\\"aliastxhistory\\\", \\\"cert\\\",  \\\"certhistory\\\", \\\"offer\\\", \\\"offerhistory\\\", \\\"feedback\\\", \\\"escrow\\\", \\\"escrowbid\\\"",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "query",
+          "in" : "query",
+          "description" : "JSON query on the collection to retrieve a set of documents",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "options",
+          "in" : "query",
+          "description" : "JSON option arguments into the query. Based on mongoc_collection_find_with_opts.",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -908,8 +942,35 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/CertHistoryEntry"
+                "type" : "string"
               }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/prunesyscoinservices" : {
+      "post" : {
+        "tags" : [ "Aliases" ],
+        "description" : "Clean expired Syscoin services from indexer and internal database.",
+        "operationId" : "prunesyscoinservices",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "object",
+              "properties" : { }
             }
           },
           "default" : {
@@ -956,23 +1017,63 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/certlist" : {
+    "/certfilter" : {
       "get" : {
         "tags" : [ "Certificates" ],
-        "description" : "List certificates that an array of aliases own. Set of aliases to look up based on alias, and private key to decrypt any data found in certificates.",
-        "operationId" : "certlist",
+        "description" : "scan and filter certs",
+        "operationId" : "certfilter",
         "parameters" : [ {
-          "name" : "aliases",
+          "name" : "query",
           "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
+          "description" : "Generic filter query to pass into syscoinquery",
+          "required" : true,
+          "type" : "string"
         }, {
-          "name" : "cert",
+          "name" : "count",
           "in" : "query",
+          "description" : "The number of results to return",
           "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "Show results from this GUID [from], empty means first",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CertIndex"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/certhistory" : {
+      "get" : {
+        "tags" : [ "Certificates" ],
+        "description" : "List all stored values of an cert.",
+        "operationId" : "certhistory",
+        "parameters" : [ {
+          "name" : "query",
+          "in" : "query",
+          "description" : "Generic filter query to pass into syscoinquery",
+          "required" : true,
           "type" : "string"
         }, {
           "name" : "count",
@@ -983,9 +1084,9 @@ var swaggerSpec =
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "The number of results to skip",
+          "description" : "Show results from this GUID [from], empty means first",
           "required" : false,
-          "type" : "number"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -993,7 +1094,7 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Cert"
+                "$ref" : "#/definitions/CertHistoryIndex"
               }
             }
           },
@@ -1225,6 +1326,11 @@ var swaggerSpec =
           "in" : "query",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "witness",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1249,53 +1355,17 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/escrowclaimrefund" : {
+    "/escrowcreaterawtransaction" : {
       "post" : {
         "tags" : [ "Escrow" ],
-        "description" : "Claim escrow funds released from seller or arbiter using escrowrefund. Requires wallet passphrase to be set with walletpassphrase call.",
-        "operationId" : "escrowclaimrefund",
+        "description" : "Creates raw transaction for escrow refund or release, sign the output raw transaction and pass it via the rawtx parameter to escrowrelease. Type is 'refund' or 'release'. Third parameter is array of input (txid, vout, amount) pairs to be used to fund escrow payment. User role represents either 'seller', 'buyer' or 'arbiter', represents who signed for the payment of the escrow. 'seller' or 'arbiter' is valid for type 'refund', while 'buyer' or 'arbiter' is valid for type 'release'. You only need to provide this parameter when calling escrowrelease or escrowrefund.",
+        "operationId" : "escrowcreaterawtransaction",
         "parameters" : [ {
           "in" : "body",
           "name" : "request",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/EscrowClaimRefundRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/escrowclaimrelease" : {
-      "post" : {
-        "tags" : [ "Escrow" ],
-        "description" : "Claim escrow funds released from buyer or arbiter using escrowrelease. Requires wallet passphrase to be set with walletpassphrase call.",
-        "operationId" : "escrowclaimrelease",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/EscrowClaimReleaseRequest"
+            "$ref" : "#/definitions/EscrowCreateRawTransactionRequest"
           }
         } ],
         "responses" : {
@@ -1357,56 +1427,6 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/escrowcount" : {
-      "get" : {
-        "tags" : [ "Escrow" ],
-        "description" : "Count escrows that an set of aliases are involved in.",
-        "operationId" : "escrowcount",
-        "parameters" : [ {
-          "name" : "buyerAliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "sellerAliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "arbiterAliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "number"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
     "/escrowcompleterelease" : {
       "post" : {
         "tags" : [ "Escrow" ],
@@ -1446,7 +1466,7 @@ var swaggerSpec =
     "/escrowfeedback" : {
       "post" : {
         "tags" : [ "Escrow" ],
-        "description" : "Send feedback for primary and secondary users in escrow, depending on who you are. Ratings are numbers from 1 to 5. User Role is either 'buyer', 'seller', 'reseller', or 'arbiter'. If you are the buyer, feedbackprimary is for seller and feedbacksecondary is for arbiter. If you are the seller, feedbackprimary is for buyer and feedbacksecondary is for arbiter. If you are the arbiter, feedbackprimary is for buyer and feedbacksecondary is for seller. If arbiter didn't do any work for this escrow you can leave his feedback empty and rating as a 0.",
+        "description" : "Send feedback for primary and secondary users in escrow, depending on who you are. Ratings are numbers from 1 to 5. User From and User To is either 'buyer', 'seller', 'reseller', or 'arbiter'.",
         "operationId" : "escrowfeedback",
         "parameters" : [ {
           "in" : "body",
@@ -1485,23 +1505,23 @@ var swaggerSpec =
         "description" : "scan and filter escrows",
         "operationId" : "escrowfilter",
         "parameters" : [ {
-          "name" : "regexp",
+          "name" : "query",
           "in" : "query",
-          "description" : "Apply [regexp] on escrows, empty means all escrows",
+          "description" : "Generic filter query to pass into syscoinquery",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "Show results from this GUID [from], 0 means first.",
+          "description" : "Show results from this GUID [from], empty means first",
           "required" : false,
           "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "the number of results to return",
-          "required" : false,
-          "type" : "number"
         } ],
         "responses" : {
           "200" : {
@@ -1509,7 +1529,7 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Escrow"
+                "$ref" : "#/definitions/EscrowIndex"
               }
             }
           },
@@ -1526,16 +1546,28 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/escrowhistory" : {
+    "/escrowbidhistory" : {
       "get" : {
         "tags" : [ "Escrow" ],
-        "description" : "List all stored values of an escrow.",
-        "operationId" : "escrowhistory",
+        "description" : "scan and filter bids on escrow contracts",
+        "operationId" : "escrowbidhistory",
         "parameters" : [ {
-          "name" : "escrow",
+          "name" : "query",
           "in" : "query",
-          "description" : "GUID of escrow",
+          "description" : "Generic filter query to pass into syscoinquery",
           "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "Show results from this GUID [from], empty means first",
+          "required" : false,
           "type" : "string"
         } ],
         "responses" : {
@@ -1544,7 +1576,54 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Escrow"
+                "$ref" : "#/definitions/EscrowBidIndex"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/escrowfeedbackhistory" : {
+      "get" : {
+        "tags" : [ "Escrow" ],
+        "description" : "scan and filter feedbacks and ratings",
+        "operationId" : "escrowfeedbackhistory",
+        "parameters" : [ {
+          "name" : "query",
+          "in" : "query",
+          "description" : "Generic filter query to pass into syscoinquery",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "Show results from this GUID [from], empty means first",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EscrowFeedbackIndex"
               }
             }
           },
@@ -1593,56 +1672,18 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/escrowlist" : {
-      "get" : {
+    "/escrowbid" : {
+      "post" : {
         "tags" : [ "Escrow" ],
-        "description" : "List escrows that an array of aliases are involved in.",
-        "operationId" : "escrowlist",
+        "description" : "Bid on an auction.",
+        "operationId" : "escrowbid",
         "parameters" : [ {
-          "name" : "buyerAliases",
-          "in" : "query",
-          "description" : "List of buyer aliases to display escrows from",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/EscrowBidRequest"
           }
-        }, {
-          "name" : "sellerAliases",
-          "in" : "query",
-          "description" : "List of seller aliases to display escrows from",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "arbiterAliases",
-          "in" : "query",
-          "description" : "List of arbiter aliases to display escrows from",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "escrow",
-          "in" : "query",
-          "description" : "GUID of escrow",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "The number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "The number of results to skip",
-          "required" : false,
-          "type" : "number"
         } ],
         "responses" : {
           "200" : {
@@ -1650,7 +1691,54 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Escrow"
+                "type" : "string"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/escrowaddshipping" : {
+      "post" : {
+        "tags" : [ "Escrow" ],
+        "description" : "Add shipping to an escrow.",
+        "operationId" : "escrowaddshipping",
+        "parameters" : [ {
+          "name" : "escrow",
+          "in" : "query",
+          "description" : "GUID of escrow",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "shipping",
+          "in" : "query",
+          "description" : "Amount to add to shipping for merchant. Amount is in payment option currency. Example, If merchant requests 0.1 BTC for shipping and escrow is paid in BTC, enter 0.1 here.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "witness",
+          "in" : "query",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
               }
             }
           },
@@ -1775,42 +1863,6 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/generateescrowmultisig" : {
-      "post" : {
-        "tags" : [ "Escrow" ],
-        "description" : "Generates a multisignature escrow transaction",
-        "operationId" : "generateescrowmultisig",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/GenerateEscrowMultisigRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
     "/getaccount" : {
       "get" : {
         "tags" : [ "General" ],
@@ -1875,16 +1927,54 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/getaddressesbyaccount" : {
+    "/getaddressbalance" : {
       "get" : {
         "tags" : [ "General" ],
-        "description" : "DEPRECATED. Returns the list of addresses for the given account.",
-        "operationId" : "getaddressesbyaccount",
+        "description" : "Returns the balance for addresses or aliases",
+        "operationId" : "getaddressbalance",
         "parameters" : [ {
-          "name" : "account",
+          "name" : "addresses",
           "in" : "query",
           "required" : true,
-          "type" : "string"
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "object",
+              "properties" : { }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/getaddressutxos" : {
+      "get" : {
+        "tags" : [ "General" ],
+        "description" : "Returns all unspent outputs for addresses or aliases",
+        "operationId" : "getaddressutxos",
+        "parameters" : [ {
+          "name" : "addresses",
+          "in" : "query",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1892,7 +1982,7 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "type" : "string"
+                "$ref" : "#/definitions/GetAddressUTXOsEntry"
               }
             }
           },
@@ -1926,6 +2016,12 @@ var swaggerSpec =
           "description" : "Only include transactions confirmed at least this many times.",
           "required" : false,
           "type" : "number"
+        }, {
+          "name" : "addlockconf",
+          "in" : "query",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend",
+          "required" : false,
+          "type" : "boolean"
         }, {
           "name" : "includeWatchonly",
           "in" : "query",
@@ -2029,6 +2125,12 @@ var swaggerSpec =
           "description" : "Only include transactions confirmed at least this many times.",
           "required" : false,
           "type" : "number"
+        }, {
+          "name" : "addlockconf",
+          "in" : "query",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend",
+          "required" : false,
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
@@ -2067,6 +2169,12 @@ var swaggerSpec =
           "description" : "Only include transactions confirmed at least this many times.",
           "required" : false,
           "type" : "number"
+        }, {
+          "name" : "addlockconf",
+          "in" : "query",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend",
+          "required" : false,
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
@@ -2152,75 +2260,12 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/getv2address" : {
-      "get" : {
-        "tags" : [ "General" ],
-        "description" : "Returns a new Syscoin (starts with 1) address for receiving payments. If 'account' is specified (DEPRECATED), it is added to the address book so payments received with the address will be credited to 'account'.",
-        "operationId" : "getv2address",
-        "parameters" : [ {
-          "name" : "account",
-          "in" : "query",
-          "description" : "DEPRECATED. The account name for the address to be linked to. If not provided, the default account \"\" is used. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created if there is no account by the given name.",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
     "/getwalletinfo" : {
       "get" : {
         "tags" : [ "General" ],
         "description" : "Returns an object containing various wallet state info.",
         "operationId" : "getwalletinfo",
         "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "$ref" : "#/definitions/WalletInfo"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/getzaddress" : {
-      "get" : {
-        "tags" : [ "General" ],
-        "description" : "Returns a new ZCash address for receiving payments in ZCash transaparent tokens. so payments received with the address will be credited to 'account'.",
-        "operationId" : "getzaddress",
-        "parameters" : [ {
-          "name" : "address",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        } ],
         "responses" : {
           "200" : {
             "description" : "Success",
@@ -2286,42 +2331,6 @@ var swaggerSpec =
           "schema" : {
             "$ref" : "#/definitions/ImportPrivKeyRequest"
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/importprunedfunds" : {
-      "get" : {
-        "tags" : [ "General" ],
-        "description" : "Imports funds without rescan. Corresponding address or script must previously be included in wallet. Aimed towards pruned wallets. The end-user is responsible to import additional transactions that subsequently spend the imported outputs or rescan after the point in the blockchain the transaction is included.",
-        "operationId" : "importprunedfunds",
-        "parameters" : [ {
-          "name" : "rawtransaction",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "txoutproof",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -2421,6 +2430,12 @@ var swaggerSpec =
           "required" : false,
           "type" : "number"
         }, {
+          "name" : "addlockconf",
+          "in" : "query",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend",
+          "required" : false,
+          "type" : "boolean"
+        }, {
           "name" : "includeWatchonly",
           "in" : "query",
           "description" : "Include balances in watchonly addresses (see 'importaddress')",
@@ -2492,6 +2507,12 @@ var swaggerSpec =
           "required" : false,
           "type" : "number"
         }, {
+          "name" : "addlockconf",
+          "in" : "query",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend",
+          "required" : false,
+          "type" : "boolean"
+        }, {
           "name" : "includeempty",
           "in" : "query",
           "description" : "Whether to include accounts that haven't received any payments.",
@@ -2538,6 +2559,12 @@ var swaggerSpec =
           "description" : "Only include transactions confirmed at least this many times.",
           "required" : false,
           "type" : "number"
+        }, {
+          "name" : "addlockconf",
+          "in" : "query",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend",
+          "required" : false,
+          "type" : "boolean"
         }, {
           "name" : "includeempty",
           "in" : "query",
@@ -2673,11 +2700,11 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/messageinfo" : {
+    "/offerinfo" : {
       "get" : {
-        "tags" : [ "Messaging" ],
-        "description" : "Show stored values of a single message.",
-        "operationId" : "messageinfo",
+        "tags" : [ "Offers" ],
+        "description" : "Show values of an offer.",
+        "operationId" : "offerinfo",
         "parameters" : [ {
           "name" : "guid",
           "in" : "query",
@@ -2688,646 +2715,7 @@ var swaggerSpec =
           "200" : {
             "description" : "Success",
             "schema" : {
-              "$ref" : "#/definitions/Message"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/messagenew" : {
-      "post" : {
-        "tags" : [ "Messaging" ],
-        "description" : "Create a new Syscoin encrypted message.",
-        "operationId" : "messagenew",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/MessageNewRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/messagereceivecount" : {
-      "get" : {
-        "tags" : [ "Messaging" ],
-        "description" : "Count received messages that an array of aliases own.",
-        "operationId" : "messagereceivecount",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "number"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/messagereceivelist" : {
-      "get" : {
-        "tags" : [ "Messaging" ],
-        "description" : "List received messages that an array of aliases own. Set of aliases to look up based on alias, and private key to decrypt any data found in message.",
-        "operationId" : "messagereceivelist",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "message",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "The number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "The number of results to skip",
-          "required" : false,
-          "type" : "number"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Message"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/messagesentcount" : {
-      "get" : {
-        "tags" : [ "Messaging" ],
-        "description" : "Count sent messages that an array of aliases own.",
-        "operationId" : "messagesentcount",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "number"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/messagesentlist" : {
-      "get" : {
-        "tags" : [ "Messaging" ],
-        "description" : "List sent messages that an array of aliases own. Set of aliases to look up based on alias, and private key to decrypt any data found in message.",
-        "operationId" : "messagesentlist",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "message",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "The number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "The number of results to skip",
-          "required" : false,
-          "type" : "number"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Message"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/move" : {
-      "post" : {
-        "tags" : [ "General" ],
-        "description" : "DEPRECATED. Move a specified amount from one account in your wallet to another.",
-        "operationId" : "move",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/MoveRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "boolean"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offeraccept" : {
-      "post" : {
-        "tags" : [ "Offers" ],
-        "description" : "Accept&Pay for a confirmed offer.",
-        "operationId" : "offeraccept",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/OfferAcceptRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offeracceptacknowledge" : {
-      "post" : {
-        "tags" : [ "Offers" ],
-        "description" : "Acknowledge offer payment as seller of offer. Deducts qty of offer and increases number of sold inventory.",
-        "operationId" : "offeracceptacknowledge",
-        "parameters" : [ {
-          "name" : "offerguid",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "offeracceptguid",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offeracceptcount" : {
-      "get" : {
-        "tags" : [ "Offers" ],
-        "description" : "List count of offer accept for a set of aliases. filterpurchases filters results for count of accepts that have been bought with aliases passed in(as buyer), filtersales filters results for count of accepts purchased by aliases passed in(as merchant or affiliate).",
-        "operationId" : "offeracceptcount",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "filterpurchases",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
-        }, {
-          "name" : "filtersales",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "number"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offeracceptfeedback" : {
-      "post" : {
-        "tags" : [ "Offers" ],
-        "description" : "Send feedback and rating for offer accept specified. Ratings are numbers from 1 to 5",
-        "operationId" : "offeracceptfeedback",
-        "parameters" : [ {
-          "name" : "offerguid",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "offeracceptguid",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "feedback",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "rating",
-          "in" : "query",
-          "required" : false,
-          "type" : "number"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offeracceptlist" : {
-      "get" : {
-        "tags" : [ "Offers" ],
-        "description" : "List offer accepts for a set of aliases. filterpurchases filters results for accepts that have been bought with aliases passed in(as buyer), filtersales filters results for accepts purchased by aliases passed in(as merchant or affiliate).",
-        "operationId" : "offeracceptlist",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "guid",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "filterpurchases",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
-        }, {
-          "name" : "filtersales",
-          "in" : "query",
-          "required" : false,
-          "type" : "boolean"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "The number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "The number of results to skip",
-          "required" : false,
-          "type" : "number"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/OfferAccept"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offeraddwhitelist" : {
-      "post" : {
-        "tags" : [ "Offers" ],
-        "description" : "Add to the affiliate list of your offer(controls who can resell). Requires wallet passphrase to be set with walletpassphrase call.",
-        "operationId" : "offeraddwhitelist",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/OfferAddWhitelistRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offerclearwhitelist" : {
-      "post" : {
-        "tags" : [ "Offers" ],
-        "description" : "Clear the affiliate list of your offer(controls who can resell). Requires wallet passphrase to be set with walletpassphrase call.",
-        "operationId" : "offerclearwhitelist",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/OfferClearWhitelistRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offercount" : {
-      "get" : {
-        "tags" : [ "Offers" ],
-        "description" : "Count offers that an array of aliases own.",
-        "operationId" : "offercount",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "number"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offerfilter" : {
-      "get" : {
-        "tags" : [ "Offers" ],
-        "description" : "scan and filter offers",
-        "operationId" : "offerfilter",
-        "parameters" : [ {
-          "name" : "regexp",
-          "in" : "query",
-          "description" : "apply [regexp] on offeres, empty means all offers",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "show results from number [from]",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "the number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "safesearch",
-          "in" : "query",
-          "description" : "shows all offers that are safe to display (not on the ban list)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "category",
-          "in" : "query",
-          "description" : "Category you want to search in, empty for all",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Offer"
-              }
+              "$ref" : "#/definitions/Offer"
             }
           },
           "default" : {
@@ -3349,10 +2737,22 @@ var swaggerSpec =
         "description" : "List all stored values of an offer.",
         "operationId" : "offerhistory",
         "parameters" : [ {
-          "name" : "offer",
+          "name" : "query",
           "in" : "query",
-          "description" : "Offer GUID.",
+          "description" : "Generic filter query to pass into syscoinquery",
           "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "Show results from this GUID [from], empty means first",
+          "required" : false,
           "type" : "string"
         } ],
         "responses" : {
@@ -3361,7 +2761,7 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/OfferHistoryEntry"
+                "$ref" : "#/definitions/OfferHistoryIndex"
               }
             }
           },
@@ -3378,22 +2778,38 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/offerinfo" : {
+    "/offerfilter" : {
       "get" : {
         "tags" : [ "Offers" ],
-        "description" : "Show values of an offer.",
-        "operationId" : "offerinfo",
+        "description" : "scan and filter offers",
+        "operationId" : "offerfilter",
         "parameters" : [ {
-          "name" : "guid",
+          "name" : "query",
           "in" : "query",
+          "description" : "Generic filter query to pass into syscoinquery",
           "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "count",
+          "in" : "query",
+          "description" : "The number of results to return",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "Show results from this GUID [from], empty means first",
+          "required" : false,
           "type" : "string"
         } ],
         "responses" : {
           "200" : {
             "description" : "Success",
             "schema" : {
-              "$ref" : "#/definitions/Offer"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OfferIndex"
+              }
             }
           },
           "default" : {
@@ -3445,60 +2861,6 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/offerlist" : {
-      "get" : {
-        "tags" : [ "Offers" ],
-        "description" : "list offers that an array of aliases own.",
-        "operationId" : "offerlist",
-        "parameters" : [ {
-          "name" : "aliases",
-          "in" : "query",
-          "required" : false,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "guid",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "count",
-          "in" : "query",
-          "description" : "The number of results to return",
-          "required" : false,
-          "type" : "number"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "The number of results to skip",
-          "required" : false,
-          "type" : "number"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Offer"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
     "/offernew" : {
       "post" : {
         "tags" : [ "Offers" ],
@@ -3515,42 +2877,6 @@ var swaggerSpec =
         "responses" : {
           "200" : {
             "description" : "Success; Returns an array of 2 elements- tx id and offer GUID.",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/offerremovewhitelist" : {
-      "post" : {
-        "tags" : [ "Offers" ],
-        "description" : "Remove from the affiliate list of your offer(controls who can resell). Requires wallet passphrase to be set with walletpassphrase call.",
-        "operationId" : "offerremovewhitelist",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/OfferRemoveWhitelistRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
             "schema" : {
               "type" : "array",
               "items" : {
@@ -3607,40 +2933,6 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
-    "/offerwhitelist" : {
-      "get" : {
-        "tags" : [ "Offers" ],
-        "description" : "List all affiliates for this offer.",
-        "operationId" : "offerwhitelist",
-        "parameters" : [ {
-          "name" : "offerguid",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/OfferWhitelistEntry"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
     "/sendfrom" : {
       "post" : {
         "tags" : [ "General" ],
@@ -3653,37 +2945,6 @@ var swaggerSpec =
           "schema" : {
             "$ref" : "#/definitions/SendFromRequest"
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/removeprunedfunds" : {
-      "get" : {
-        "tags" : [ "General" ],
-        "description" : "Deletes the specified transaction from the wallet. Meant for use with pruned wallets and as a companion to importprunedfunds. This will effect wallet balances.",
-        "operationId" : "removeprunedfunds",
-        "parameters" : [ {
-          "name" : "txid",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -3896,73 +3157,6 @@ var swaggerSpec =
         } ]
       },
       "x-swagger-router-controller" : "rpc"
-    },
-    "/syscoindecoderawtransaction" : {
-      "post" : {
-        "tags" : [ "General" ],
-        "description" : "Decode raw syscoin transaction (serialized, hex-encoded) and display information pertaining to the service that is included in the transactiion data output(OP_RETURN)",
-        "operationId" : "syscoindecoderawtransaction",
-        "parameters" : [ {
-          "name" : "alias",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "hexstring",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/syscoinsignrawtransaction" : {
-      "post" : {
-        "tags" : [ "General" ],
-        "description" : "Sign inputs for raw transaction (serialized, hex-encoded) and sends them out to the network if signing is complete",
-        "operationId" : "syscoinsignrawtransaction",
-        "parameters" : [ {
-          "name" : "hexstring",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
     }
   },
   "securityDefinitions" : {
@@ -3974,11 +3168,15 @@ var swaggerSpec =
   },
   "definitions" : {
     "Info" : {
-      "required" : [ "balance", "blocks", "connections", "difficulty", "errors", "keypoololdest", "keypoolsize", "paytxfee", "protocolversion", "proxy", "relayfee", "testnet", "timeoffset", "unlocked_until", "version", "walletversion" ],
+      "required" : [ "balance", "blocks", "connections", "dashversion", "difficulty", "errors", "keypoololdest", "keypoolsize", "paytxfee", "protocolversion", "proxy", "relayfee", "testnet", "timeoffset", "unlocked_until", "version", "walletversion" ],
       "properties" : {
         "version" : {
           "type" : "number",
           "description" : "the server version"
+        },
+        "dashversion" : {
+          "type" : "number",
+          "description" : "the dashpay server version"
         },
         "protocolversion" : {
           "type" : "number",
@@ -4042,21 +3240,22 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "protocolversion" : 6.02745618307040320615897144307382404804229736328125,
-        "relayfee" : 1.231513536777255612975068288506008684635162353515625,
-        "timeoffset" : 2.3021358869347654518833223846741020679473876953125,
-        "blocks" : 5.63737665663332876420099637471139430999755859375,
+        "protocolversion" : 1.46581298050294517310021547018550336360931396484375,
+        "relayfee" : 1.024645700144157789424070870154537260532379150390625,
+        "timeoffset" : 7.061401241503109105224211816675961017608642578125,
+        "blocks" : 2.3021358869347654518833223846741020679473876953125,
         "version" : 0.80082819046101150206595775671303272247314453125,
-        "keypoolsize" : 2.027123023002321833274663731572218239307403564453125,
-        "unlocked_until" : 4.1456080298839363962315474054776132106781005859375,
-        "paytxfee" : 7.3862819483858839220147274318151175975799560546875,
-        "difficulty" : 9.301444243932575517419536481611430644989013671875,
+        "keypoolsize" : 4.1456080298839363962315474054776132106781005859375,
+        "unlocked_until" : 7.3862819483858839220147274318151175975799560546875,
+        "paytxfee" : 1.231513536777255612975068288506008684635162353515625,
+        "dashversion" : 6.02745618307040320615897144307382404804229736328125,
+        "difficulty" : 3.61607674925191080461672754609026014804840087890625,
         "proxy" : "aeiou",
-        "walletversion" : 1.46581298050294517310021547018550336360931396484375,
-        "balance" : 5.962133916683182377482808078639209270477294921875,
-        "keypoololdest" : 3.61607674925191080461672754609026014804840087890625,
+        "walletversion" : 5.962133916683182377482808078639209270477294921875,
+        "balance" : 5.63737665663332876420099637471139430999755859375,
+        "keypoololdest" : 2.027123023002321833274663731572218239307403564453125,
         "testnet" : true,
-        "connections" : 7.061401241503109105224211816675961017608642578125,
+        "connections" : 9.301444243932575517419536481611430644989013671875,
         "errors" : "aeiou"
       }
     },
@@ -4284,6 +3483,18 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The syscoin address validated"
         },
+        "zaddress" : {
+          "type" : "string",
+          "description" : "The zcash t-addr associated with this syscoin address validated"
+        },
+        "btcaddress" : {
+          "type" : "string",
+          "description" : "The bitcoin address associated with this syscoin address validated"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "The syscoin alias associated with this syscoin address validated"
+        },
         "ismine" : {
           "type" : "boolean",
           "description" : "If the address is yours or not"
@@ -4311,10 +3522,13 @@ var swaggerSpec =
       },
       "example" : {
         "address" : "aeiou",
+        "btcaddress" : "aeiou",
         "isscript" : true,
         "iscompressed" : true,
+        "alias" : "aeiou",
         "ismine" : true,
         "isvalid" : true,
+        "zaddress" : "aeiou",
         "iswatchonly" : true,
         "account" : "aeiou",
         "pubkey" : "aeiou"
@@ -4329,19 +3543,19 @@ var swaggerSpec =
       }
     },
     "Alias" : {
-      "required" : [ "name" ],
-      "discriminator" : "name",
+      "required" : [ "_id" ],
+      "discriminator" : "_id",
       "properties" : {
-        "name" : {
+        "_id" : {
           "type" : "string"
         },
-        "value" : {
+        "encryption_privatekey" : {
           "type" : "string"
         },
-        "privatevalue" : {
+        "encryption_publickey" : {
           "type" : "string"
         },
-        "password" : {
+        "publicvalue" : {
           "type" : "string"
         },
         "txid" : {
@@ -4350,120 +3564,127 @@ var swaggerSpec =
         "address" : {
           "type" : "string"
         },
-        "alias_peg" : {
-          "type" : "string"
-        },
-        "balance" : {
+        "time" : {
           "type" : "number"
-        },
-        "ismine" : {
-          "type" : "boolean"
-        },
-        "safesearch" : {
-          "type" : "string"
         },
         "acceptcerttransfers" : {
-          "type" : "string"
-        },
-        "safetylevel" : {
-          "type" : "number"
-        },
-        "buyer_rating" : {
-          "type" : "number"
-        },
-        "buyer_ratingcount" : {
-          "type" : "number"
-        },
-        "buyer_rating_display" : {
-          "type" : "string"
-        },
-        "seller_rating" : {
-          "type" : "number"
-        },
-        "seller_ratingcount" : {
-          "type" : "number"
-        },
-        "seller_rating_display" : {
-          "type" : "string"
-        },
-        "arbiter_rating" : {
-          "type" : "number"
-        },
-        "arbiter_ratingcount" : {
-          "type" : "number"
-        },
-        "arbiter_rating_display" : {
-          "type" : "string"
-        },
-        "lastupdate_height" : {
-          "type" : "number"
-        },
-        "expires_in" : {
-          "type" : "number"
+          "type" : "boolean"
         },
         "expires_on" : {
           "type" : "number"
         },
         "expired" : {
           "type" : "boolean"
-        },
-        "pending" : {
-          "type" : "boolean"
-        },
-        "time" : {
+        }
+      },
+      "example" : {
+        "publicvalue" : "aeiou",
+        "address" : "aeiou",
+        "expired" : true,
+        "encryption_privatekey" : "aeiou",
+        "expires_on" : 6.02745618307040320615897144307382404804229736328125,
+        "txid" : "aeiou",
+        "_id" : "aeiou",
+        "time" : 0.80082819046101150206595775671303272247314453125,
+        "encryption_publickey" : "aeiou",
+        "acceptcerttransfers" : true
+      }
+    },
+    "AliasIndex" : {
+      "required" : [ "_id" ],
+      "discriminator" : "_id",
+      "properties" : {
+        "_id" : {
           "type" : "string"
         },
-        "multisiginfo" : {
-          "$ref" : "#/definitions/MultiSignatureInfo"
-        },
-        "pubkey" : {
+        "address" : {
           "type" : "string"
         }
       },
       "example" : {
-        "alias_peg" : "aeiou",
-        "buyer_rating_display" : "aeiou",
-        "seller_rating_display" : "aeiou",
-        "lastupdate_height" : 3.61607674925191080461672754609026014804840087890625,
-        "safesearch" : "aeiou",
-        "expires_on" : 4.1456080298839363962315474054776132106781005859375,
-        "pending" : true,
-        "ismine" : true,
-        "buyer_ratingcount" : 5.962133916683182377482808078639209270477294921875,
-        "arbiter_ratingcount" : 9.301444243932575517419536481611430644989013671875,
-        "password" : "aeiou",
-        "expired" : true,
-        "balance" : 0.80082819046101150206595775671303272247314453125,
-        "arbiter_rating_display" : "aeiou",
-        "seller_ratingcount" : 2.3021358869347654518833223846741020679473876953125,
-        "value" : "aeiou",
-        "expires_in" : 2.027123023002321833274663731572218239307403564453125,
-        "multisiginfo" : {
-          "reqsigners" : "aeiou",
-          "reqsigs" : 7.3862819483858839220147274318151175975799560546875,
-          "redeemscript" : "aeiou"
-        },
-        "buyer_rating" : 1.46581298050294517310021547018550336360931396484375,
         "address" : "aeiou",
-        "txid" : "aeiou",
-        "seller_rating" : 5.63737665663332876420099637471139430999755859375,
-        "privatevalue" : "aeiou",
-        "safetylevel" : 6.02745618307040320615897144307382404804229736328125,
-        "acceptcerttransfers" : "aeiou",
-        "arbiter_rating" : 7.061401241503109105224211816675961017608642578125,
-        "name" : "aeiou",
-        "time" : "aeiou",
-        "pubkey" : "aeiou"
+        "_id" : "aeiou"
       }
     },
-    "AliasHistoryEntry" : {
-      "allOf" : [ {
-        "$ref" : "#/definitions/Alias"
-      } ]
+    "AliasHistoryIndex" : {
+      "required" : [ "_id" ],
+      "discriminator" : "_id",
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "encryption_privatekey" : {
+          "type" : "string"
+        },
+        "encryption_publickey" : {
+          "type" : "string"
+        },
+        "publicvalue" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "number"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "acceptcerttransfers" : {
+          "type" : "boolean"
+        },
+        "op" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "op" : "aeiou",
+        "publicvalue" : "aeiou",
+        "address" : "aeiou",
+        "encryption_privatekey" : "aeiou",
+        "alias" : "aeiou",
+        "_id" : "aeiou",
+        "time" : 0.80082819046101150206595775671303272247314453125,
+        "encryption_publickey" : "aeiou",
+        "acceptcerttransfers" : true
+      }
+    },
+    "AliasTxHistoryIndex" : {
+      "required" : [ "_id" ],
+      "discriminator" : "_id",
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string"
+        },
+        "guid" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "number"
+        }
+      },
+      "example" : {
+        "alias" : "aeiou",
+        "guid" : "aeiou",
+        "_id" : "aeiou",
+        "time" : 0.80082819046101150206595775671303272247314453125,
+        "type" : "aeiou",
+        "value" : "aeiou"
+      }
     },
     "Cert" : {
       "properties" : {
-        "cert" : {
+        "_id" : {
           "type" : "string"
         },
         "txid" : {
@@ -4476,33 +3697,18 @@ var swaggerSpec =
           "type" : "string"
         },
         "time" : {
-          "type" : "string"
+          "type" : "number"
         },
-        "data" : {
-          "type" : "string"
-        },
-        "pubdata" : {
+        "publicvalue" : {
           "type" : "string"
         },
         "category" : {
           "type" : "string"
         },
-        "safesearch" : {
-          "type" : "string"
-        },
-        "safetylevel" : {
-          "type" : "number"
-        },
-        "ismine" : {
-          "type" : "string"
-        },
         "alias" : {
           "type" : "string"
         },
-        "transferviewonly" : {
-          "type" : "string"
-        },
-        "expires_in" : {
+        "access_flags" : {
           "type" : "number"
         },
         "expires_on" : {
@@ -4513,39 +3719,98 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "data" : "aeiou",
-        "safesearch" : "aeiou",
+        "publicvalue" : "aeiou",
+        "expired" : true,
         "expires_on" : 5.962133916683182377482808078639209270477294921875,
         "txid" : "aeiou",
-        "ismine" : "aeiou",
-        "cert" : "aeiou",
-        "safetylevel" : 6.02745618307040320615897144307382404804229736328125,
-        "transferviewonly" : "aeiou",
-        "title" : "aeiou",
-        "pubdata" : "aeiou",
-        "expired" : true,
         "alias" : "aeiou",
-        "time" : "aeiou",
+        "_id" : "aeiou",
+        "time" : 6.02745618307040320615897144307382404804229736328125,
+        "access_flags" : 1.46581298050294517310021547018550336360931396484375,
+        "title" : "aeiou",
         "category" : "aeiou",
-        "expires_in" : 1.46581298050294517310021547018550336360931396484375,
         "height" : 0.80082819046101150206595775671303272247314453125
       }
     },
-    "CertHistoryEntry" : {
-      "allOf" : [ {
-        "$ref" : "#/definitions/Cert"
-      } ]
+    "CertIndex" : {
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "height" : {
+          "type" : "number"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "alias" : "aeiou",
+        "_id" : "aeiou",
+        "title" : "aeiou",
+        "category" : "aeiou",
+        "height" : 0.80082819046101150206595775671303272247314453125
+      }
+    },
+    "CertHistoryIndex" : {
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "cert" : {
+          "type" : "string"
+        },
+        "height" : {
+          "type" : "number"
+        },
+        "time" : {
+          "type" : "number"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "publicvalue" : {
+          "type" : "string"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "access_flags" : {
+          "type" : "number"
+        },
+        "op" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "op" : "aeiou",
+        "publicvalue" : "aeiou",
+        "alias" : "aeiou",
+        "cert" : "aeiou",
+        "_id" : "aeiou",
+        "time" : 6.02745618307040320615897144307382404804229736328125,
+        "access_flags" : 1.46581298050294517310021547018550336360931396484375,
+        "title" : "aeiou",
+        "category" : "aeiou",
+        "height" : 0.80082819046101150206595775671303272247314453125
+      }
     },
     "Escrow" : {
       "properties" : {
-        "escrowtype" : {
-          "type" : "string"
-        },
-        "escrow" : {
+        "_id" : {
           "type" : "string"
         },
         "time" : {
-          "type" : "string"
+          "type" : "number"
         },
         "seller" : {
           "type" : "string"
@@ -4556,34 +3821,52 @@ var swaggerSpec =
         "buyer" : {
           "type" : "string"
         },
+        "witness" : {
+          "type" : "string"
+        },
         "offer" : {
           "type" : "string"
         },
-        "offerlink_seller" : {
+        "offer_price" : {
           "type" : "string"
         },
-        "offertitle" : {
+        "reseller" : {
           "type" : "string"
         },
         "quantity" : {
-          "type" : "string"
-        },
-        "price" : {
-          "type" : "string"
-        },
-        "systotal" : {
           "type" : "number"
         },
-        "sysfee" : {
+        "total_with_fee" : {
           "type" : "number"
         },
-        "fee" : {
-          "type" : "string"
+        "total_without_fee" : {
+          "type" : "number"
         },
-        "total" : {
-          "type" : "string"
+        "bid_in_offer_currency_per_unit" : {
+          "type" : "number"
         },
-        "totalwithfee" : {
+        "total_or_bid_in_payment_option_per_unit" : {
+          "type" : "number"
+        },
+        "buynow" : {
+          "type" : "boolean"
+        },
+        "commission" : {
+          "type" : "number"
+        },
+        "arbiterfee" : {
+          "type" : "number"
+        },
+        "networkfee" : {
+          "type" : "number"
+        },
+        "witnessfee" : {
+          "type" : "number"
+        },
+        "shipping" : {
+          "type" : "number"
+        },
+        "deposit" : {
           "type" : "number"
         },
         "currency" : {
@@ -4596,107 +3879,185 @@ var swaggerSpec =
           "type" : "string"
         },
         "paymentoption" : {
-          "type" : "number"
-        },
-        "paymemntoption_display" : {
           "type" : "string"
         },
         "redeem_txid" : {
+          "type" : "string"
+        },
+        "redeem_script" : {
           "type" : "string"
         },
         "txid" : {
           "type" : "string"
         },
         "height" : {
-          "type" : "string"
+          "type" : "number"
         },
-        "pay_message" : {
+        "role" : {
           "type" : "string"
         },
         "expired" : {
-          "type" : "number"
+          "type" : "boolean"
         },
         "status" : {
-          "type" : "string"
-        },
-        "buyer_feedback" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "avg_buyer_rating" : {
-          "type" : "number"
-        },
-        "seller_feedback" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "avg_seller_feedback" : {
-          "type" : "number"
-        },
-        "arbiter_feedback" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "avg_arbiter_rating" : {
-          "type" : "number"
-        },
-        "avg_rating_count" : {
-          "type" : "number"
-        },
-        "avg_rating" : {
-          "type" : "number"
-        },
-        "avg_rating_display" : {
           "type" : "string"
         }
       },
       "example" : {
-        "escrowtype" : "aeiou",
         "seller" : "aeiou",
-        "sysfee" : 6.02745618307040320615897144307382404804229736328125,
-        "pay_message" : "aeiou",
-        "fee" : "aeiou",
+        "total_without_fee" : 5.962133916683182377482808078639209270477294921875,
+        "role" : "aeiou",
         "redeem_txid" : "aeiou",
         "offer" : "aeiou",
-        "total" : "aeiou",
-        "paymemntoption_display" : "aeiou",
-        "expired" : 5.63737665663332876420099637471139430999755859375,
-        "arbiter_feedback" : [ "aeiou" ],
-        "price" : "aeiou",
-        "avg_rating" : 2.027123023002321833274663731572218239307403564453125,
-        "escrow" : "aeiou",
-        "systotal" : 0.80082819046101150206595775671303272247314453125,
+        "expired" : true,
+        "shipping" : 4.1456080298839363962315474054776132106781005859375,
+        "arbiterfee" : 9.301444243932575517419536481611430644989013671875,
+        "commission" : 7.061401241503109105224211816675961017608642578125,
         "currency" : "aeiou",
         "escrowaddress" : "aeiou",
-        "avg_rating_display" : "aeiou",
-        "totalwithfee" : 1.46581298050294517310021547018550336360931396484375,
-        "height" : "aeiou",
-        "avg_seller_feedback" : 7.061401241503109105224211816675961017608642578125,
-        "quantity" : "aeiou",
-        "paymentoption" : 5.962133916683182377482808078639209270477294921875,
+        "height" : 1.231513536777255612975068288506008684635162353515625,
+        "total_with_fee" : 1.46581298050294517310021547018550336360931396484375,
+        "quantity" : 6.02745618307040320615897144307382404804229736328125,
+        "witnessfee" : 2.027123023002321833274663731572218239307403564453125,
+        "total_or_bid_in_payment_option_per_unit" : 2.3021358869347654518833223846741020679473876953125,
+        "paymentoption" : "aeiou",
+        "networkfee" : 3.61607674925191080461672754609026014804840087890625,
+        "reseller" : "aeiou",
         "txid" : "aeiou",
-        "offerlink_seller" : "aeiou",
         "buyer" : "aeiou",
+        "offer_price" : "aeiou",
+        "witness" : "aeiou",
         "arbiter" : "aeiou",
-        "avg_arbiter_rating" : 9.301444243932575517419536481611430644989013671875,
+        "buynow" : true,
         "exttxid" : "aeiou",
-        "seller_feedback" : [ "aeiou" ],
-        "offertitle" : "aeiou",
-        "avg_buyer_rating" : 2.3021358869347654518833223846741020679473876953125,
-        "time" : "aeiou",
-        "buyer_feedback" : [ "aeiou" ],
-        "avg_rating_count" : 3.61607674925191080461672754609026014804840087890625,
+        "deposit" : 7.3862819483858839220147274318151175975799560546875,
+        "redeem_script" : "aeiou",
+        "_id" : "aeiou",
+        "time" : 0.80082819046101150206595775671303272247314453125,
+        "bid_in_offer_currency_per_unit" : 5.63737665663332876420099637471139430999755859375,
         "status" : "aeiou"
       }
     },
+    "EscrowIndex" : {
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "offer" : {
+          "type" : "string"
+        },
+        "escrow" : {
+          "type" : "string"
+        },
+        "height" : {
+          "type" : "number"
+        },
+        "seller" : {
+          "type" : "string"
+        },
+        "arbiter" : {
+          "type" : "string"
+        },
+        "buyer" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "offer" : "aeiou",
+        "seller" : "aeiou",
+        "arbiter" : "aeiou",
+        "escrow" : "aeiou",
+        "_id" : "aeiou",
+        "height" : 0.80082819046101150206595775671303272247314453125,
+        "buyer" : "aeiou"
+      }
+    },
+    "EscrowBidIndex" : {
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "offer" : {
+          "type" : "string"
+        },
+        "escrow" : {
+          "type" : "string"
+        },
+        "height" : {
+          "type" : "number"
+        },
+        "bidder" : {
+          "type" : "string"
+        },
+        "bid_in_offer_currency_per_unit" : {
+          "type" : "string"
+        },
+        "bid_in_payment_option_per_unit" : {
+          "type" : "string"
+        },
+        "witness" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "offer" : "aeiou",
+        "bid_in_payment_option_per_unit" : "aeiou",
+        "witness" : "aeiou",
+        "bidder" : "aeiou",
+        "escrow" : "aeiou",
+        "_id" : "aeiou",
+        "bid_in_offer_currency_per_unit" : "aeiou",
+        "height" : 0.80082819046101150206595775671303272247314453125,
+        "status" : "aeiou"
+      }
+    },
+    "EscrowFeedbackIndex" : {
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "offer" : {
+          "type" : "string"
+        },
+        "escrow" : {
+          "type" : "string"
+        },
+        "txid" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "number"
+        },
+        "rating" : {
+          "type" : "number"
+        },
+        "feedbackuserfrom" : {
+          "type" : "string"
+        },
+        "feedbackuserto" : {
+          "type" : "string"
+        },
+        "feedback" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "offer" : "aeiou",
+        "feedback" : "aeiou",
+        "feedbackuserfrom" : "aeiou",
+        "rating" : 6.02745618307040320615897144307382404804229736328125,
+        "escrow" : "aeiou",
+        "txid" : "aeiou",
+        "feedbackuserto" : "aeiou",
+        "_id" : "aeiou",
+        "time" : 0.80082819046101150206595775671303272247314453125
+      }
+    },
     "EscrowRefundRequest" : {
-      "required" : [ "escrowguid", "userrole" ],
+      "required" : [ "escrowguid", "rawtx", "userrole" ],
       "properties" : {
         "escrowguid" : {
           "type" : "string"
@@ -4705,12 +4066,15 @@ var swaggerSpec =
           "type" : "string"
         },
         "rawtx" : {
+          "type" : "string"
+        },
+        "witness" : {
           "type" : "string"
         }
       }
     },
     "EscrowReleaseRequest" : {
-      "required" : [ "escrowguid", "userrole" ],
+      "required" : [ "escrowguid", "rawtx", "userrole" ],
       "properties" : {
         "escrowguid" : {
           "type" : "string"
@@ -4719,6 +4083,9 @@ var swaggerSpec =
           "type" : "string"
         },
         "rawtx" : {
+          "type" : "string"
+        },
+        "witness" : {
           "type" : "string"
         }
       }
@@ -4728,6 +4095,10 @@ var swaggerSpec =
         "amount" : {
           "type" : "string",
           "description" : "The transaction amount in SYS"
+        },
+        "instantlock" : {
+          "type" : "boolean",
+          "description" : "Current transaction lock state"
         },
         "confirmations" : {
           "type" : "number",
@@ -4757,6 +4128,10 @@ var swaggerSpec =
           "type" : "number",
           "description" : "The time received in seconds since epoch (1 Jan 1970 GMT)"
         },
+        "bip125-replaceable" : {
+          "type" : "string",
+          "description" : "Whether this transaction could be replaced due to BIP125 (replace-by-fee)"
+        },
         "details" : {
           "type" : "array",
           "items" : {
@@ -4772,7 +4147,9 @@ var swaggerSpec =
         "amount" : "aeiou",
         "blockhash" : "aeiou",
         "timereceived" : 5.63737665663332876420099637471139430999755859375,
+        "instantlock" : true,
         "blocktime" : 1.46581298050294517310021547018550336360931396484375,
+        "bip125-replaceable" : "aeiou",
         "txid" : "aeiou",
         "details" : [ {
           "amount" : 2.3021358869347654518833223846741020679473876953125,
@@ -4854,6 +4231,10 @@ var swaggerSpec =
           "type" : "number",
           "description" : "how many new keys are pre-generated"
         },
+        "keypoolsize_hd_internal" : {
+          "type" : "number",
+          "description" : "how many new keys are pre-generated for internal use (used for change outputs, only appears if the wallet is using this feature, otherwise external keys are used)"
+        },
         "unlocked_until" : {
           "type" : "number",
           "description" : "the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked"
@@ -4861,6 +4242,10 @@ var swaggerSpec =
         "paytxfee" : {
           "type" : "number",
           "description" : "the transaction fee configuration, set in SYS/kB"
+        },
+        "hdchainid" : {
+          "type" : "string",
+          "description" : "the ID of the HD chain"
         }
       },
       "example" : {
@@ -4868,11 +4253,13 @@ var swaggerSpec =
         "balance" : 6.02745618307040320615897144307382404804229736328125,
         "txcount" : 5.63737665663332876420099637471139430999755859375,
         "keypoololdest" : 2.3021358869347654518833223846741020679473876953125,
+        "keypoolsize_hd_internal" : 9.301444243932575517419536481611430644989013671875,
         "unconfirmed_balance" : 1.46581298050294517310021547018550336360931396484375,
+        "hdchainid" : "aeiou",
         "immature_balance" : 5.962133916683182377482808078639209270477294921875,
         "keypoolsize" : 7.061401241503109105224211816675961017608642578125,
-        "unlocked_until" : 9.301444243932575517419536481611430644989013671875,
-        "paytxfee" : 3.61607674925191080461672754609026014804840087890625
+        "unlocked_until" : 3.61607674925191080461672754609026014804840087890625,
+        "paytxfee" : 2.027123023002321833274663731572218239307403564453125
       }
     },
     "AddressGrouping" : {
@@ -4945,6 +4332,7 @@ var swaggerSpec =
         "transactions" : [ {
           "amount" : 0.80082819046101150206595775671303272247314453125,
           "address" : "aeiou",
+          "instantlock" : true,
           "fee" : 1.46581298050294517310021547018550336360931396484375,
           "txid" : "aeiou",
           "label" : "aeiou",
@@ -4987,6 +4375,10 @@ var swaggerSpec =
         "fee" : {
           "type" : "number",
           "description" : "The amount of the fee in SYS. This is negative and only available for the 'send' category of transactions."
+        },
+        "instantlock" : {
+          "type" : "boolean",
+          "description" : "Current transaction lock state. Available for 'send' and 'receive' category of transactions."
         },
         "confirmations" : {
           "type" : "number",
@@ -5032,6 +4424,7 @@ var swaggerSpec =
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
         "address" : "aeiou",
+        "instantlock" : true,
         "fee" : 1.46581298050294517310021547018550336360931396484375,
         "txid" : "aeiou",
         "label" : "aeiou",
@@ -5073,6 +4466,10 @@ var swaggerSpec =
         "fee" : {
           "type" : "number",
           "description" : "The amount of the fee in SYS. This is negative and only available for the 'send' category of transactions."
+        },
+        "instantlock" : {
+          "type" : "boolean",
+          "description" : "Current transaction lock state. Available for 'send' and 'receive' category of transactions."
         },
         "confirmations" : {
           "type" : "number",
@@ -5117,11 +4514,17 @@ var swaggerSpec =
         "otheraccount" : {
           "type" : "string",
           "description" : "For the 'move' category of transactions, the account the funds came from (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)."
+        },
+        "bip125-replaceable" : {
+          "type" : "string",
+          "description" : "Whether this transaction could be replaced due to BIP125 (replace-by-fee)"
         }
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
         "address" : "aeiou",
+        "instantlock" : true,
+        "bip125-replaceable" : "aeiou",
         "fee" : 1.46581298050294517310021547018550336360931396484375,
         "txid" : "aeiou",
         "label" : "aeiou",
@@ -5139,180 +4542,11 @@ var swaggerSpec =
         "account" : "aeiou"
       }
     },
-    "Message" : {
-      "properties" : {
-        "GUID" : {
-          "type" : "string"
-        },
-        "txid" : {
-          "type" : "string"
-        },
-        "time" : {
-          "type" : "number"
-        },
-        "from" : {
-          "type" : "string"
-        },
-        "to" : {
-          "type" : "string"
-        },
-        "subject" : {
-          "type" : "string"
-        },
-        "message" : {
-          "type" : "string"
-        }
-      },
-      "example" : {
-        "subject" : "aeiou",
-        "GUID" : "aeiou",
-        "txid" : "aeiou",
-        "from" : "aeiou",
-        "time" : 0.80082819046101150206595775671303272247314453125,
-        "to" : "aeiou",
-        "message" : "aeiou"
-      }
-    },
-    "OfferAccept" : {
-      "properties" : {
-        "offer" : {
-          "type" : "string"
-        },
-        "id" : {
-          "type" : "string"
-        },
-        "txid" : {
-          "type" : "string"
-        },
-        "title" : {
-          "type" : "string"
-        },
-        "exttxid" : {
-          "type" : "string"
-        },
-        "paymentoption" : {
-          "type" : "number"
-        },
-        "paymentoption_display" : {
-          "type" : "string"
-        },
-        "height" : {
-          "type" : "number"
-        },
-        "time" : {
-          "type" : "string"
-        },
-        "quantity" : {
-          "type" : "number"
-        },
-        "currency" : {
-          "type" : "string"
-        },
-        "offer_discount_percentage" : {
-          "type" : "number"
-        },
-        "systotal" : {
-          "type" : "number"
-        },
-        "sysprice" : {
-          "type" : "number"
-        },
-        "price" : {
-          "type" : "number"
-        },
-        "total" : {
-          "type" : "number"
-        },
-        "buyer" : {
-          "type" : "string"
-        },
-        "seller" : {
-          "type" : "string"
-        },
-        "ismine" : {
-          "type" : "boolean"
-        },
-        "status" : {
-          "type" : "string"
-        },
-        "buyer_fedback" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "seller_fedback" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "avg_rating" : {
-          "type" : "number"
-        },
-        "avg_rating_display" : {
-          "type" : "string"
-        },
-        "pay_message" : {
-          "type" : "string"
-        }
-      },
-      "example" : {
-        "seller" : "aeiou",
-        "paymentoption_display" : "aeiou",
-        "pay_message" : "aeiou",
-        "ismine" : true,
-        "sysprice" : 2.3021358869347654518833223846741020679473876953125,
-        "title" : "aeiou",
-        "offer" : "aeiou",
-        "total" : 9.301444243932575517419536481611430644989013671875,
-        "price" : 7.061401241503109105224211816675961017608642578125,
-        "avg_rating" : 3.61607674925191080461672754609026014804840087890625,
-        "buyer_fedback" : [ "aeiou" ],
-        "currency" : "aeiou",
-        "systotal" : 5.63737665663332876420099637471139430999755859375,
-        "id" : "aeiou",
-        "avg_rating_display" : "aeiou",
-        "height" : 6.02745618307040320615897144307382404804229736328125,
-        "offer_discount_percentage" : 5.962133916683182377482808078639209270477294921875,
-        "quantity" : 1.46581298050294517310021547018550336360931396484375,
-        "paymentoption" : 0.80082819046101150206595775671303272247314453125,
-        "txid" : "aeiou",
-        "seller_fedback" : [ "aeiou" ],
-        "buyer" : "aeiou",
-        "exttxid" : "aeiou",
-        "time" : "aeiou",
-        "status" : "aeiou"
-      }
-    },
-    "OfferWhitelistEntry" : {
-      "properties" : {
-        "alias" : {
-          "type" : "string"
-        },
-        "expiresin" : {
-          "type" : "number"
-        },
-        "offer_discount_percentage" : {
-          "type" : "number"
-        }
-      },
-      "example" : {
-        "expiresin" : 0.80082819046101150206595775671303272247314453125,
-        "offer_discount_percentage" : 6.02745618307040320615897144307382404804229736328125,
-        "alias" : "aeiou"
-      }
-    },
-    "OfferHistoryEntry" : {
-      "allOf" : [ {
-        "$ref" : "#/definitions/Offer"
-      } ]
-    },
     "Offer" : {
-      "required" : [ "offer" ],
-      "discriminator" : "offer",
+      "required" : [ "_id" ],
+      "discriminator" : "_id",
       "properties" : {
-        "offer" : {
+        "_id" : {
           "type" : "string"
         },
         "cert" : {
@@ -5321,10 +4555,7 @@ var swaggerSpec =
         "txid" : {
           "type" : "string"
         },
-        "expires_in" : {
-          "type" : "number"
-        },
-        "expired_block" : {
+        "expires_on" : {
           "type" : "number"
         },
         "expired" : {
@@ -5339,26 +4570,14 @@ var swaggerSpec =
         "title" : {
           "type" : "string"
         },
-        "quantity" : {
-          "type" : "string"
-        },
         "currency" : {
           "type" : "string"
-        },
-        "sysprice" : {
-          "type" : "number"
         },
         "price" : {
           "type" : "number"
         },
-        "ismine" : {
-          "type" : "boolean"
-        },
         "commission" : {
           "type" : "number"
-        },
-        "offerlink" : {
-          "type" : "boolean"
         },
         "offerlink_guid" : {
           "type" : "string"
@@ -5366,23 +4585,20 @@ var swaggerSpec =
         "offerlink_seller" : {
           "type" : "string"
         },
-        "private" : {
-          "type" : "boolean"
-        },
-        "safesearch" : {
-          "type" : "string"
-        },
-        "safetylevel" : {
-          "type" : "number"
-        },
         "paymentoptions" : {
           "type" : "number"
         },
-        "paymentoptions_display" : {
-          "type" : "string"
+        "offer_units" : {
+          "type" : "number"
         },
-        "alias_peg" : {
-          "type" : "string"
+        "quantity" : {
+          "type" : "number"
+        },
+        "offers_sold" : {
+          "type" : "number"
+        },
+        "private" : {
+          "type" : "boolean"
         },
         "description" : {
           "type" : "string"
@@ -5393,59 +4609,209 @@ var swaggerSpec =
         "address" : {
           "type" : "string"
         },
-        "alias_rating" : {
-          "type" : "number"
-        },
-        "alias_rating_count" : {
-          "type" : "number"
-        },
-        "alias_rating_display" : {
+        "offertype" : {
           "type" : "string"
         },
-        "geolocation" : {
-          "type" : "string"
-        },
-        "offers_sold" : {
+        "auction_expires_on" : {
           "type" : "number"
         },
-        "time" : {
+        "auction_reserve_price" : {
+          "type" : "number"
+        },
+        "auction_require_witness" : {
+          "type" : "boolean"
+        },
+        "auction_deposit" : {
+          "type" : "number"
+        }
+      },
+      "example" : {
+        "auction_expires_on" : 3.61607674925191080461672754609026014804840087890625,
+        "offer_units" : 2.3021358869347654518833223846741020679473876953125,
+        "private" : true,
+        "expires_on" : 0.80082819046101150206595775671303272247314453125,
+        "offers_sold" : 9.301444243932575517419536481611430644989013671875,
+        "description" : "aeiou",
+        "cert" : "aeiou",
+        "title" : "aeiou",
+        "auction_deposit" : 4.1456080298839363962315474054776132106781005859375,
+        "expired" : true,
+        "price" : 1.46581298050294517310021547018550336360931396484375,
+        "alias" : "aeiou",
+        "currency" : "aeiou",
+        "commission" : 5.962133916683182377482808078639209270477294921875,
+        "auction_require_witness" : true,
+        "height" : 6.02745618307040320615897144307382404804229736328125,
+        "offertype" : "aeiou",
+        "quantity" : 7.061401241503109105224211816675961017608642578125,
+        "address" : "aeiou",
+        "txid" : "aeiou",
+        "offerlink_guid" : "aeiou",
+        "paymentoptions" : 5.63737665663332876420099637471139430999755859375,
+        "offerlink_seller" : "aeiou",
+        "auction_reserve_price" : 2.027123023002321833274663731572218239307403564453125,
+        "_id" : "aeiou",
+        "category" : "aeiou"
+      }
+    },
+    "OfferIndex" : {
+      "required" : [ "_id" ],
+      "discriminator" : "_id",
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "cert" : {
+          "type" : "string"
+        },
+        "height" : {
+          "type" : "number"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "price" : {
+          "type" : "number"
+        },
+        "paymentoptions" : {
+          "type" : "number"
+        },
+        "offer_units" : {
+          "type" : "number"
+        },
+        "quantity" : {
+          "type" : "number"
+        },
+        "private" : {
+          "type" : "boolean"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "offertype" : {
+          "type" : "string"
+        },
+        "auction_expires_on" : {
+          "type" : "number"
+        },
+        "auction_reserve_price" : {
+          "type" : "number"
+        }
+      },
+      "example" : {
+        "offertype" : "aeiou",
+        "auction_expires_on" : 2.3021358869347654518833223846741020679473876953125,
+        "offer_units" : 5.962133916683182377482808078639209270477294921875,
+        "private" : true,
+        "quantity" : 5.63737665663332876420099637471139430999755859375,
+        "cert" : "aeiou",
+        "title" : "aeiou",
+        "paymentoptions" : 1.46581298050294517310021547018550336360931396484375,
+        "auction_reserve_price" : 7.061401241503109105224211816675961017608642578125,
+        "price" : 6.02745618307040320615897144307382404804229736328125,
+        "alias" : "aeiou",
+        "currency" : "aeiou",
+        "_id" : "aeiou",
+        "category" : "aeiou",
+        "height" : 0.80082819046101150206595775671303272247314453125
+      }
+    },
+    "OfferHistoryIndex" : {
+      "required" : [ "_id" ],
+      "discriminator" : "_id",
+      "properties" : {
+        "_id" : {
+          "type" : "string"
+        },
+        "offer" : {
+          "type" : "string"
+        },
+        "cert" : {
+          "type" : "string"
+        },
+        "height" : {
+          "type" : "number"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "price" : {
+          "type" : "number"
+        },
+        "commission" : {
+          "type" : "number"
+        },
+        "paymentoptions" : {
+          "type" : "number"
+        },
+        "offer_units" : {
+          "type" : "number"
+        },
+        "quantity" : {
+          "type" : "number"
+        },
+        "private" : {
+          "type" : "boolean"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        },
+        "offertype" : {
+          "type" : "string"
+        },
+        "auction_expires_on" : {
+          "type" : "number"
+        },
+        "auction_reserve_price" : {
+          "type" : "number"
+        },
+        "auction_require_witness" : {
+          "type" : "boolean"
+        },
+        "auction_deposit" : {
+          "type" : "number"
+        },
+        "op" : {
           "type" : "string"
         }
       },
       "example" : {
-        "alias_peg" : "aeiou",
+        "offertype" : "aeiou",
+        "auction_expires_on" : 7.061401241503109105224211816675961017608642578125,
+        "op" : "aeiou",
+        "offer_units" : 5.63737665663332876420099637471139430999755859375,
         "private" : true,
-        "safesearch" : "aeiou",
-        "offers_sold" : 4.1456080298839363962315474054776132106781005859375,
-        "ismine" : true,
+        "quantity" : 2.3021358869347654518833223846741020679473876953125,
         "description" : "aeiou",
         "cert" : "aeiou",
-        "sysprice" : 5.962133916683182377482808078639209270477294921875,
         "title" : "aeiou",
+        "auction_deposit" : 3.61607674925191080461672754609026014804840087890625,
+        "paymentoptions" : 5.962133916683182377482808078639209270477294921875,
+        "auction_reserve_price" : 9.301444243932575517419536481611430644989013671875,
         "offer" : "aeiou",
-        "expired" : true,
-        "price" : 5.63737665663332876420099637471139430999755859375,
-        "alias_rating_count" : 2.027123023002321833274663731572218239307403564453125,
+        "price" : 6.02745618307040320615897144307382404804229736328125,
         "alias" : "aeiou",
         "currency" : "aeiou",
-        "commission" : 2.3021358869347654518833223846741020679473876953125,
-        "expires_in" : 0.80082819046101150206595775671303272247314453125,
-        "height" : 1.46581298050294517310021547018550336360931396484375,
-        "quantity" : "aeiou",
-        "address" : "aeiou",
-        "offerlink" : true,
-        "txid" : "aeiou",
-        "alias_rating" : 3.61607674925191080461672754609026014804840087890625,
-        "expired_block" : 6.02745618307040320615897144307382404804229736328125,
-        "safetylevel" : 7.061401241503109105224211816675961017608642578125,
-        "offerlink_guid" : "aeiou",
-        "paymentoptions" : 9.301444243932575517419536481611430644989013671875,
-        "paymentoptions_display" : "aeiou",
-        "offerlink_seller" : "aeiou",
-        "alias_rating_display" : "aeiou",
-        "time" : "aeiou",
+        "commission" : 1.46581298050294517310021547018550336360931396484375,
+        "_id" : "aeiou",
         "category" : "aeiou",
-        "geolocation" : "aeiou"
+        "auction_require_witness" : true,
+        "height" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "AddMultisigAddressRequest" : {
@@ -5466,103 +4832,101 @@ var swaggerSpec =
       }
     },
     "AliasNewRequest" : {
-      "required" : [ "aliasname", "aliaspeg", "publicvalue" ],
+      "required" : [ "aliasname" ],
       "properties" : {
-        "aliaspeg" : {
-          "type" : "string",
-          "description" : "Alias peg which will be used for conversion operations on all Syscoin services related to this Alias"
-        },
         "aliasname" : {
           "type" : "string",
           "description" : "Alias name"
         },
         "publicvalue" : {
           "type" : "string",
-          "description" : "Alias public profile data, 1023 chars max."
-        },
-        "password" : {
-          "type" : "string",
-          "description" : "Used to generate your public/private key that controls this alias. Warning: Calling this function over a public network can lead to someone reading your password in plain text."
-        },
-        "safesearch" : {
-          "type" : "string",
-          "description" : "set to No if this alias should only show in the search when safe search is not selected. Defaults to Yes (alias shows with or without safe search selected in search lists)."
+          "description" : "Alias public profile data, 512 characters max."
         },
         "accepttransfers" : {
           "type" : "string",
           "description" : "set to No if this alias should not allow a certificate to be transferred to it. Defaults to Yes."
         },
-        "expire" : {
+        "expire_timestamp" : {
           "type" : "string",
-          "description" : "Time in seconds. Future time when to expire alias. It is exponentially more expensive per year, calculation is FEERATE*(1.5^years). FEERATE is the dynamic satoshi per byte fee set in the rate peg alias used for this alias. Defaults to 1 year."
+          "description" : "Time in seconds. Future time when to expire alias. It is exponentially more expensive per year, calculation is FEERATE*(2.88^years). FEERATE is the dynamic satoshi per byte fee set in the rate peg alias used for this alias. Defaults to 1 year."
         },
-        "nrequired" : {
-          "type" : "number",
-          "description" : "For multisig aliases only. The number of required signatures out of the n aliases for a multisig alias update."
+        "address" : {
+          "type" : "string",
+          "description" : "Address for this alias."
         },
-        "aliases" : {
+        "encryption_privatekey" : {
+          "type" : "string",
+          "description" : "Encrypted private key used for encryption/decryption of private data related to this alias. Should be encrypted to publickey."
+        },
+        "encryption_publickey" : {
+          "type" : "string",
+          "description" : "Public key used for encryption/decryption of private data related to this alias."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
+        }
+      }
+    },
+    "AliasUpdateWhitelistRequest" : {
+      "required" : [ "entries", "owneralias" ],
+      "properties" : {
+        "owneralias" : {
+          "type" : "string",
+          "description" : "owner alias controlling this whitelist."
+        },
+        "entries" : {
           "type" : "array",
-          "description" : "For multisig aliases only. A json array of aliases which are used to sign on an update to this alias. [ \"alias\"    Existing syscoin alias name ,... ]",
+          "description" : " \"entries\"       (string) A json array of whitelist entries to add/remove/update [ \"alias\"     (string) Alias that you want to add to the affiliate whitelist. Can be * to represent that the offers owned by owner alias can be resold by anybody \"discount_percentage\"     (number) A discount percentage associated with this alias. The reseller can sell your offer at this discount, not accounting for any commissions he/she may set in his own reselling offer. 0 to 99. ,... ]",
           "items" : {
-            "type" : "string"
+            "$ref" : "#/definitions/WhitelistEntry"
           }
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
     "AliasUpdateRequest" : {
-      "required" : [ "aliasname", "aliaspeg", "publicvalue" ],
+      "required" : [ "aliasname" ],
       "properties" : {
-        "aliaspeg" : {
-          "type" : "string",
-          "description" : "Alias peg which will be used for conversion operations on all Syscoin services related to this Alias"
-        },
         "aliasname" : {
           "type" : "string",
           "description" : "Alias name"
         },
         "publicvalue" : {
           "type" : "string",
-          "description" : "Alias public profile data, 1023 chars max."
+          "description" : "Alias public profile data, 512 characters max."
         },
-        "privatevalue" : {
+        "address" : {
           "type" : "string",
-          "description" : "Alias private profile data, 1023 chars max. Will be private and readable by owner only."
-        },
-        "password" : {
-          "type" : "string",
-          "description" : "Used to generate your public/private key that controls this alias. Warning: Calling this function over a public network can lead to someone reading your password in plain text."
-        },
-        "safesearch" : {
-          "type" : "string",
-          "description" : "set to No if this alias should only show in the search when safe search is not selected. Defaults to Yes (alias shows with or without safe search selected in search lists)."
-        },
-        "toalias_pubkey" : {
-          "type" : "string",
-          "description" : "receiver syscoin alias pub key, if transferring alias."
+          "description" : "Address of alias."
         },
         "accepttransfers" : {
           "type" : "string",
-          "description" : "set to No if this alias should not allow a certificate to be transferred to it. Defaults to Yes."
+          "description" : "set to false if this alias should not allow a certificate to be transferred to it. Defaults to true."
         },
-        "expire" : {
+        "expire_timestamp" : {
           "type" : "string",
-          "description" : "Time in seconds. Future time when to expire alias. It is exponentially more expensive per year, calculation is FEERATE*(1.5^years). FEERATE is the dynamic satoshi per byte fee set in the rate peg alias used for this alias. Defaults to 1 year."
+          "description" : "Time in seconds. Future time when to expire alias. It is exponentially more expensive per year, calculation is 2.88^years. FEERATE is the dynamic satoshi per byte fee set in the rate peg alias used for this alias. Defaults to 1 year."
         },
-        "nrequired" : {
-          "type" : "number",
-          "description" : "For multisig aliases only. The number of required signatures out of the n aliases for a multisig alias update."
+        "encryption_privatekey" : {
+          "type" : "string",
+          "description" : "Encrypted private key used for encryption/decryption of private data related to this alias. If transferring, the key should be encrypted to alias_pubkey."
         },
-        "aliases" : {
-          "type" : "array",
-          "description" : "For multisig aliases only. A json array of aliases which are used to sign on an update to this alias. [ \"alias\"    Existing syscoin alias name ,... ]",
-          "items" : {
-            "type" : "string"
-          }
+        "encryption_publickey" : {
+          "type" : "string",
+          "description" : "Public key used for encryption/decryption of private data related to this alias. Useful if you are changing pub/priv keypair for encryption on this alias."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
     "CertNewRequest" : {
-      "required" : [ "alias", "private", "public", "title" ],
+      "required" : [ "alias", "public", "title" ],
       "properties" : {
         "alias" : {
           "type" : "string",
@@ -5570,23 +4934,19 @@ var swaggerSpec =
         },
         "title" : {
           "type" : "string",
-          "description" : "title, 255 bytes max."
-        },
-        "private" : {
-          "type" : "string",
-          "description" : "private data, 1024 characters max."
+          "description" : "title, 256 characters max."
         },
         "public" : {
           "type" : "string",
-          "description" : "public data, 1024 characters max."
-        },
-        "safesearch" : {
-          "type" : "string",
-          "description" : "set to No if this cert should only show in the search when safe search is not selected. Defaults to Yes (cert shows with or without safe search selected in search lists)."
+          "description" : "public data, 512 characters max."
         },
         "category" : {
           "type" : "string",
-          "description" : "category, 25 characters max. Defaults to certificates;"
+          "description" : "category, 256 characters max. Defaults to certificates;"
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
@@ -5601,63 +4961,75 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Alias to transfer this certificate to."
         },
-        "viewonly" : {
-          "type" : "boolean",
-          "description" : "Transfer the certificate as view-only. Recipient cannot edit, transfer or sell this certificate in the future."
+        "public" : {
+          "type" : "string",
+          "description" : "Public certificate data, 512 characters max."
+        },
+        "accessflags" : {
+          "type" : "string",
+          "description" : "Set new access flags for new owner for this certificate, 0 for read-only, 1 for edit, 2 for edit and transfer access."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
     "CertUpdateRequest" : {
-      "required" : [ "alias", "guid", "private", "public", "title" ],
+      "required" : [ "guid" ],
       "properties" : {
         "guid" : {
           "type" : "string",
-          "description" : "certificate guidkey."
-        },
-        "alias" : {
-          "type" : "string",
-          "description" : "an alias you own to associate with this certificate."
+          "description" : "Certificate guidkey."
         },
         "title" : {
           "type" : "string",
-          "description" : "certificate title, 255 bytes max."
-        },
-        "private" : {
-          "type" : "string",
-          "description" : "Private certificate data, 1024 characters max."
+          "description" : "Certificate title, 256 characters max."
         },
         "public" : {
           "type" : "string",
-          "description" : "Public certificate data, 1024 characters max."
-        },
-        "safesearch" : {
-          "type" : "string",
-          "description" : "set to No if this cert should only show in the search when safe search is not selected. Defaults to Yes (cert shows with or without safe search selected in search lists)."
+          "description" : "Public certificate data, 512 characters max."
         },
         "category" : {
           "type" : "string",
-          "description" : "category, 256 characters max. Defaults to certificates"
+          "description" : "Category, 256 characters max. Defaults to certificates."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
-    "EscrowClaimRefundRequest" : {
-      "required" : [ "guid" ],
+    "SendRawTransactionRequest" : {
+      "required" : [ "hexstring" ],
       "properties" : {
-        "guid" : {
+        "hexstring" : {
           "type" : "string"
         },
-        "rawtx" : {
-          "type" : "string"
+        "allowhighfees" : {
+          "type" : "boolean"
+        },
+        "instantsend" : {
+          "type" : "boolean"
         }
       }
     },
-    "EscrowClaimReleaseRequest" : {
-      "required" : [ "guid" ],
+    "EscrowCreateRawTransactionRequest" : {
+      "required" : [ "escrowguid", "inputs", "type" ],
       "properties" : {
-        "guid" : {
+        "type" : {
           "type" : "string"
         },
-        "rawtx" : {
+        "escrowguid" : {
+          "type" : "string"
+        },
+        "inputs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GetAddressUTXOsEntry"
+          }
+        },
+        "role" : {
           "type" : "string"
         }
       }
@@ -5670,6 +5042,9 @@ var swaggerSpec =
         },
         "rawtx" : {
           "type" : "string"
+        },
+        "witness" : {
+          "type" : "string"
         }
       }
     },
@@ -5681,31 +5056,83 @@ var swaggerSpec =
         },
         "rawtx" : {
           "type" : "string"
+        },
+        "witness" : {
+          "type" : "string"
         }
       }
     },
-    "EscrowNewRequest" : {
-      "required" : [ "alias", "arbiter", "message", "offer", "quantity" ],
+    "EscrowBidRequest" : {
+      "required" : [ "alias", "bid_in_offer_currency", "bid_in_payment_option", "escrow" ],
       "properties" : {
         "alias" : {
           "type" : "string",
           "description" : "An alias you own."
+        },
+        "escrow" : {
+          "type" : "string",
+          "description" : "Escrow GUID to place bid on."
+        },
+        "bid_in_payment_option" : {
+          "type" : "string",
+          "description" : "Amount to bid on offer through escrow. Bid is in payment option currency. Example, If offer is paid in SYS and you have deposited 10 SYS in escrow and would like to increase your total bid to 14 SYS enter 14 here. It is per unit of purchase."
+        },
+        "bid_in_offer_currency" : {
+          "type" : "string",
+          "description" : "Converted value of bid_in_payment_option from paymentOption currency to offer currency. For example, offer is priced in USD and purchased in BTC, this field will be the BTC/USD value. It is per unit of purchase."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
+        }
+      }
+    },
+    "EscrowNewRequest" : {
+      "required" : [ "alias", "arbiter", "buynow", "getamountandaddress", "offer", "quantity", "total_in_payment_option" ],
+      "properties" : {
+        "getamountandaddress" : {
+          "type" : "string",
+          "description" : "True or False. Get deposit and total escrow amount aswell as escrow address for funding. If buynow is false pass bid amount in bid_in_payment_option to get total needed to complete escrow. If buynow is true amount is calculated based on offer price and quantity."
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "An alias you own."
+        },
+        "arbiter" : {
+          "type" : "string",
+          "description" : "Alias of arbiter."
         },
         "offer" : {
           "type" : "string",
           "description" : "GUID of offer that this escrow is managing."
         },
         "quantity" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "Quantity of items to buy of offer."
         },
-        "message" : {
+        "buynow" : {
           "type" : "string",
-          "description" : "Delivery details to seller. 256 characters max."
+          "description" : "Specify whether the escrow involves purchasing offer for the full offer price if set to true, or through a bidding auction if set to false. If buynow is false, an initial deposit may be used to secure a bid if required by the seller."
         },
-        "arbiter" : {
+        "total_in_payment_option" : {
           "type" : "string",
-          "description" : "Alias of Arbiter."
+          "description" : "Total amount of the offer price. Amount is in paymentOption currency. It is per unit of purchase."
+        },
+        "shipping" : {
+          "type" : "string",
+          "description" : "Amount to add to shipping for merchant. Amount is in paymentOption currency. Example, If merchant requests 0.1 BTC for shipping and escrow is paid in BTC, enter 0.1 here. Default is 0. Buyer can also add shipping using escrowaddshipping upon merchant request."
+        },
+        "networkfee" : {
+          "type" : "string",
+          "description" : "Network fee in satoshi per byte for the transaction. Generally the escrow transaction is about 400 bytes. Default is 25 for SYS or ZEC and 250 for BTC payments."
+        },
+        "arbiterfee" : {
+          "type" : "string",
+          "description" : "Arbiter fee in fractional amount of the amount_in_payment_option value. For example 0.75% is 0.0075 and represents 0.0075*amount_in_payment_option satoshis paid to arbiter in the event arbiter is used to resolve a dispute. Default and minimum is 0.005."
+        },
+        "witnessfee" : {
+          "type" : "string",
+          "description" : "Witness fee in fractional amount of the amount_in_payment_option value. For example 0.3% is 0.003 and represents 0.003*amount_in_payment_option satoshis paid to witness in the event witness signs off on an escrow through any of the following calls escrownew/escrowbid/escrowrelease/escrowrefund. Default is 0."
         },
         "exttx" : {
           "type" : "string",
@@ -5715,22 +5142,30 @@ var swaggerSpec =
           "type" : "string",
           "description" : "If extTx is defined, specify a valid payment option used to make payment. Default is SYS."
         },
-        "redeemscript" : {
+        "bid_in_payment_option" : {
           "type" : "string",
-          "description" : "If paid in external chain, enter redeemScript that generateescrowmultisig returns"
+          "description" : "Initial bid amount you are willing to pay escrow for this offer. Amount is in paymentOption currency. It is per unit of purchase. If buynow is set to true, this value is disregarded."
         },
-        "height" : {
-          "type" : "number",
-          "description" : "If paid in extneral chain, enter height that generateescrowmultisig returns"
+        "bid_in_offer_currency" : {
+          "type" : "string",
+          "description" : "Converted value of bid_in_payment_option from paymentOption currency to offer currency. For example, offer is priced in USD and purchased in BTC, this field will be the BTC/USD value. If buynow is set to true, this value is disregarded."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
     "AliasPayRequest" : {
-      "required" : [ "alias", "amounts" ],
+      "required" : [ "alias", "amounts", "currency" ],
       "properties" : {
         "alias" : {
           "type" : "string",
           "description" : "Alias you own to pay from"
+        },
+        "currency" : {
+          "type" : "string",
+          "description" : "Currency to pay from"
         },
         "amounts" : {
           "type" : "string",
@@ -5818,31 +5253,6 @@ var swaggerSpec =
         }
       }
     },
-    "MessageNewRequest" : {
-      "required" : [ "fromalias", "frommessage", "subject", "toalias", "tomessage" ],
-      "properties" : {
-        "subject" : {
-          "type" : "string",
-          "description" : "Subject of message."
-        },
-        "fromalias" : {
-          "type" : "string",
-          "description" : "Alias to send message from."
-        },
-        "toalias" : {
-          "type" : "string",
-          "description" : "Alias to send message to."
-        },
-        "frommessage" : {
-          "type" : "string",
-          "description" : "Message encrypted to from alias."
-        },
-        "tomessage" : {
-          "type" : "string",
-          "description" : "Message encrypted to sending alias."
-        }
-      }
-    },
     "MoveRequest" : {
       "required" : [ "amount", "fromaccount", "toaccount" ],
       "properties" : {
@@ -5868,60 +5278,6 @@ var swaggerSpec =
         }
       }
     },
-    "OfferAcceptRequest" : {
-      "required" : [ "alias", "guid" ],
-      "properties" : {
-        "alias" : {
-          "type" : "string",
-          "description" : "An alias of the buyer."
-        },
-        "guid" : {
-          "type" : "string",
-          "description" : "guidkey from offer."
-        },
-        "quantity" : {
-          "type" : "number",
-          "description" : "quantity to buy. Defaults to 1."
-        },
-        "message" : {
-          "type" : "string",
-          "description" : "payment message to seller, 1KB max."
-        },
-        "exttxid" : {
-          "type" : "string",
-          "description" : "If paid in another coin, enter the Transaction ID here. Default is empty."
-        },
-        "paymentoption" : {
-          "type" : "string",
-          "description" : "If Ext TxId is defined, specify a valid payment option used to make payment. Default is SYS."
-        }
-      }
-    },
-    "OfferAddWhitelistRequest" : {
-      "required" : [ "aliasguid", "offerguid" ],
-      "properties" : {
-        "offerguid" : {
-          "type" : "string",
-          "description" : "offer guid that you are adding to"
-        },
-        "aliasguid" : {
-          "type" : "string",
-          "description" : "alias guid representing an alias that you want to add to the affiliate list"
-        },
-        "discountPercentage" : {
-          "type" : "number",
-          "description" : "Percentage of discount given to affiliate for this offer. 0 to 99."
-        }
-      }
-    },
-    "OfferClearWhitelistRequest" : {
-      "required" : [ "offerguid" ],
-      "properties" : {
-        "offerguid" : {
-          "type" : "string"
-        }
-      }
-    },
     "OfferLinkRequest" : {
       "required" : [ "alias", "commission", "guid" ],
       "properties" : {
@@ -5939,7 +5295,7 @@ var swaggerSpec =
         },
         "description" : {
           "type" : "string",
-          "description" : "description, 1 KB max. Defaults to original description. Leave as '' to use default."
+          "description" : "description, 512 characters max. Defaults to original description."
         }
       }
     },
@@ -5952,23 +5308,23 @@ var swaggerSpec =
         },
         "category" : {
           "type" : "string",
-          "description" : "category, 255 chars max."
+          "description" : "category, 256 characters max."
         },
         "title" : {
           "type" : "string",
-          "description" : "title, 255 chars max."
+          "description" : "title, 256 characters max."
         },
         "quantity" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "quantity, > 0 or -1 for infinite"
         },
         "price" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "price in <currency>, > 0"
         },
         "description" : {
           "type" : "string",
-          "description" : "description, 1 KB max."
+          "description" : "description, 512 characters max."
         },
         "currency" : {
           "type" : "string",
@@ -5982,33 +5338,42 @@ var swaggerSpec =
           "type" : "string",
           "description" : "'SYS' to accept SYS only, 'BTC' for BTC only, 'ZEC' for zcash only, or a |-delimited string to accept multiple currencies (e.g. 'BTC|SYS' to accept BTC or SYS). Leave empty for default. Defaults to 'SYS'."
         },
-        "geolocation" : {
-          "type" : "string",
-          "description" : "set to your geolocation. Defaults to empty."
-        },
-        "safesearch" : {
-          "type" : "string",
-          "description" : "set to No if this offer should only show in the search when safe search is not selected. Defaults to Yes (offer shows with or without safe search selected in search lists)."
-        },
         "private" : {
-          "type" : "boolean",
-          "description" : "set to 1 if this offer should be private not be searchable. Defaults to 0."
-        }
-      }
-    },
-    "OfferRemoveWhitelistRequest" : {
-      "required" : [ "aliasguid", "offerguid" ],
-      "properties" : {
-        "offerguid" : {
-          "type" : "string"
+          "type" : "string",
+          "description" : "set to true if this offer should be private not be searchable. Defaults to false."
         },
-        "aliasguid" : {
-          "type" : "string"
+        "units" : {
+          "type" : "string",
+          "description" : "Units that 1 qty represents. For example if selling 1 BTC."
+        },
+        "offertype" : {
+          "type" : "string",
+          "description" : "Options of how an offer is sold. 'BUYNOW' for regular Buy It Now offer, 'AUCTION' to auction this offer while providing auction_expires/auction_reserve/auction_require_witness parameters, 'COIN' for offers selling cryptocurrency, or a | -delimited string to create an offer with multiple options(e.g. 'BUYNOW|AUCTION' to create an offer that is sold through an auction but has Buy It Now enabled as well).Leave empty for default. Defaults to 'BUYNOW'."
+        },
+        "auction_expires" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION, Datetime of expiration of an auction. Once merchant creates an offer as an auction, the expiry must be non-zero. The auction parameters will not be updateable until an auction expires."
+        },
+        "auction_reserve" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION, Reserve price of an offer publicly. Bids must be of higher price than the reserve price. Any bid below the reserve price will be rejected by consensus checks in escrow. Default is 0."
+        },
+        "auction_require_witness" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION, Require a witness signature for bids of an offer, or release/refund of an escrow funds in an auction for the offer. Set to true if you wish to require witness signature. Default is false."
+        },
+        "auction_deposit" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION. If you require a deposit for each bidder to ensure stake to bidders set this to a percentage of the offer price required to place deposit when doing an initial bid. For Example, 1% of the offer price would be 0.01. Default is 0."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
     "OfferUpdateRequest" : {
-      "required" : [ "alias", "category", "guid", "price", "quantity", "title" ],
+      "required" : [ "alias", "guid" ],
       "properties" : {
         "alias" : {
           "type" : "string",
@@ -6020,51 +5385,67 @@ var swaggerSpec =
         },
         "category" : {
           "type" : "string",
-          "description" : "category, 255 chars max."
+          "description" : "category, 256 characters max."
         },
         "title" : {
           "type" : "string",
-          "description" : "title, 255 chars max."
+          "description" : "title, 256 characters max."
         },
         "quantity" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "quantity, > 0 or -1 for infinite"
         },
         "price" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "price in <currency>, > 0"
         },
         "description" : {
           "type" : "string",
-          "description" : "description, 1 KB max."
+          "description" : "description, 512 characters max."
         },
         "currency" : {
           "type" : "string",
           "description" : "The currency code that you want your offer to be in ie USD."
         },
         "private" : {
-          "type" : "boolean",
-          "description" : "set to 1 if this offer should be private not be searchable. Defaults to 0."
+          "type" : "string",
+          "description" : "set to true if this offer should be private not be searchable. Defaults to false."
         },
         "certguid" : {
           "type" : "string",
           "description" : "Set this to the guid of a certificate you wish to sell"
         },
-        "geolocation" : {
-          "type" : "string",
-          "description" : "set to your geolocation. Defaults to empty."
-        },
-        "safesearch" : {
-          "type" : "string",
-          "description" : "set to No if this offer should only show in the search when safe search is not selected. Defaults to Yes (offer shows with or without safe search selected in search lists)."
-        },
         "commission" : {
-          "type" : "number",
+          "type" : "string",
           "description" : "For resold offers."
         },
         "paymentoptions" : {
           "type" : "string",
           "description" : "'SYS' to accept SYS only, 'BTC' for BTC only, 'ZEC' for zcash only, or a |-delimited string to accept multiple currencies (e.g. 'BTC|SYS' to accept BTC or SYS). Leave empty for default. Defaults to 'SYS'."
+        },
+        "offertype" : {
+          "type" : "string",
+          "description" : "Options of how an offer is sold. 'BUYNOW' for regular Buy It Now offer, 'AUCTION' to auction this offer while providing auction_expires/auction_reserve/auction_require_witness parameters, 'COIN' for offers selling cryptocurrency, or a | -delimited string to create an offer with multiple options(e.g. 'BUYNOW|AUCTION' to create an offer that is sold through an auction but has Buy It Now enabled as well).Leave empty for default. Defaults to 'BUYNOW'."
+        },
+        "auction_expires" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION, Datetime of expiration of an auction. Once merchant creates an offer as an auction, the expiry must be non-zero. The auction parameters will not be updateable until an auction expires."
+        },
+        "auction_reserve" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION, Reserve price of an offer publicly. Bids must be of higher price than the reserve price. Any bid below the reserve price will be rejected by consensus checks in escrow. Default is 0."
+        },
+        "auction_require_witness" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION, Require a witness signature for bids of an offer, or release/refund of an escrow funds in an auction for the offer. Set to true if you wish to require witness signature. Default is false."
+        },
+        "auction_deposit" : {
+          "type" : "string",
+          "description" : "If offerType is AUCTION. If you require a deposit for each bidder to ensure stake to bidders set this to a percentage of the offer price required to place deposit when doing an initial bid. For Example, 1% of the offer price would be 0.01. Default is 0."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
       }
     },
@@ -6086,6 +5467,10 @@ var swaggerSpec =
         "minconf" : {
           "type" : "number",
           "description" : "Only use funds with at least this many confirmations."
+        },
+        "addlockconf" : {
+          "type" : "boolean",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend"
         },
         "comment" : {
           "type" : "string",
@@ -6112,6 +5497,10 @@ var swaggerSpec =
           "type" : "number",
           "description" : "Only use the balance confirmed at least this many times."
         },
+        "addlockconf" : {
+          "type" : "boolean",
+          "description" : "Whether to add 5 confirmations to transactions locked via InstantSend"
+        },
         "comment" : {
           "type" : "string",
           "description" : "A comment used to store what the transaction is for. This is not part of the transaction, just kept in your wallet."
@@ -6119,6 +5508,14 @@ var swaggerSpec =
         "subtractfeefromamount" : {
           "type" : "string",
           "description" : "A json array with addresses. The fee will be equally deducted from the amount of each selected address. Those recipients will receive less syscoins than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee. [ \"address\" Subtract fee from this address,... ]"
+        },
+        "use_is" : {
+          "type" : "string",
+          "description" : "Send this transaction as InstantSend (default, false)."
+        },
+        "use_ps" : {
+          "type" : "string",
+          "description" : "Use anonymized funds only (default, false)."
         }
       }
     },
@@ -6144,6 +5541,14 @@ var swaggerSpec =
         "subtractfeefromamount" : {
           "type" : "string",
           "description" : "The fee will be deducted from the amount being sent. The recipient will receive less syscoins than you enter in the amount field."
+        },
+        "use_is" : {
+          "type" : "string",
+          "description" : "Send this transaction as InstantSend (default, false)."
+        },
+        "use_ps" : {
+          "type" : "string",
+          "description" : "Use anonymized funds only (default, false)."
         }
       }
     },
@@ -6186,64 +5591,25 @@ var swaggerSpec =
         }
       }
     },
-    "MultiSignatureInfo" : {
-      "required" : [ "redeemscript", "reqsigners", "reqsigs" ],
-      "properties" : {
-        "reqsigs" : {
-          "type" : "number"
-        },
-        "reqsigners" : {
-          "type" : "string"
-        },
-        "redeemscript" : {
-          "type" : "string"
-        }
-      },
-      "example" : {
-        "reqsigners" : "aeiou",
-        "reqsigs" : 7.3862819483858839220147274318151175975799560546875,
-        "redeemscript" : "aeiou"
-      }
-    },
     "EscrowFeedbackRequest" : {
-      "required" : [ "escrowguid", "feedbackprimary", "feedbacksecondary", "ratingprimary", "ratingsecondary", "userrole" ],
+      "required" : [ "escrowguid", "feedback", "rating", "userfrom", "userto" ],
       "properties" : {
         "escrowguid" : {
           "type" : "string"
         },
-        "userrole" : {
+        "userfrom" : {
           "type" : "string"
         },
-        "feedbackprimary" : {
+        "feedback" : {
           "type" : "string"
         },
-        "ratingprimary" : {
-          "type" : "number"
-        },
-        "feedbacksecondary" : {
+        "rating" : {
           "type" : "string"
         },
-        "ratingsecondary" : {
-          "type" : "number"
-        }
-      }
-    },
-    "GenerateEscrowMultisigRequest" : {
-      "required" : [ "arbiter", "buyer", "offerguid", "quantity" ],
-      "properties" : {
-        "buyer" : {
+        "userto" : {
           "type" : "string"
         },
-        "offerguid" : {
-          "type" : "string"
-        },
-        "quantity" : {
-          "type" : "number"
-        },
-        "arbiter" : {
-          "type" : "string"
-        },
-        "paymentoption" : {
+        "witness" : {
           "type" : "string"
         }
       }
@@ -6322,7 +5688,7 @@ var swaggerSpec =
         },
         "nonce" : {
           "type" : "number",
-          "description" : "﻿The nonce"
+          "description" : "The nonce"
         },
         "bits" : {
           "type" : "string",
@@ -6330,15 +5696,15 @@ var swaggerSpec =
         },
         "difficulty" : {
           "type" : "number",
-          "description" : "﻿The difficulty"
+          "description" : "The difficulty"
         },
         "chainwork" : {
           "type" : "string",
-          "description" : "﻿Expected number of hashes required to produce the chain up to this block (in hex)"
+          "description" : "Expected number of hashes required to produce the chain up to this block (in hex)"
         },
         "previousblockhash" : {
           "type" : "string",
-          "description" : "﻿The hash of the previous block"
+          "description" : "The hash of the previous block"
         },
         "nextblockhash" : {
           "type" : "string",
@@ -6452,23 +5818,15 @@ var swaggerSpec =
       }
     },
     "StoreDataRequest" : {
-      "required" : [ "data", "dataType" ],
+      "required" : [ "data" ],
       "properties" : {
-        "existingDataId" : {
-          "type" : "string",
-          "description" : "Identifier for existing data to update."
-        },
-        "dataType" : {
-          "type" : "string",
-          "description" : "The type of data being stored, ie: 'aliasdata'."
-        },
         "data" : {
           "type" : "string",
           "description" : "The data to be stored on the decentralized storage facility. Max size 500kb."
         },
         "storeLocations" : {
           "type" : "array",
-          "description" : "Array of data warehousing facilities to use to store the data, valid values: BFAZURE.",
+          "description" : "Array of data warehousing facilities to use to store the data, valid values: BFAZURE",
           "items" : {
             "type" : "string"
           }
@@ -6590,6 +5948,50 @@ var swaggerSpec =
         "proxy_randomize_credentials" : true,
         "name" : "aeiou",
         "reachable" : true
+      }
+    },
+    "WhitelistEntry" : {
+      "properties" : {
+        "alias" : {
+          "type" : "string"
+        },
+        "discount_percentage" : {
+          "type" : "number"
+        }
+      },
+      "example" : {
+        "alias" : "aeiou",
+        "discount_percentage" : 0.80082819046101150206595775671303272247314453125
+      }
+    },
+    "GetAddressUTXOsEntry" : {
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "txid" : {
+          "type" : "string"
+        },
+        "outputIndex" : {
+          "type" : "number"
+        },
+        "script" : {
+          "type" : "string"
+        },
+        "satoshis" : {
+          "type" : "number"
+        },
+        "height" : {
+          "type" : "number"
+        }
+      },
+      "example" : {
+        "outputIndex" : 0.80082819046101150206595775671303272247314453125,
+        "address" : "aeiou",
+        "txid" : "aeiou",
+        "script" : "aeiou",
+        "satoshis" : 6.02745618307040320615897144307382404804229736328125,
+        "height" : 1.46581298050294517310021547018550336360931396484375
       }
     }
   }
