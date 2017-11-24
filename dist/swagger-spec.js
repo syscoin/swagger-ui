@@ -3157,6 +3157,300 @@ var swaggerSpec =
         } ]
       },
       "x-swagger-router-controller" : "rpc"
+    },
+    "/privatesend" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Anonymous mixing and sending coins.",
+        "operationId" : "privatesend",
+        "parameters" : [ {
+          "name" : "command",
+          "in" : "query",
+          "description" : "'start' - Start Mixing\n'stop' - Stop mixing\n'reset' - Reset mixing\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/getpoolinfo" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Returns an object containing mixing pool related information",
+        "operationId" : "getpoolinfo",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/PoolInfoResponse"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/masternode" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Set of commands to execute masternode related actions.",
+        "operationId" : "masternode",
+        "parameters" : [ {
+          "name" : "command",
+          "in" : "query",
+          "description" : "'count' - Print number of all known masternodes (optional 'ps', 'enabled', 'all', 'qualify')\n'current' - Print info on current masternode winner to be paid the next block (calculated locally)\n'debug' - Print masternode status\n'genkey' - Generate new masternodeprivkey\n'outputs' - Print masternode compatible outputs\n'start' - Start local Hot masternode configured in syscoin.conf\n'start-alias' - Start single remote masternode by assigned alias configured in masternode.conf\n'start-[mode]' - Start remote masternodes configured in masternode.conf ([mode] can be one of 'all', 'missing', or 'disabled')\n'status' - Print masternode status information\n'list' - Print list of all known masternodes (see masternodelist for more info)\n'list-conf' - Print masternode.conf in JSON format\n'winner' - Print info on next masternode winner to vote for\n'winners'- Print list of masternode winners         \n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/masternodelist" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Get a list of masternodes in different modes.",
+        "operationId" : "masternodelist",
+        "parameters" : [ {
+          "name" : "mode",
+          "in" : "query",
+          "description" : "(optional/required to use filter, defaults = status) The mode to run list in\n'activeseconds' - Print number of seconds masternode recognized by the network as enabled (since latest issued \\\"masternode start/start-many/start-alias\\\")\n'addr' - Print ip address associated with a masternode (can be additionally filtered, partial match)\n'full' - Print info in format 'status protocol payee lastseen activeseconds lastpaidtime lastpaidblock IP' (can be additionally filtered, partial match)\n'info' - Print info in format 'status protocol payee lastseen activeseconds sentinelversion sentinelstate IP' (can be additionally filtered, partial match)\n'lastpaidblock' - Print the last block height a node was paid on the network\n'lastpaidtime' - Print the last time a node was paid on the network\n'lastseen' - Print timestamp of when a masternode was last seen on the network\n'payee' - Print Syscoin address associated with a masternode (can be additionally filtered,partial match)\n'protocol' - Print protocol of a masternode (can be additionally filtered, exact match)\n'pubkey' - Print the masternode (not collateral) public key\n'rank' - Print rank of a masternode based on current block\n'status' - Print masternode status PRE_ENABLED / ENABLED / EXPIRED / WATCHDOG_EXPIRED / NEW_START_REQUIRED / UPDATE_REQUIRED / POSE_BAN / OUTPOINT_SPENT (can be additionally filtered, partial match)\n",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/masternodebroadcast" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Set of commands to create and relay masternode broadcast messages.",
+        "operationId" : "masternodebroadcast",
+        "parameters" : [ {
+          "name" : "command",
+          "in" : "query",
+          "description" : "'create-alias' - Create single remote masternode broadcast message by assigned alias configured in masternode.conf\n'create-all' - Create remote masternode broadcast messages for all masternodes configured in masternode.conf\n'decode' - Decode masternode broadcast message\n'relay' - Relay masternode broadcast message to the network\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/sentinelping" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Keep-alive message for masternode via TCP ping requests.",
+        "operationId" : "sentinelping",
+        "parameters" : [ {
+          "name" : "version",
+          "in" : "query",
+          "description" : "Sentinel version in the form 'x.x.x'",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/gobject" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Manage governance objects.",
+        "operationId" : "gobject",
+        "parameters" : [ {
+          "name" : "command",
+          "in" : "query",
+          "description" : "'check' - Validate governance object data (proposal only)\n'prepare' - Prepare governance object by signing and creating tx\n'submit' - Submit governance object to network\n'deserialize' - Deserialize governance object from hex string to JSON\n'count' - Count governance objects and votes\n'get' - Get governance object by hash\n'getvotes' - Get all votes for a governance object hash (including old votes)\n'getcurrentvotes' - Get only current (tallying) votes for a governance object hash (does not include old votes)\n'list' - List governance objects (can be filtered by signal and/or object type)\n'diff' - List differences since last diff\n'vote-alias' - Vote on a governance object by masternode alias (using masternode.conf setup)\n'vote-conf' - Vote on a governance object by masternode configured in syscoin.conf\n'vote-many'- Vote on a governance object by all masternodes (using masternode.conf setup)    \n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/voteraw" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Compile and relay a governance vote with provided external signature instead of signing vote internally.",
+        "operationId" : "voteraw",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/VoteRawRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/getgovernanceinfo" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Returns an object containing governance parameters",
+        "operationId" : "getgovernanceinfo",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/GovernanceInfoResponse"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/getsuperblockbudget" : {
+      "post" : {
+        "tags" : [ "Masternodes" ],
+        "description" : "Returns the absolute maximum sum of superblock payments allowed.",
+        "operationId" : "getsuperblockbudget",
+        "parameters" : [ {
+          "name" : "height",
+          "in" : "query",
+          "description" : "Block height to check for superblock budget",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
     }
   },
   "securityDefinitions" : {
@@ -5253,31 +5547,6 @@ var swaggerSpec =
         }
       }
     },
-    "MoveRequest" : {
-      "required" : [ "amount", "fromaccount", "toaccount" ],
-      "properties" : {
-        "fromaccount" : {
-          "type" : "string",
-          "description" : "The name of the account to move funds from. May be the default account using \"\"."
-        },
-        "toaccount" : {
-          "type" : "string",
-          "description" : "The name of the account to move funds to. May be the default account using \"\"."
-        },
-        "amount" : {
-          "type" : "number",
-          "description" : "Quantity of SYS to move between accounts."
-        },
-        "minconf" : {
-          "type" : "string",
-          "description" : "Only use funds with at least this many confirmations."
-        },
-        "comment" : {
-          "type" : "string",
-          "description" : "An optional comment, stored in the wallet only."
-        }
-      }
-    },
     "OfferLinkRequest" : {
       "required" : [ "alias", "commission", "guid" ],
       "properties" : {
@@ -5992,6 +6261,104 @@ var swaggerSpec =
         "script" : "aeiou",
         "satoshis" : 6.02745618307040320615897144307382404804229736328125,
         "height" : 1.46581298050294517310021547018550336360931396484375
+      }
+    },
+    "PoolInfoResponse" : {
+      "properties" : {
+        "state" : {
+          "type" : "string"
+        },
+        "mixing_mode" : {
+          "type" : "string"
+        },
+        "queue" : {
+          "type" : "number"
+        },
+        "entries" : {
+          "type" : "number"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "outpoint" : {
+          "type" : "string"
+        },
+        "addr" : {
+          "type" : "string"
+        },
+        "keys_left" : {
+          "type" : "string"
+        },
+        "warnings" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "mixing_mode" : "aeiou",
+        "entries" : 6.02745618307040320615897144307382404804229736328125,
+        "warnings" : "aeiou",
+        "state" : "aeiou",
+        "addr" : "aeiou",
+        "queue" : 0.80082819046101150206595775671303272247314453125,
+        "outpoint" : "aeiou",
+        "status" : "aeiou",
+        "keys_left" : "aeiou"
+      }
+    },
+    "VoteRawRequest" : {
+      "required" : [ "governance-hash", "masternode-tx-hash", "masternode-tx-index", "time", "vote-outcome", "vote-sig", "vote-signal" ],
+      "properties" : {
+        "masternode-tx-hash" : {
+          "type" : "string"
+        },
+        "masternode-tx-index" : {
+          "type" : "string"
+        },
+        "governance-hash" : {
+          "type" : "string"
+        },
+        "vote-signal" : {
+          "type" : "string"
+        },
+        "vote-outcome" : {
+          "type" : "string"
+        },
+        "time" : {
+          "type" : "number"
+        },
+        "vote-sig" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GovernanceInfoResponse" : {
+      "properties" : {
+        "governanceminquorum" : {
+          "type" : "number"
+        },
+        "masternodewatchdogmaxseconds" : {
+          "type" : "number"
+        },
+        "proposalfee" : {
+          "type" : "number"
+        },
+        "superblockcycle" : {
+          "type" : "number"
+        },
+        "lastsuperblock" : {
+          "type" : "number"
+        },
+        "nextsuperblock" : {
+          "type" : "number"
+        }
+      },
+      "example" : {
+        "nextsuperblock" : 2.3021358869347654518833223846741020679473876953125,
+        "proposalfee" : 1.46581298050294517310021547018550336360931396484375,
+        "lastsuperblock" : 5.63737665663332876420099637471139430999755859375,
+        "masternodewatchdogmaxseconds" : 6.02745618307040320615897144307382404804229736328125,
+        "governanceminquorum" : 0.80082819046101150206595775671303272247314453125,
+        "superblockcycle" : 5.962133916683182377482808078639209270477294921875
       }
     }
   }
