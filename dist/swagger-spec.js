@@ -284,7 +284,7 @@ var swaggerSpec =
       "x-swagger-router-controller" : "rpc"
     },
     "/validateaddress" : {
-      "post" : {
+      "get" : {
         "tags" : [ "General" ],
         "description" : "Return information about the given syscoin address.",
         "operationId" : "validateaddress",
@@ -3898,7 +3898,7 @@ var swaggerSpec =
       "x-swagger-router-controller" : "rpc"
     },
     "/syscoindecoderawtransaction" : {
-      "post" : {
+      "get" : {
         "tags" : [ "General" ],
         "description" : "Decode raw syscoin transaction (serialized, hex-encoded) and display information pertaining to the service that is included in the transactiion data output(OP_RETURN)",
         "operationId" : "syscoindecoderawtransaction",
@@ -3934,7 +3934,7 @@ var swaggerSpec =
       "x-swagger-router-controller" : "rpc"
     },
     "/syscoinsignrawtransaction" : {
-      "post" : {
+      "get" : {
         "tags" : [ "General" ],
         "description" : "Sign inputs for raw transaction (serialized, hex-encoded) and sends them out to the network if signing is complete",
         "operationId" : "syscoinsignrawtransaction",
