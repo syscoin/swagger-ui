@@ -2,7 +2,7 @@ var swaggerSpec =
 {
   "swagger" : "2.0",
   "info" : {
-    "version" : "1.1.2",
+    "version" : "1.1.4",
     "title" : "Syscoin API"
   },
   "host" : "localhost:8001",
