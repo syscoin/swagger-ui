@@ -10,12 +10,17 @@ import auth from "core/plugins/auth"
 import util from "core/plugins/util"
 import SplitPaneModePlugin from "core/plugins/split-pane-mode"
 import downloadUrlPlugin from "core/plugins/download-url"
+import configsPlugin from "plugins/configs"
+import deepLinkingPlugin from "core/plugins/deep-linking"
+
+import OperationContainer from "core/containers/OperationContainer"
 
 import App from "core/components/app"
 import AuthorizationPopup from "core/components/auth/authorization-popup"
 import AuthorizeBtn from "core/components/auth/authorize-btn"
 import AuthorizeOperationBtn from "core/components/auth/authorize-operation-btn"
 import Auths from "core/components/auth/auths"
+import AuthItem from "core/components/auth/auth-item"
 import AuthError from "core/components/auth/error"
 import ApiKeyAuth from "core/components/auth/api-key-auth"
 import BasicAuth from "core/components/auth/basic-auth"
@@ -41,10 +46,20 @@ import Footer from "core/components/footer"
 import ParamBody from "core/components/param-body"
 import Curl from "core/components/curl"
 import Schemes from "core/components/schemes"
+import ModelCollapse from "core/components/model-collapse"
 import ModelExample from "core/components/model-example"
+import ModelWrapper from "core/components/model-wrapper"
 import Model from "core/components/model"
 import Models from "core/components/models"
+import EnumModel from "core/components/enum-model"
+import ObjectModel from "core/components/object-model"
+import ArrayModel from "core/components/array-model"
+import PrimitiveModel from "core/components/primitive-model"
+import Property from "core/components/property"
 import TryItOutButton from "core/components/try-it-out-button"
+import VersionStamp from "core/components/version-stamp"
+
+import Markdown from "core/components/providers/markdown"
 
 import BaseLayout from "core/components/layouts/base"
 
@@ -60,6 +75,7 @@ export default function() {
       authorizeBtn: AuthorizeBtn,
       authorizeOperationBtn: AuthorizeOperationBtn,
       auths: Auths,
+      AuthItem: AuthItem,
       authError: AuthError,
       oauth2: Oauth2,
       apiKeyAuth: ApiKeyAuth,
@@ -86,10 +102,20 @@ export default function() {
       curl: Curl,
       schemes: Schemes,
       modelExample: ModelExample,
-      model: Model,
-      models: Models,
+      ModelWrapper,
+      ModelCollapse,
+      Model,
+      Models,
+      EnumModel,
+      ObjectModel,
+      ArrayModel,
+      PrimitiveModel,
+      Property,
       TryItOutButton,
-      BaseLayout
+      Markdown,
+      BaseLayout,
+      VersionStamp,
+      OperationContainer
     }
   }
 
@@ -102,6 +128,7 @@ export default function() {
   }
 
   return [
+    configsPlugin,
     util,
     logs,
     view,
@@ -116,6 +143,7 @@ export default function() {
     auth,
     ast,
     SplitPaneModePlugin,
-    downloadUrlPlugin
+    downloadUrlPlugin,
+    deepLinkingPlugin
   ]
 }

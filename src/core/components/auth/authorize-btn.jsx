@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 
 export default class AuthorizeBtn extends React.Component {
   static propTypes = {
@@ -24,7 +25,7 @@ export default class AuthorizeBtn extends React.Component {
         <button className={isAuthorized ? "btn authorize locked" : "btn authorize unlocked"} onClick={ this.onClick }>
           <span>Authorize</span>
           <svg width="20" height="20">
-            <use xlinkHref={ isAuthorized ? "#locked" : "#unlocked" } />
+            <use href={ isAuthorized ? "#locked" : "#unlocked" } xlinkHref={ isAuthorized ? "#locked" : "#unlocked" } />
           </svg>
         </button>
       { showPopup && <AuthorizationPopup /> }

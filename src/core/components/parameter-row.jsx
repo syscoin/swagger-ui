@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from "react"
+import React, { Component } from "react"
+import { Map } from "immutable"
+import PropTypes from "prop-types"
 import win from "core/window"
-
 
 export default class ParameterRow extends Component {
   static propTypes = {
@@ -11,7 +12,8 @@ export default class ParameterRow extends Component {
     isExecute: PropTypes.bool,
     onChangeConsumes: PropTypes.func.isRequired,
     specSelectors: PropTypes.object.isRequired,
-    pathMethod: PropTypes.array.isRequired
+    pathMethod: PropTypes.array.isRequired,
+    getConfigs: PropTypes.func.isRequired
   }
 
   constructor(props, context) {
@@ -19,7 +21,7 @@ export default class ParameterRow extends Component {
 
     let { specSelectors, pathMethod, param } = props
     let defaultValue = param.get("default")
-    let parameter = specSelectors.getParameter(pathMethod, param.get("name"))
+    let parameter = specSelectors.getParameter(pathMethod, param.get("name"), param.get("in"))
     let value = parameter ? parameter.get("value") : ""
     if ( defaultValue !== undefined && value === undefined ) {
       this.onChangeWrapper(defaultValue)
@@ -28,11 +30,21 @@ export default class ParameterRow extends Component {
 
   componentWillReceiveProps(props) {
     let { specSelectors, pathMethod, param } = props
+    let { isOAS3 } = specSelectors
+
     let example = param.get("example")
     let defaultValue = param.get("default")
-    let parameter = specSelectors.getParameter(pathMethod, param.get("name"))
+    let parameter = specSelectors.getParameter(pathMethod, param.get("name"), param.get("in"))
+    let enumValue
+
+    if(isOAS3()) {
+      let schema = param.get("schema") || Map()
+      enumValue = schema.get("enum")
+    } else {
+      enumValue = parameter ? parameter.get("enum") : undefined
+    }
     let paramValue = parameter ? parameter.get("value") : undefined
-    let enumValue = parameter ? parameter.get("enum") : undefined
+
     let value
 
     if ( paramValue !== undefined ) {
@@ -56,7 +68,9 @@ export default class ParameterRow extends Component {
   }
 
   render() {
-    let {param, onChange, getComponent, isExecute, fn, onChangeConsumes, specSelectors, pathMethod} = this.props
+    let {param, onChange, getComponent, getConfigs, isExecute, fn, onChangeConsumes, specSelectors, pathMethod} = this.props
+
+    let { isOAS3 } = specSelectors
 
     // const onChangeWrapper = (value) => onChange(param, value)
     const JsonSchemaForm = getComponent("JsonSchemaForm")
@@ -79,12 +93,12 @@ export default class ParameterRow extends Component {
     const Markdown = getComponent("Markdown")
 
     let schema = param.get("schema")
-
+    let type = isOAS3 && isOAS3() ? param.getIn(["schema", "type"]) : param.get("type")
     let isFormData = inType === "formData"
     let isFormDataSupported = "FormData" in win
     let required = param.get("required")
-    let itemType = param.getIn(["items", "type"])
-    let parameter = specSelectors.getParameter(pathMethod, param.get("name"))
+    let itemType = param.getIn(isOAS3 && isOAS3() ? ["schema", "items", "type"] : ["items", "type"])
+    let parameter = specSelectors.getParameter(pathMethod, param.get("name"), param.get("in"))
     let value = parameter ? parameter.get("value") : ""
 
     return (
@@ -94,13 +108,15 @@ export default class ParameterRow extends Component {
             { param.get("name") }
             { !required ? null : <span style={{color: "red"}}>&nbsp;*</span> }
           </div>
-          <div className="parаmeter__type">{ param.get("type") } { itemType && `[${itemType}]` }</div>
+          <div className="parameter__type">{ type } { itemType && `[${itemType}]` }</div>
+          <div className="parameter__deprecated">
+            { isOAS3 && isOAS3() && param.get("deprecated") ? "deprecated": null }
+          </div>
           <div className="parameter__in">({ param.get("in") })</div>
         </td>
 
         <td className="col parameters-col_description">
-          <Markdown options={{html: true, typographer: true, linkify: true, linkTarget: "_blank"}}
-                    source={ param.get("description") }/>
+          <Markdown source={ param.get("description") }/>
           {(isFormData && !isFormDataSupported) && <div>Error: your browser does not support FormData</div>}
 
           { bodyParam || !isExecute ? null
@@ -110,12 +126,13 @@ export default class ParameterRow extends Component {
                               required={ required }
                               description={param.get("description") ? `${param.get("name")} - ${param.get("description")}` : `${param.get("name")}`}
                               onChange={ this.onChangeWrapper }
-                              schema={ param }/>
+                              schema={ isOAS3 && isOAS3() ? param.get("schema") : param }/>
           }
 
 
           {
             bodyParam && schema ? <ModelExample getComponent={ getComponent }
+                                                getConfigs={ getConfigs }
                                                 isExecute={ isExecute }
                                                 specSelectors={ specSelectors }
                                                 schema={ schema }

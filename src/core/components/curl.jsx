@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import curlify from "core/curlify"
 
 export default class Curl extends React.Component {
@@ -19,7 +20,7 @@ export default class Curl extends React.Component {
       <div>
         <h4>Curl</h4>
         <div className="copy-paste">
-          <textarea onFocus={this.handleFocus} className="curl" style={{ whiteSpace: "normal" }} value={curl}></textarea>
+          <textarea onFocus={this.handleFocus} readOnly="true" className="curl" style={{ whiteSpace: "normal" }} value={curl}></textarea>
         </div>
       </div>
     )

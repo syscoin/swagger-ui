@@ -11,20 +11,32 @@
   <style>
     html
     {
-        box-sizing: border-box;
-        overflow: -moz-scrollbars-vertical;
-        overflow-y: scroll;
+      box-sizing: border-box;
+      overflow: -moz-scrollbars-vertical;
+      overflow-y: scroll;
     }
     *,
     *:before,
     *:after
     {
-        box-sizing: inherit;
+      box-sizing: inherit;
     }
 
     body {
       margin:0;
       background: #fafafa;
+    }
+
+    /* force scrollbar back */
+    ::-webkit-scrollbar {
+      -webkit-appearance: normal;
+      width: 7px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0,0,0,.5);
+      -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
     }
   </style>
 </head>
@@ -72,10 +84,12 @@
 <script src="./swagger-spec.js"> </script>
 <script>
 window.onload = function() {
+
   // Build a system
   const ui = SwaggerUIBundle({
     spec: swaggerSpec,
     dom_id: '#swagger-ui',
+    deepLinking: true,
     presets: [
       SwaggerUIBundle.presets.apis,
       SwaggerUIStandalonePreset
