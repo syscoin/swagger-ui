@@ -2594,7 +2594,7 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Account"
+                "$ref" : "#/definitions/ListReceivedByAddress"
               }
             }
           },
