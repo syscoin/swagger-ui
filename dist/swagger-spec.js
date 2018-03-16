@@ -61,34 +61,14 @@ var swaggerSpec =
     "/syscoinlistreceivebyaddress" : {
       "get" : {
         "tags" : [ "General" ],
-        "description" : "TBD",
+        "description" : "Returns all addresses and balances associated with address",
         "operationId" : "syscoinlistreceivebyaddress",
-        "parameters" : [ {
-          "name" : "address",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "balance",
-          "in" : "query",
-          "required" : true,
-          "type" : "number"
-        }, {
-          "name" : "label",
-          "in" : "query",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "alias",
-          "in" : "query",
-          "required" : true,
-          "type" : "string"
-        } ],
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "Success",
             "schema" : {
-              "$ref" : "#/definitions/GetBlockResponse"
+              "$ref" : "#/definitions/SyscoinAddressEntry"
             }
           },
           "default" : {
@@ -6929,6 +6909,28 @@ var swaggerSpec =
         "confirmations" : 6.02745618307040320615897144307382404804229736328125,
         "account" : "account",
         "txids" : [ "txids", "txids" ]
+      }
+    },
+    "SyscoinAddressEntry" : {
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "balance" : {
+          "type" : "number"
+        },
+        "label" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "address" : "address",
+        "balance" : 0.80082819046101150206595775671303272247314453125,
+        "alias" : "alias",
+        "label" : "label"
       }
     }
   }
