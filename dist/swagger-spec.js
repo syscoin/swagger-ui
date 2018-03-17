@@ -1,4 +1,4 @@
-var swaggerSpec =
+var swaggerSpec = 
 {
   "swagger" : "2.0",
   "info" : {
@@ -68,7 +68,10 @@ var swaggerSpec =
           "200" : {
             "description" : "Success",
             "schema" : {
-              "$ref" : "#/definitions/SyscoinAddressEntry"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SyscoinAddressEntry"
+              }
             }
           },
           "default" : {
@@ -87,7 +90,7 @@ var swaggerSpec =
     "/getblock" : {
       "get" : {
         "tags" : [ "General" ],
-        "description" : "?If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'. If verbose is true, returns an Object with information about block <hash>.",
+        "description" : "﻿If verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'. If verbose is true, returns an Object with information about block <hash>.",
         "operationId" : "getblock",
         "parameters" : [ {
           "name" : "hash",
@@ -468,7 +471,7 @@ var swaggerSpec =
         }, {
           "name" : "minconf",
           "in" : "query",
-          "description" : "?Only include transactions confirmed at least this many times. default=1.",
+          "description" : "﻿Only include transactions confirmed at least this many times. default=1.",
           "required" : false,
           "type" : "number"
         } ],
@@ -1822,35 +1825,6 @@ var swaggerSpec =
             "$ref" : "#/definitions/GenerateEscrowMultisigRequest"
           }
         } ],
-        "responses" : {
-          "200" : {
-            "description" : "Success",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Error",
-            "schema" : {
-              "$ref" : "#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "security" : [ {
-          "token" : [ ]
-        } ]
-      },
-      "x-swagger-router-controller" : "rpc"
-    },
-    "/generatepublickey" : {
-      "get" : {
-        "tags" : [ "General" ],
-        "description" : "Generates a public key for a wallet.",
-        "operationId" : "generatepublickey",
-        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "Success",
@@ -4143,13 +4117,13 @@ var swaggerSpec =
         "unlocked_until" : 4.1456080298839363962315474054776132106781005859375,
         "paytxfee" : 7.3862819483858839220147274318151175975799560546875,
         "difficulty" : 9.301444243932575517419536481611430644989013671875,
-        "proxy" : "proxy",
+        "proxy" : "aeiou",
         "walletversion" : 1.46581298050294517310021547018550336360931396484375,
         "balance" : 5.962133916683182377482808078639209270477294921875,
         "keypoololdest" : 3.61607674925191080461672754609026014804840087890625,
         "testnet" : true,
         "connections" : 7.061401241503109105224211816675961017608642578125,
-        "errors" : "errors"
+        "errors" : "aeiou"
       }
     },
     "MiningInfo" : {
@@ -4202,7 +4176,7 @@ var swaggerSpec =
       },
       "example" : {
         "difficulty" : 5.962133916683182377482808078639209270477294921875,
-        "chain" : "chain",
+        "chain" : "aeiou",
         "currentblocktx" : 1.46581298050294517310021547018550336360931396484375,
         "blocks" : 0.80082819046101150206595775671303272247314453125,
         "networkhashps" : 2.3021358869347654518833223846741020679473876953125,
@@ -4211,7 +4185,7 @@ var swaggerSpec =
         "testnet" : true,
         "pooledtx" : 7.061401241503109105224211816675961017608642578125,
         "generate" : true,
-        "errors" : "errors"
+        "errors" : "aeiou"
       }
     },
     "PeerInfoResponse" : {
@@ -4402,14 +4376,14 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "address" : "address",
+        "address" : "aeiou",
         "isscript" : true,
         "iscompressed" : true,
         "ismine" : true,
         "isvalid" : true,
         "iswatchonly" : true,
-        "account" : "account",
-        "pubkey" : "pubkey"
+        "account" : "aeiou",
+        "pubkey" : "aeiou"
       }
     },
     "ErrorResponse" : {
@@ -4513,39 +4487,39 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "alias_peg" : "alias_peg",
-        "buyer_rating_display" : "buyer_rating_display",
-        "seller_rating_display" : "seller_rating_display",
+        "alias_peg" : "aeiou",
+        "buyer_rating_display" : "aeiou",
+        "seller_rating_display" : "aeiou",
         "lastupdate_height" : 3.61607674925191080461672754609026014804840087890625,
-        "safesearch" : "safesearch",
+        "safesearch" : "aeiou",
         "expires_on" : 4.1456080298839363962315474054776132106781005859375,
         "pending" : true,
         "ismine" : true,
         "buyer_ratingcount" : 5.962133916683182377482808078639209270477294921875,
         "arbiter_ratingcount" : 9.301444243932575517419536481611430644989013671875,
-        "password" : "password",
+        "password" : "aeiou",
         "expired" : true,
         "balance" : 0.80082819046101150206595775671303272247314453125,
-        "arbiter_rating_display" : "arbiter_rating_display",
+        "arbiter_rating_display" : "aeiou",
         "seller_ratingcount" : 2.3021358869347654518833223846741020679473876953125,
-        "value" : "value",
+        "value" : "aeiou",
         "expires_in" : 2.027123023002321833274663731572218239307403564453125,
         "multisiginfo" : {
-          "reqsigners" : "reqsigners",
+          "reqsigners" : "aeiou",
           "reqsigs" : 7.3862819483858839220147274318151175975799560546875,
-          "redeemscript" : "redeemscript"
+          "redeemscript" : "aeiou"
         },
         "buyer_rating" : 1.46581298050294517310021547018550336360931396484375,
-        "address" : "address",
-        "txid" : "txid",
+        "address" : "aeiou",
+        "txid" : "aeiou",
         "seller_rating" : 5.63737665663332876420099637471139430999755859375,
-        "privatevalue" : "privatevalue",
+        "privatevalue" : "aeiou",
         "safetylevel" : 6.02745618307040320615897144307382404804229736328125,
-        "acceptcerttransfers" : "acceptcerttransfers",
+        "acceptcerttransfers" : "aeiou",
         "arbiter_rating" : 7.061401241503109105224211816675961017608642578125,
-        "name" : "name",
-        "time" : "time",
-        "pubkey" : "pubkey"
+        "name" : "aeiou",
+        "time" : "aeiou",
+        "pubkey" : "aeiou"
       }
     },
     "AliasHistoryEntry" : {
@@ -4605,20 +4579,20 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "data" : "data",
-        "safesearch" : "safesearch",
+        "data" : "aeiou",
+        "safesearch" : "aeiou",
         "expires_on" : 5.962133916683182377482808078639209270477294921875,
-        "txid" : "txid",
-        "ismine" : "ismine",
-        "cert" : "cert",
+        "txid" : "aeiou",
+        "ismine" : "aeiou",
+        "cert" : "aeiou",
         "safetylevel" : 6.02745618307040320615897144307382404804229736328125,
-        "transferviewonly" : "transferviewonly",
-        "title" : "title",
-        "pubdata" : "pubdata",
+        "transferviewonly" : "aeiou",
+        "title" : "aeiou",
+        "pubdata" : "aeiou",
         "expired" : true,
-        "alias" : "alias",
-        "time" : "time",
-        "category" : "category",
+        "alias" : "aeiou",
+        "time" : "aeiou",
+        "category" : "aeiou",
         "expires_in" : 1.46581298050294517310021547018550336360931396484375,
         "height" : 0.80082819046101150206595775671303272247314453125
       }
@@ -4749,42 +4723,42 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "escrowtype" : "escrowtype",
-        "seller" : "seller",
+        "escrowtype" : "aeiou",
+        "seller" : "aeiou",
         "sysfee" : 6.02745618307040320615897144307382404804229736328125,
-        "pay_message" : "pay_message",
-        "fee" : "fee",
-        "redeem_txid" : "redeem_txid",
-        "offer" : "offer",
-        "total" : "total",
-        "paymemntoption_display" : "paymemntoption_display",
+        "pay_message" : "aeiou",
+        "fee" : "aeiou",
+        "redeem_txid" : "aeiou",
+        "offer" : "aeiou",
+        "total" : "aeiou",
+        "paymemntoption_display" : "aeiou",
         "expired" : 5.63737665663332876420099637471139430999755859375,
-        "arbiter_feedback" : [ "arbiter_feedback", "arbiter_feedback" ],
-        "price" : "price",
+        "arbiter_feedback" : [ "aeiou" ],
+        "price" : "aeiou",
         "avg_rating" : 2.027123023002321833274663731572218239307403564453125,
-        "escrow" : "escrow",
+        "escrow" : "aeiou",
         "systotal" : 0.80082819046101150206595775671303272247314453125,
-        "currency" : "currency",
-        "escrowaddress" : "escrowaddress",
-        "avg_rating_display" : "avg_rating_display",
+        "currency" : "aeiou",
+        "escrowaddress" : "aeiou",
+        "avg_rating_display" : "aeiou",
         "totalwithfee" : 1.46581298050294517310021547018550336360931396484375,
-        "height" : "height",
+        "height" : "aeiou",
         "avg_seller_feedback" : 7.061401241503109105224211816675961017608642578125,
-        "quantity" : "quantity",
+        "quantity" : "aeiou",
         "paymentoption" : 5.962133916683182377482808078639209270477294921875,
-        "txid" : "txid",
-        "offerlink_seller" : "offerlink_seller",
-        "buyer" : "buyer",
-        "arbiter" : "arbiter",
+        "txid" : "aeiou",
+        "offerlink_seller" : "aeiou",
+        "buyer" : "aeiou",
+        "arbiter" : "aeiou",
         "avg_arbiter_rating" : 9.301444243932575517419536481611430644989013671875,
-        "exttxid" : "exttxid",
-        "seller_feedback" : [ "seller_feedback", "seller_feedback" ],
-        "offertitle" : "offertitle",
+        "exttxid" : "aeiou",
+        "seller_feedback" : [ "aeiou" ],
+        "offertitle" : "aeiou",
         "avg_buyer_rating" : 2.3021358869347654518833223846741020679473876953125,
-        "time" : "time",
-        "buyer_feedback" : [ "buyer_feedback", "buyer_feedback" ],
+        "time" : "aeiou",
+        "buyer_feedback" : [ "aeiou" ],
         "avg_rating_count" : 3.61607674925191080461672754609026014804840087890625,
-        "status" : "status"
+        "status" : "aeiou"
       }
     },
     "EscrowRefundRequest" : {
@@ -4799,11 +4773,6 @@ var swaggerSpec =
         "rawtx" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "escrowguid" : "escrowguid",
-        "rawtx" : "rawtx",
-        "userrole" : "userrole"
       }
     },
     "EscrowReleaseRequest" : {
@@ -4818,11 +4787,6 @@ var swaggerSpec =
         "rawtx" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "escrowguid" : "escrowguid",
-        "rawtx" : "rawtx",
-        "userrole" : "userrole"
       }
     },
     "Transaction" : {
@@ -4871,27 +4835,20 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "amount" : "amount",
-        "blockhash" : "blockhash",
+        "amount" : "aeiou",
+        "blockhash" : "aeiou",
         "timereceived" : 5.63737665663332876420099637471139430999755859375,
         "blocktime" : 1.46581298050294517310021547018550336360931396484375,
-        "txid" : "txid",
+        "txid" : "aeiou",
         "details" : [ {
           "amount" : 2.3021358869347654518833223846741020679473876953125,
-          "address" : "address",
-          "label" : "label",
-          "category" : "category",
-          "account" : "account",
-          "vout" : 7.061401241503109105224211816675961017608642578125
-        }, {
-          "amount" : 2.3021358869347654518833223846741020679473876953125,
-          "address" : "address",
-          "label" : "label",
-          "category" : "category",
-          "account" : "account",
+          "address" : "aeiou",
+          "label" : "aeiou",
+          "category" : "aeiou",
+          "account" : "aeiou",
           "vout" : 7.061401241503109105224211816675961017608642578125
         } ],
-        "hex" : "hex",
+        "hex" : "aeiou",
         "time" : 5.962133916683182377482808078639209270477294921875,
         "confirmations" : 0.80082819046101150206595775671303272247314453125,
         "blockindex" : 6.02745618307040320615897144307382404804229736328125
@@ -4926,10 +4883,10 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 2.3021358869347654518833223846741020679473876953125,
-        "address" : "address",
-        "label" : "label",
-        "category" : "category",
-        "account" : "account",
+        "address" : "aeiou",
+        "label" : "aeiou",
+        "category" : "aeiou",
+        "account" : "aeiou",
         "vout" : 7.061401241503109105224211816675961017608642578125
       }
     },
@@ -5001,8 +4958,8 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
-        "syscoinaddress" : "syscoinaddress",
-        "account" : "account"
+        "syscoinaddress" : "aeiou",
+        "account" : "aeiou"
       }
     },
     "Account" : {
@@ -5031,9 +4988,9 @@ var swaggerSpec =
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
         "involvesWatchonly" : true,
-        "label" : "label",
+        "label" : "aeiou",
         "confirmations" : 6.02745618307040320615897144307382404804229736328125,
-        "account" : "account"
+        "account" : "aeiou"
       }
     },
     "ListSinceBlockResponse" : {
@@ -5050,41 +5007,24 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "lastblock" : "lastblock",
+        "lastblock" : "aeiou",
         "transactions" : [ {
           "amount" : 0.80082819046101150206595775671303272247314453125,
-          "address" : "address",
+          "address" : "aeiou",
           "fee" : 1.46581298050294517310021547018550336360931396484375,
-          "txid" : "txid",
-          "label" : "label",
+          "txid" : "aeiou",
+          "label" : "aeiou",
           "confirmations" : 5.962133916683182377482808078639209270477294921875,
           "vout" : 6.02745618307040320615897144307382404804229736328125,
-          "blockhash" : "blockhash",
+          "blockhash" : "aeiou",
           "timereceived" : 9.301444243932575517419536481611430644989013671875,
           "blocktime" : 2.3021358869347654518833223846741020679473876953125,
-          "comment" : "comment",
+          "comment" : "aeiou",
           "time" : 7.061401241503109105224211816675961017608642578125,
-          "to" : "to",
-          "category" : "category",
+          "to" : "aeiou",
+          "category" : "aeiou",
           "blockindex" : 5.63737665663332876420099637471139430999755859375,
-          "account" : "account"
-        }, {
-          "amount" : 0.80082819046101150206595775671303272247314453125,
-          "address" : "address",
-          "fee" : 1.46581298050294517310021547018550336360931396484375,
-          "txid" : "txid",
-          "label" : "label",
-          "confirmations" : 5.962133916683182377482808078639209270477294921875,
-          "vout" : 6.02745618307040320615897144307382404804229736328125,
-          "blockhash" : "blockhash",
-          "timereceived" : 9.301444243932575517419536481611430644989013671875,
-          "blocktime" : 2.3021358869347654518833223846741020679473876953125,
-          "comment" : "comment",
-          "time" : 7.061401241503109105224211816675961017608642578125,
-          "to" : "to",
-          "category" : "category",
-          "blockindex" : 5.63737665663332876420099637471139430999755859375,
-          "account" : "account"
+          "account" : "aeiou"
         } ]
       }
     },
@@ -5157,21 +5097,21 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
-        "address" : "address",
+        "address" : "aeiou",
         "fee" : 1.46581298050294517310021547018550336360931396484375,
-        "txid" : "txid",
-        "label" : "label",
+        "txid" : "aeiou",
+        "label" : "aeiou",
         "confirmations" : 5.962133916683182377482808078639209270477294921875,
         "vout" : 6.02745618307040320615897144307382404804229736328125,
-        "blockhash" : "blockhash",
+        "blockhash" : "aeiou",
         "timereceived" : 9.301444243932575517419536481611430644989013671875,
         "blocktime" : 2.3021358869347654518833223846741020679473876953125,
-        "comment" : "comment",
+        "comment" : "aeiou",
         "time" : 7.061401241503109105224211816675961017608642578125,
-        "to" : "to",
-        "category" : "category",
+        "to" : "aeiou",
+        "category" : "aeiou",
         "blockindex" : 5.63737665663332876420099637471139430999755859375,
-        "account" : "account"
+        "account" : "aeiou"
       }
     },
     "TransactionListEntry" : {
@@ -5263,7 +5203,7 @@ var swaggerSpec =
         "timereceived" : 7.061401241503109105224211816675961017608642578125,
         "trusted" : true,
         "blocktime" : 5.63737665663332876420099637471139430999755859375,
-        "comment" : "comment",
+        "comment" : "aeiou",
         "time" : 2.3021358869347654518833223846741020679473876953125,
         "category" : "aeiou",
         "blockindex" : 5.962133916683182377482808078639209270477294921875,
@@ -5295,13 +5235,13 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "subject" : "subject",
-        "GUID" : "GUID",
-        "txid" : "txid",
-        "from" : "from",
+        "subject" : "aeiou",
+        "GUID" : "aeiou",
+        "txid" : "aeiou",
+        "from" : "aeiou",
         "time" : 0.80082819046101150206595775671303272247314453125,
-        "to" : "to",
-        "message" : "message"
+        "to" : "aeiou",
+        "message" : "aeiou"
       }
     },
     "OfferAccept" : {
@@ -5389,31 +5329,31 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "seller" : "seller",
-        "paymentoption_display" : "paymentoption_display",
-        "pay_message" : "pay_message",
+        "seller" : "aeiou",
+        "paymentoption_display" : "aeiou",
+        "pay_message" : "aeiou",
         "ismine" : true,
         "sysprice" : 2.3021358869347654518833223846741020679473876953125,
-        "title" : "title",
-        "offer" : "offer",
+        "title" : "aeiou",
+        "offer" : "aeiou",
         "total" : 9.301444243932575517419536481611430644989013671875,
         "price" : 7.061401241503109105224211816675961017608642578125,
         "avg_rating" : 3.61607674925191080461672754609026014804840087890625,
-        "buyer_fedback" : [ "buyer_fedback", "buyer_fedback" ],
-        "currency" : "currency",
+        "buyer_fedback" : [ "aeiou" ],
+        "currency" : "aeiou",
         "systotal" : 5.63737665663332876420099637471139430999755859375,
-        "id" : "id",
-        "avg_rating_display" : "avg_rating_display",
+        "id" : "aeiou",
+        "avg_rating_display" : "aeiou",
         "height" : 6.02745618307040320615897144307382404804229736328125,
         "offer_discount_percentage" : 5.962133916683182377482808078639209270477294921875,
         "quantity" : 1.46581298050294517310021547018550336360931396484375,
         "paymentoption" : 0.80082819046101150206595775671303272247314453125,
-        "txid" : "txid",
-        "seller_fedback" : [ "seller_fedback", "seller_fedback" ],
-        "buyer" : "buyer",
-        "exttxid" : "exttxid",
-        "time" : "time",
-        "status" : "status"
+        "txid" : "aeiou",
+        "seller_fedback" : [ "aeiou" ],
+        "buyer" : "aeiou",
+        "exttxid" : "aeiou",
+        "time" : "aeiou",
+        "status" : "aeiou"
       }
     },
     "OfferWhitelistEntry" : {
@@ -5431,7 +5371,7 @@ var swaggerSpec =
       "example" : {
         "expiresin" : 0.80082819046101150206595775671303272247314453125,
         "offer_discount_percentage" : 6.02745618307040320615897144307382404804229736328125,
-        "alias" : "alias"
+        "alias" : "aeiou"
       }
     },
     "OfferHistoryEntry" : {
@@ -5544,39 +5484,39 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "alias_peg" : "alias_peg",
+        "alias_peg" : "aeiou",
         "private" : true,
-        "safesearch" : "safesearch",
+        "safesearch" : "aeiou",
         "offers_sold" : 4.1456080298839363962315474054776132106781005859375,
         "ismine" : true,
-        "description" : "description",
-        "cert" : "cert",
+        "description" : "aeiou",
+        "cert" : "aeiou",
         "sysprice" : 5.962133916683182377482808078639209270477294921875,
-        "title" : "title",
-        "offer" : "offer",
+        "title" : "aeiou",
+        "offer" : "aeiou",
         "expired" : true,
         "price" : 5.63737665663332876420099637471139430999755859375,
         "alias_rating_count" : 2.027123023002321833274663731572218239307403564453125,
-        "alias" : "alias",
-        "currency" : "currency",
+        "alias" : "aeiou",
+        "currency" : "aeiou",
         "commission" : 2.3021358869347654518833223846741020679473876953125,
         "expires_in" : 0.80082819046101150206595775671303272247314453125,
         "height" : 1.46581298050294517310021547018550336360931396484375,
-        "quantity" : "quantity",
-        "address" : "address",
+        "quantity" : "aeiou",
+        "address" : "aeiou",
         "offerlink" : true,
-        "txid" : "txid",
+        "txid" : "aeiou",
         "alias_rating" : 3.61607674925191080461672754609026014804840087890625,
         "expired_block" : 6.02745618307040320615897144307382404804229736328125,
         "safetylevel" : 7.061401241503109105224211816675961017608642578125,
-        "offerlink_guid" : "offerlink_guid",
+        "offerlink_guid" : "aeiou",
         "paymentoptions" : 9.301444243932575517419536481611430644989013671875,
-        "paymentoptions_display" : "paymentoptions_display",
-        "offerlink_seller" : "offerlink_seller",
-        "alias_rating_display" : "alias_rating_display",
-        "time" : "time",
-        "category" : "category",
-        "geolocation" : "geolocation"
+        "paymentoptions_display" : "aeiou",
+        "offerlink_seller" : "aeiou",
+        "alias_rating_display" : "aeiou",
+        "time" : "aeiou",
+        "category" : "aeiou",
+        "geolocation" : "aeiou"
       }
     },
     "AddMultisigAddressRequest" : {
@@ -5594,11 +5534,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "DEPRECATED. An account to assign the addresses to."
         }
-      },
-      "example" : {
-        "nrequired" : 0.80082819046101150206595775671303272247314453125,
-        "keysobject" : "keysobject",
-        "account" : "account"
       }
     },
     "AliasNewRequest" : {
@@ -5643,17 +5578,6 @@ var swaggerSpec =
             "type" : "string"
           }
         }
-      },
-      "example" : {
-        "aliasname" : "aliasname",
-        "publicvalue" : "publicvalue",
-        "password" : "password",
-        "aliases" : [ "aliases", "aliases" ],
-        "nrequired" : 0.80082819046101150206595775671303272247314453125,
-        "safesearch" : "safesearch",
-        "expire" : "expire",
-        "accepttransfers" : "accepttransfers",
-        "aliaspeg" : "aliaspeg"
       }
     },
     "AliasUpdateRequest" : {
@@ -5706,19 +5630,6 @@ var swaggerSpec =
             "type" : "string"
           }
         }
-      },
-      "example" : {
-        "toalias_pubkey" : "toalias_pubkey",
-        "aliasname" : "aliasname",
-        "publicvalue" : "publicvalue",
-        "password" : "password",
-        "aliases" : [ "aliases", "aliases" ],
-        "nrequired" : 0.80082819046101150206595775671303272247314453125,
-        "safesearch" : "safesearch",
-        "expire" : "expire",
-        "privatevalue" : "privatevalue",
-        "accepttransfers" : "accepttransfers",
-        "aliaspeg" : "aliaspeg"
       }
     },
     "CertNewRequest" : {
@@ -5748,14 +5659,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "category, 25 characters max. Defaults to certificates;"
         }
-      },
-      "example" : {
-        "private" : "private",
-        "public" : "public",
-        "safesearch" : "safesearch",
-        "alias" : "alias",
-        "title" : "title",
-        "category" : "category"
       }
     },
     "CertTransferRequest" : {
@@ -5773,11 +5676,6 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Transfer the certificate as view-only. Recipient cannot edit, transfer or sell this certificate in the future."
         }
-      },
-      "example" : {
-        "viewonly" : true,
-        "certkey" : "certkey",
-        "alias" : "alias"
       }
     },
     "CertUpdateRequest" : {
@@ -5811,15 +5709,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "category, 256 characters max. Defaults to certificates"
         }
-      },
-      "example" : {
-        "private" : "private",
-        "public" : "public",
-        "safesearch" : "safesearch",
-        "guid" : "guid",
-        "alias" : "alias",
-        "title" : "title",
-        "category" : "category"
       }
     },
     "EscrowClaimRefundRequest" : {
@@ -5831,10 +5720,6 @@ var swaggerSpec =
         "rawtx" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "rawtx" : "rawtx",
-        "guid" : "guid"
       }
     },
     "EscrowClaimReleaseRequest" : {
@@ -5846,10 +5731,6 @@ var swaggerSpec =
         "rawtx" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "rawtx" : "rawtx",
-        "guid" : "guid"
       }
     },
     "EscrowCompleteRefundRequest" : {
@@ -5861,10 +5742,6 @@ var swaggerSpec =
         "rawtx" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "escrowguid" : "escrowguid",
-        "rawtx" : "rawtx"
       }
     },
     "EscrowCompleteReleaseRequest" : {
@@ -5876,10 +5753,6 @@ var swaggerSpec =
         "rawtx" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "escrowguid" : "escrowguid",
-        "rawtx" : "rawtx"
       }
     },
     "EscrowNewRequest" : {
@@ -5921,17 +5794,6 @@ var swaggerSpec =
           "type" : "number",
           "description" : "If paid in extneral chain, enter height that generateescrowmultisig returns"
         }
-      },
-      "example" : {
-        "offer" : "offer",
-        "arbiter" : "arbiter",
-        "exttx" : "exttx",
-        "quantity" : 0.80082819046101150206595775671303272247314453125,
-        "paymentoption" : "paymentoption",
-        "alias" : "alias",
-        "message" : "message",
-        "redeemscript" : "redeemscript",
-        "height" : 6.02745618307040320615897144307382404804229736328125
       }
     },
     "AliasPayRequest" : {
@@ -5953,12 +5815,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "A comment"
         }
-      },
-      "example" : {
-        "amounts" : "amounts",
-        "minconf" : 0.80082819046101150206595775671303272247314453125,
-        "alias" : "alias",
-        "comment" : "comment"
       }
     },
     "GetNewAddressRequest" : {
@@ -5967,9 +5823,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "DEPRECATED. The account name for the address to be linked to. If not provided, the default account \"\" is used. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created if there is no account by the given name."
         }
-      },
-      "example" : {
-        "account" : "account"
       }
     },
     "ImportAddressRequest" : {
@@ -5991,12 +5844,6 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Add the P2SH version of the script as well"
         }
-      },
-      "example" : {
-        "p2sh" : true,
-        "label" : "label",
-        "rescan" : true,
-        "script" : "script"
       }
     },
     "ImportPrivKeyRequest" : {
@@ -6014,11 +5861,6 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Rescan the wallet for transactions"
         }
-      },
-      "example" : {
-        "syscoinprivkey" : "syscoinprivkey",
-        "label" : "label",
-        "rescan" : true
       }
     },
     "ImportPubKeyRequest" : {
@@ -6036,11 +5878,6 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Rescan the wallet for transactions"
         }
-      },
-      "example" : {
-        "label" : "label",
-        "rescan" : true,
-        "pubkey" : "pubkey"
       }
     },
     "ImportWalletRequest" : {
@@ -6050,9 +5887,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The wallet file"
         }
-      },
-      "example" : {
-        "filename" : "filename"
       }
     },
     "MessageNewRequest" : {
@@ -6078,13 +5912,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Message encrypted to sending alias."
         }
-      },
-      "example" : {
-        "fromalias" : "fromalias",
-        "toalias" : "toalias",
-        "tomessage" : "tomessage",
-        "subject" : "subject",
-        "frommessage" : "frommessage"
       }
     },
     "MoveRequest" : {
@@ -6110,13 +5937,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "An optional comment, stored in the wallet only."
         }
-      },
-      "example" : {
-        "fromaccount" : "fromaccount",
-        "amount" : 0.80082819046101150206595775671303272247314453125,
-        "minconf" : "minconf",
-        "toaccount" : "toaccount",
-        "comment" : "comment"
       }
     },
     "OfferAcceptRequest" : {
@@ -6146,14 +5966,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "If Ext TxId is defined, specify a valid payment option used to make payment. Default is SYS."
         }
-      },
-      "example" : {
-        "quantity" : 0.80082819046101150206595775671303272247314453125,
-        "exttxid" : "exttxid",
-        "paymentoption" : "paymentoption",
-        "alias" : "alias",
-        "guid" : "guid",
-        "message" : "message"
       }
     },
     "OfferAddWhitelistRequest" : {
@@ -6171,11 +5983,6 @@ var swaggerSpec =
           "type" : "number",
           "description" : "Percentage of discount given to affiliate for this offer. 0 to 99."
         }
-      },
-      "example" : {
-        "discountPercentage" : 0.80082819046101150206595775671303272247314453125,
-        "offerguid" : "offerguid",
-        "aliasguid" : "aliasguid"
       }
     },
     "OfferClearWhitelistRequest" : {
@@ -6184,9 +5991,6 @@ var swaggerSpec =
         "offerguid" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "offerguid" : "offerguid"
       }
     },
     "OfferLinkRequest" : {
@@ -6208,12 +6012,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "description, 1 KB max. Defaults to original description. Leave as '' to use default."
         }
-      },
-      "example" : {
-        "alias" : "alias",
-        "guid" : "guid",
-        "description" : "description",
-        "commission" : "commission"
       }
     },
     "OfferNewRequest" : {
@@ -6267,20 +6065,6 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "set to 1 if this offer should be private not be searchable. Defaults to 0."
         }
-      },
-      "example" : {
-        "private" : true,
-        "quantity" : 0.80082819046101150206595775671303272247314453125,
-        "price" : 6.02745618307040320615897144307382404804229736328125,
-        "safesearch" : "safesearch",
-        "certguid" : "certguid",
-        "alias" : "alias",
-        "description" : "description",
-        "currency" : "currency",
-        "category" : "category",
-        "title" : "title",
-        "paymentoptions" : "paymentoptions",
-        "geolocation" : "geolocation"
       }
     },
     "OfferRemoveWhitelistRequest" : {
@@ -6292,10 +6076,6 @@ var swaggerSpec =
         "aliasguid" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "offerguid" : "offerguid",
-        "aliasguid" : "aliasguid"
       }
     },
     "OfferUpdateRequest" : {
@@ -6357,22 +6137,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "'SYS' to accept SYS only, 'BTC' for BTC only, 'ZEC' for zcash only, or a |-delimited string to accept multiple currencies (e.g. 'BTC|SYS' to accept BTC or SYS). Leave empty for default. Defaults to 'SYS'."
         }
-      },
-      "example" : {
-        "private" : true,
-        "quantity" : 0.80082819046101150206595775671303272247314453125,
-        "safesearch" : "safesearch",
-        "certguid" : "certguid",
-        "description" : "description",
-        "title" : "title",
-        "paymentoptions" : "paymentoptions",
-        "price" : 6.02745618307040320615897144307382404804229736328125,
-        "alias" : "alias",
-        "guid" : "guid",
-        "currency" : "currency",
-        "commission" : 1.46581298050294517310021547018550336360931396484375,
-        "category" : "category",
-        "geolocation" : "geolocation"
       }
     },
     "SendFromRequest" : {
@@ -6402,14 +6166,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "An optional comment to store the name of the person or organization to which you're sending the transaction. This is not part of the transaction, it is just kept in your wallet."
         }
-      },
-      "example" : {
-        "fromaccount" : "fromaccount",
-        "amount" : 0.80082819046101150206595775671303272247314453125,
-        "minconf" : 6.02745618307040320615897144307382404804229736328125,
-        "commentto" : "commentto",
-        "comment" : "comment",
-        "tosyscoinaddress" : "tosyscoinaddress"
       }
     },
     "SendManyRequest" : {
@@ -6435,13 +6191,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "A json array with addresses. The fee will be equally deducted from the amount of each selected address. Those recipients will receive less syscoins than you enter in their corresponding amount field. If no addresses are specified here, the sender pays the fee. [ \"address\" Subtract fee from this address,... ]"
         }
-      },
-      "example" : {
-        "fromaccount" : "fromaccount",
-        "amounts" : "amounts",
-        "minconf" : 0.80082819046101150206595775671303272247314453125,
-        "comment" : "comment",
-        "subtractfeefromamount" : "subtractfeefromamount"
       }
     },
     "SendToAddressRequest" : {
@@ -6467,13 +6216,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The fee will be deducted from the amount being sent. The recipient will receive less syscoins than you enter in the amount field."
         }
-      },
-      "example" : {
-        "amount" : 0.80082819046101150206595775671303272247314453125,
-        "syscoinaddress" : "syscoinaddress",
-        "commentto" : "commentto",
-        "comment" : "comment",
-        "subtractfeefromamount" : "subtractfeefromamount"
       }
     },
     "SignMessageRequest" : {
@@ -6487,10 +6229,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The message to create a signature of."
         }
-      },
-      "example" : {
-        "syscoinaddress" : "syscoinaddress",
-        "message" : "message"
       }
     },
     "WalletPassphraseRequest" : {
@@ -6504,10 +6242,6 @@ var swaggerSpec =
           "type" : "number",
           "description" : "The time to keep the decryption key in seconds."
         }
-      },
-      "example" : {
-        "passphrase" : "passphrase",
-        "timeout" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "WalletPassphraseChangeRequest" : {
@@ -6521,10 +6255,6 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The new passphrase"
         }
-      },
-      "example" : {
-        "oldpassphrase" : "oldpassphrase",
-        "newpassphrase" : "newpassphrase"
       }
     },
     "MultiSignatureInfo" : {
@@ -6541,9 +6271,9 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "reqsigners" : "reqsigners",
+        "reqsigners" : "aeiou",
         "reqsigs" : 7.3862819483858839220147274318151175975799560546875,
-        "redeemscript" : "redeemscript"
+        "redeemscript" : "aeiou"
       }
     },
     "EscrowFeedbackRequest" : {
@@ -6567,14 +6297,6 @@ var swaggerSpec =
         "ratingsecondary" : {
           "type" : "number"
         }
-      },
-      "example" : {
-        "feedbacksecondary" : "feedbacksecondary",
-        "ratingprimary" : 0.80082819046101150206595775671303272247314453125,
-        "escrowguid" : "escrowguid",
-        "ratingsecondary" : 6.02745618307040320615897144307382404804229736328125,
-        "feedbackprimary" : "feedbackprimary",
-        "userrole" : "userrole"
       }
     },
     "GenerateEscrowMultisigRequest" : {
@@ -6595,13 +6317,6 @@ var swaggerSpec =
         "paymentoption" : {
           "type" : "string"
         }
-      },
-      "example" : {
-        "arbiter" : "arbiter",
-        "quantity" : 0.80082819046101150206595775671303272247314453125,
-        "offerguid" : "offerguid",
-        "paymentoption" : "paymentoption",
-        "buyer" : "buyer"
       }
     },
     "LoginResponse" : {
@@ -6619,8 +6334,8 @@ var swaggerSpec =
       },
       "example" : {
         "success" : true,
-        "message" : "message",
-        "token" : "token"
+        "message" : "aeiou",
+        "token" : "aeiou"
       }
     },
     "GetBlockResponse" : {
@@ -6678,7 +6393,7 @@ var swaggerSpec =
         },
         "nonce" : {
           "type" : "number",
-          "description" : "?The nonce"
+          "description" : "﻿The nonce"
         },
         "bits" : {
           "type" : "string",
@@ -6686,15 +6401,15 @@ var swaggerSpec =
         },
         "difficulty" : {
           "type" : "number",
-          "description" : "?The difficulty"
+          "description" : "﻿The difficulty"
         },
         "chainwork" : {
           "type" : "string",
-          "description" : "?Expected number of hashes required to produce the chain up to this block (in hex)"
+          "description" : "﻿Expected number of hashes required to produce the chain up to this block (in hex)"
         },
         "previousblockhash" : {
           "type" : "string",
-          "description" : "?The hash of the previous block"
+          "description" : "﻿The hash of the previous block"
         },
         "nextblockhash" : {
           "type" : "string",
@@ -6706,24 +6421,24 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "tx" : [ "tx", "tx" ],
+        "tx" : [ "aeiou" ],
         "mediantime" : 9.301444243932575517419536481611430644989013671875,
-        "data" : "data",
-        "previousblockhash" : "previousblockhash",
-        "bits" : "bits",
+        "data" : "aeiou",
+        "previousblockhash" : "aeiou",
+        "bits" : "aeiou",
         "weight" : 5.962133916683182377482808078639209270477294921875,
-        "versionHex" : "versionHex",
+        "versionHex" : "aeiou",
         "confirmations" : 0.80082819046101150206595775671303272247314453125,
         "version" : 2.3021358869347654518833223846741020679473876953125,
         "nonce" : 3.61607674925191080461672754609026014804840087890625,
-        "nextblockhash" : "nextblockhash",
+        "nextblockhash" : "aeiou",
         "difficulty" : 2.027123023002321833274663731572218239307403564453125,
-        "chainwork" : "chainwork",
+        "chainwork" : "aeiou",
         "size" : 6.02745618307040320615897144307382404804229736328125,
-        "merkleroot" : "merkleroot",
+        "merkleroot" : "aeiou",
         "strippedsize" : 1.46581298050294517310021547018550336360931396484375,
         "time" : 7.061401241503109105224211816675961017608642578125,
-        "hash" : "hash",
+        "hash" : "aeiou",
         "height" : 5.63737665663332876420099637471139430999755859375
       }
     },
@@ -6787,15 +6502,15 @@ var swaggerSpec =
         "difficulty" : 1.46581298050294517310021547018550336360931396484375,
         "headers" : 6.02745618307040320615897144307382404804229736328125,
         "bip9_softforks" : "{}",
-        "chain" : "chain",
-        "chainwork" : "chainwork",
+        "chain" : "aeiou",
+        "chainwork" : "aeiou",
         "mediantime" : 5.962133916683182377482808078639209270477294921875,
         "verificationprogress" : 5.63737665663332876420099637471139430999755859375,
         "blocks" : 0.80082819046101150206595775671303272247314453125,
         "pruned" : true,
-        "softforks" : [ "{}", "{}" ],
+        "softforks" : [ "{}" ],
         "pruneheight" : 2.3021358869347654518833223846741020679473876953125,
-        "bestblockhash" : "bestblockhash"
+        "bestblockhash" : "aeiou"
       }
     },
     "EncryptWalletRequest" : {
@@ -6850,29 +6565,23 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "localaddresses" : [ "localaddresses", "localaddresses" ],
+        "localaddresses" : [ "aeiou" ],
         "protocolversion" : 6.02745618307040320615897144307382404804229736328125,
         "relayfee" : 5.63737665663332876420099637471139430999755859375,
-        "subversion" : "subversion",
+        "subversion" : "aeiou",
         "timeoffset" : 1.46581298050294517310021547018550336360931396484375,
-        "warnings" : "warnings",
+        "warnings" : "aeiou",
         "localrelay" : true,
         "networks" : [ {
-          "proxy" : "proxy",
+          "proxy" : "aeiou",
           "limited" : true,
           "proxy_randomize_credentials" : true,
-          "name" : "name",
-          "reachable" : true
-        }, {
-          "proxy" : "proxy",
-          "limited" : true,
-          "proxy_randomize_credentials" : true,
-          "name" : "name",
+          "name" : "aeiou",
           "reachable" : true
         } ],
         "version" : 0.80082819046101150206595775671303272247314453125,
         "connections" : 5.962133916683182377482808078639209270477294921875,
-        "localservices" : "localservices"
+        "localservices" : "aeiou"
       }
     },
     "NetworkInfoDetails" : {
@@ -6894,10 +6603,10 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "proxy" : "proxy",
+        "proxy" : "aeiou",
         "limited" : true,
         "proxy_randomize_credentials" : true,
-        "name" : "name",
+        "name" : "aeiou",
         "reachable" : true
       }
     },
@@ -6933,13 +6642,13 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
-        "address" : "address",
-        "v2address" : "v2address",
+        "address" : "aeiou",
+        "v2address" : "aeiou",
         "ismine" : true,
-        "label" : "label",
+        "label" : "aeiou",
         "confirmations" : 6.02745618307040320615897144307382404804229736328125,
-        "account" : "account",
-        "txids" : [ "txids", "txids" ]
+        "account" : "aeiou",
+        "txids" : [ "aeiou" ]
       }
     },
     "SyscoinAddressEntry" : {
@@ -6958,10 +6667,10 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "address" : "address",
+        "address" : "aeiou",
         "balance" : 0.80082819046101150206595775671303272247314453125,
-        "alias" : "alias",
-        "label" : "label"
+        "alias" : "aeiou",
+        "label" : "aeiou"
       }
     }
   }
