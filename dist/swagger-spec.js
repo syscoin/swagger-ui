@@ -58,11 +58,11 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "blockmarket"
     },
-    "/syscoinlistreceivebyaddress" : {
+    "/syscoinlistreceivedbyaddress" : {
       "get" : {
         "tags" : [ "General" ],
         "description" : "Returns all addresses and balances associated with address",
-        "operationId" : "syscoinlistreceivebyaddress",
+        "operationId" : "syscoinlistreceivedbyaddress",
         "parameters" : [ ],
         "responses" : {
           "200" : {
