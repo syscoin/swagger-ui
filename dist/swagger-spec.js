@@ -2,7 +2,7 @@ var swaggerSpec =
 {
   "swagger" : "2.0",
   "info" : {
-    "version" : "1.1.2",
+    "version" : "1.1.4",
     "title" : "Syscoin API"
   },
   "host" : "localhost:8001",
@@ -58,24 +58,20 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "blockmarket"
     },
-    "/storedata" : {
-      "post" : {
-        "tags" : [ "Blockmarket" ],
-        "description" : "Store an arbitrary piece of data on a decentralized network of data storage warehouses and return the client an array of URLs through which the data can be accessed.",
-        "operationId" : "storedata",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "request",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/StoreDataRequest"
-          }
-        } ],
+    "/syscoinlistreceivedbyaddress" : {
+      "get" : {
+        "tags" : [ "General" ],
+        "description" : "Returns all addresses and balances associated with address",
+        "operationId" : "syscoinlistreceivedbyaddress",
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "Success",
             "schema" : {
-              "$ref" : "#/definitions/StoreDataResponse"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SyscoinAddressEntry"
+              }
             }
           },
           "default" : {
@@ -89,7 +85,7 @@ var swaggerSpec =
           "token" : [ ]
         } ]
       },
-      "x-swagger-router-controller" : "blockmarket"
+      "x-swagger-router-controller" : "rpc"
     },
     "/getblock" : {
       "get" : {
@@ -1775,6 +1771,47 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
+    "/generate" : {
+      "get" : {
+        "tags" : [ "General" ],
+        "description" : "Mine up to numblocks blocks immediately (before the RPC call returns).",
+        "operationId" : "generate",
+        "parameters" : [ {
+          "name" : "numBlocks",
+          "in" : "query",
+          "description" : "How many blocks are generated immediately.",
+          "required" : true,
+          "type" : "number"
+        }, {
+          "name" : "maxtries",
+          "in" : "query",
+          "description" : "﻿How many iterations to try (default = 1000000).",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
     "/generateescrowmultisig" : {
       "post" : {
         "tags" : [ "Escrow" ],
@@ -1788,6 +1825,35 @@ var swaggerSpec =
             "$ref" : "#/definitions/GenerateEscrowMultisigRequest"
           }
         } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/generatepublickey" : {
+      "get" : {
+        "tags" : [ "General" ],
+        "description" : "Generates a public key for a wallet.",
+        "operationId" : "generatepublickey",
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "Success",
@@ -2557,7 +2623,7 @@ var swaggerSpec =
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/Account"
+                "$ref" : "#/definitions/ListReceivedByAddress"
               }
             }
           },
@@ -5060,11 +5126,7 @@ var swaggerSpec =
         },
         "category" : {
           "type" : "string",
-          "description" : "The transaction category. 'move' is a local (off blockchain) transaction between accounts, and not associated with an address, transaction id or block. 'send' and 'receive' transactions are associated with an address, transaction id and block details"
-        },
-        "amount" : {
-          "type" : "number",
-          "description" : "The amount in SYS. This is negative for the 'send' category, and for the 'move' category for moves outbound. It is positive for the 'receive' category, and for the 'move' category for inbound funds."
+          "description" : "The transaction category. 'move' is a local (off blockchain) transaction between accounts, and not associated with an address, transaction id or block. 'send' and 'receive' transactions are associated with an address, transaction id and block details. Example values&#58; 'send|receive|move'"
         },
         "vout" : {
           "type" : "number",
@@ -5074,9 +5136,13 @@ var swaggerSpec =
           "type" : "number",
           "description" : "The amount of the fee in SYS. This is negative and only available for the 'send' category of transactions."
         },
+        "instantlock" : {
+          "type" : "boolean",
+          "description" : "Current transaction lock state. Available for 'send' and 'receive' category of transactions."
+        },
         "confirmations" : {
           "type" : "number",
-          "description" : "The number of confirmations for the transaction. Available for 'send' and'receive' category of transactions. Negative confirmations indicate the transation conflicts with the block chain"
+          "description" : "The number of blockchain confirmations for the transaction. Available for 'send' and 'receive' category of transactions. Negative confirmations indicate the transation conflicts with the block chain"
         },
         "trusted" : {
           "type" : "boolean",
@@ -5087,8 +5153,8 @@ var swaggerSpec =
           "description" : "The block hash containing the transaction. Available for 'send' and 'receive' category of transactions."
         },
         "blockindex" : {
-          "type" : "string",
-          "description" : "The block index containing the transaction. Available for 'send' and 'receive' category of transactions."
+          "type" : "number",
+          "description" : "The index of the transaction in the block that includes it. Available for 'send' and 'receive' category of transactions."
         },
         "blocktime" : {
           "type" : "number",
@@ -5117,17 +5183,22 @@ var swaggerSpec =
         "otheraccount" : {
           "type" : "string",
           "description" : "For the 'move' category of transactions, the account the funds came from (for receiving funds, positive amounts), or went to (for sending funds, negative amounts)."
+        },
+        "bip125-replaceable" : {
+          "type" : "string",
+          "description" : "Whether this transaction could be replaced due to BIP125 (replace-by-fee); may be unknown for unconfirmed transactions not in the mempool. Example&#58; \"yes|no|unknown\""
         }
       },
       "example" : {
-        "amount" : 0.80082819046101150206595775671303272247314453125,
         "address" : "aeiou",
-        "fee" : 1.46581298050294517310021547018550336360931396484375,
+        "instantlock" : true,
+        "bip125-replaceable" : "aeiou",
+        "fee" : 6.02745618307040320615897144307382404804229736328125,
         "txid" : "aeiou",
         "label" : "aeiou",
         "otheraccount" : "aeiou",
-        "confirmations" : 5.962133916683182377482808078639209270477294921875,
-        "vout" : 6.02745618307040320615897144307382404804229736328125,
+        "confirmations" : 1.46581298050294517310021547018550336360931396484375,
+        "vout" : 0.80082819046101150206595775671303272247314453125,
         "blockhash" : "aeiou",
         "timereceived" : 7.061401241503109105224211816675961017608642578125,
         "trusted" : true,
@@ -5135,7 +5206,7 @@ var swaggerSpec =
         "comment" : "aeiou",
         "time" : 2.3021358869347654518833223846741020679473876953125,
         "category" : "aeiou",
-        "blockindex" : "aeiou",
+        "blockindex" : 5.962133916683182377482808078639209270477294921875,
         "account" : "aeiou"
       }
     },
@@ -6451,59 +6522,6 @@ var swaggerSpec =
         }
       }
     },
-    "StoreDataRequest" : {
-      "required" : [ "data", "dataType" ],
-      "properties" : {
-        "existingDataId" : {
-          "type" : "string",
-          "description" : "Identifier for existing data to update."
-        },
-        "dataType" : {
-          "type" : "string",
-          "description" : "The type of data being stored, ie: 'aliasdata'."
-        },
-        "data" : {
-          "type" : "string",
-          "description" : "The data to be stored on the decentralized storage facility. Max size 500kb."
-        },
-        "storeLocations" : {
-          "type" : "array",
-          "description" : "Array of data warehousing facilities to use to store the data, valid values: BFAZURE.",
-          "items" : {
-            "type" : "string"
-          }
-        }
-      }
-    },
-    "StoreDataResponse" : {
-      "required" : [ "storeLocations" ],
-      "properties" : {
-        "storeLocations" : {
-          "type" : "array",
-          "description" : "Array of objects which describe where data is stored offchain",
-          "items" : {
-            "$ref" : "#/definitions/DataStoreLocation"
-          }
-        }
-      },
-      "example" : {
-        "storeLocations" : [ {
-          "dataUrl" : "aeiou"
-        } ]
-      }
-    },
-    "DataStoreLocation" : {
-      "required" : [ "dataUrl" ],
-      "properties" : {
-        "dataUrl" : {
-          "type" : "string",
-          "description" : "URL from which the data can be fetched"
-        }
-      },
-      "example" : {
-        "dataUrl" : "aeiou"
-      }
-    },
     "NetworkInfo" : {
       "properties" : {
         "version" : {
@@ -6590,6 +6608,69 @@ var swaggerSpec =
         "proxy_randomize_credentials" : true,
         "name" : "aeiou",
         "reachable" : true
+      }
+    },
+    "ListReceivedByAddress" : {
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "v2address" : {
+          "type" : "string"
+        },
+        "account" : {
+          "type" : "string"
+        },
+        "amount" : {
+          "type" : "number"
+        },
+        "confirmations" : {
+          "type" : "number"
+        },
+        "label" : {
+          "type" : "string"
+        },
+        "txids" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "ismine" : {
+          "type" : "boolean"
+        }
+      },
+      "example" : {
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "address" : "aeiou",
+        "v2address" : "aeiou",
+        "ismine" : true,
+        "label" : "aeiou",
+        "confirmations" : 6.02745618307040320615897144307382404804229736328125,
+        "account" : "aeiou",
+        "txids" : [ "aeiou" ]
+      }
+    },
+    "SyscoinAddressEntry" : {
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "balance" : {
+          "type" : "number"
+        },
+        "label" : {
+          "type" : "string"
+        },
+        "alias" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "address" : "aeiou",
+        "balance" : 0.80082819046101150206595775671303272247314453125,
+        "alias" : "aeiou",
+        "label" : "aeiou"
       }
     }
   }
