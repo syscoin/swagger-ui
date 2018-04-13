@@ -1737,8 +1737,7 @@ var swaggerSpec =
           "in" : "query",
           "description" : "It need \"*\" for entire wallet",
           "required" : false,
-          "type" : "string",
-          "default" : "null"
+          "type" : "string"
         }, {
           "name" : "minconf",
           "in" : "query",
@@ -4035,10 +4034,22 @@ var swaggerSpec =
       }
     },
     "SendRawTransactionRequest" : {
+      "required" : [ "hexstring" ],
       "properties" : {
-        "txid" : {
+        "hexstring" : {
           "type" : "string"
+        },
+        "allowhighfees" : {
+          "type" : "boolean"
+        },
+        "instantsend" : {
+          "type" : "boolean"
         }
+      },
+      "example" : {
+        "instantsend" : true,
+        "allowhighfees" : true,
+        "hexstring" : "hexstring"
       }
     },
     "GetAddressUTXOsEntry" : {
@@ -4064,9 +4075,9 @@ var swaggerSpec =
       },
       "example" : {
         "outputIndex" : 0.80082819046101150206595775671303272247314453125,
-        "address" : "aeiou",
-        "txid" : "aeiou",
-        "script" : "aeiou",
+        "address" : "address",
+        "txid" : "txid",
+        "script" : "script",
         "satoshis" : 6.02745618307040320615897144307382404804229736328125,
         "height" : 1.46581298050294517310021547018550336360931396484375
       }
@@ -4089,6 +4100,20 @@ var swaggerSpec =
         "role" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "role" : "role",
+        "inputs" : [ {
+          "txid" : "txid",
+          "vout" : 0.80082819046101150206595775671303272247314453125,
+          "satoshis" : 6.02745618307040320615897144307382404804229736328125
+        }, {
+          "txid" : "txid",
+          "vout" : 0.80082819046101150206595775671303272247314453125,
+          "satoshis" : 6.02745618307040320615897144307382404804229736328125
+        } ],
+        "escrowguid" : "escrowguid",
+        "type" : "type"
       }
     },
     "EscrowacknowledgeRequest" : {
@@ -4102,6 +4127,10 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "escrowguid" : "escrowguid"
       }
     },
     "EscrowBidRequest" : {
@@ -4127,6 +4156,13 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "bid_in_offer_currency" : 6.02745618307040320615897144307382404804229736328125,
+        "witness" : "witness",
+        "bid_in_payment_option" : 0.80082819046101150206595775671303272247314453125,
+        "alias" : "alias",
+        "escrow" : "escrow"
       }
     },
     "VoteRawRequest" : {
@@ -4153,6 +4189,15 @@ var swaggerSpec =
         "vote-sig" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "masternode-tx-index" : 0.80082819046101150206595775671303272247314453125,
+        "vote-signal" : 6.02745618307040320615897144307382404804229736328125,
+        "masternode-tx-hash" : "masternode-tx-hash",
+        "governance-hash" : "governance-hash",
+        "time" : 1.46581298050294517310021547018550336360931396484375,
+        "vote-sig" : "vote-sig",
+        "vote-outcome" : "vote-outcome"
       }
     },
     "getAddressMemPoolResponseObject" : {
@@ -4191,12 +4236,12 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "address" : "aeiou",
-        "prevout" : "aeiou",
-        "txid" : "aeiou",
+        "address" : "address",
+        "prevout" : "prevout",
+        "txid" : "txid",
         "index" : 0.80082819046101150206595775671303272247314453125,
-        "prevtxid" : "aeiou",
-        "satoshis" : "aeiou",
+        "prevtxid" : "prevtxid",
+        "satoshis" : "satoshis",
         "height" : 6.02745618307040320615897144307382404804229736328125,
         "timestamp" : 1.46581298050294517310021547018550336360931396484375
       }
@@ -4225,10 +4270,10 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "address" : "aeiou",
-        "txid" : "aeiou",
+        "address" : "address",
+        "txid" : "txid",
         "index" : 0.80082819046101150206595775671303272247314453125,
-        "satoshis" : "aeiou",
+        "satoshis" : "satoshis",
         "height" : 6.02745618307040320615897144307382404804229736328125
       }
     },
@@ -4244,8 +4289,8 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "balance" : "aeiou",
-        "received" : "aeiou"
+        "balance" : "balance",
+        "received" : "received"
       }
     },
     "Info" : {
@@ -4326,13 +4371,13 @@ var swaggerSpec =
         "unlocked_until" : 4.1456080298839363962315474054776132106781005859375,
         "paytxfee" : 7.3862819483858839220147274318151175975799560546875,
         "difficulty" : 9.301444243932575517419536481611430644989013671875,
-        "proxy" : "aeiou",
+        "proxy" : "proxy",
         "walletversion" : 1.46581298050294517310021547018550336360931396484375,
         "balance" : 5.962133916683182377482808078639209270477294921875,
         "keypoololdest" : 3.61607674925191080461672754609026014804840087890625,
         "testnet" : true,
         "connections" : 7.061401241503109105224211816675961017608642578125,
-        "errors" : "aeiou"
+        "errors" : "errors"
       }
     },
     "MiningInfo" : {
@@ -4385,7 +4430,7 @@ var swaggerSpec =
       },
       "example" : {
         "difficulty" : 5.962133916683182377482808078639209270477294921875,
-        "chain" : "aeiou",
+        "chain" : "chain",
         "currentblocktx" : 1.46581298050294517310021547018550336360931396484375,
         "blocks" : 0.80082819046101150206595775671303272247314453125,
         "networkhashps" : 2.3021358869347654518833223846741020679473876953125,
@@ -4394,7 +4439,7 @@ var swaggerSpec =
         "testnet" : true,
         "pooledtx" : 7.061401241503109105224211816675961017608642578125,
         "generate" : true,
-        "errors" : "aeiou"
+        "errors" : "errors"
       }
     },
     "PeerInfoResponse" : {
@@ -4585,14 +4630,14 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "address" : "aeiou",
+        "address" : "address",
         "isscript" : true,
         "iscompressed" : true,
         "ismine" : true,
         "isvalid" : true,
         "iswatchonly" : true,
-        "account" : "aeiou",
-        "pubkey" : "aeiou"
+        "account" : "account",
+        "pubkey" : "pubkey"
       }
     },
     "ErrorResponse" : {
@@ -4639,15 +4684,15 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "publicvalue" : "aeiou",
-        "address" : "aeiou",
+        "publicvalue" : "publicvalue",
+        "address" : "address",
         "expired" : true,
-        "encryption_privatekey" : "aeiou",
+        "encryption_privatekey" : "encryption_privatekey",
         "expires_on" : 1.46581298050294517310021547018550336360931396484375,
-        "txid" : "aeiou",
-        "_id" : "aeiou",
+        "txid" : "txid",
+        "_id" : "_id",
         "time" : 0.80082819046101150206595775671303272247314453125,
-        "encryption_publickey" : "aeiou",
+        "encryption_publickey" : "encryption_publickey",
         "accepttransferflags" : 6.02745618307040320615897144307382404804229736328125
       }
     },
@@ -4682,14 +4727,14 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "publicvalue" : "aeiou",
-        "txid" : "aeiou",
-        "alias" : "aeiou",
-        "_id" : "aeiou",
+        "publicvalue" : "publicvalue",
+        "txid" : "txid",
+        "alias" : "alias",
+        "_id" : "_id",
         "time" : 6.02745618307040320615897144307382404804229736328125,
         "access_flags" : 1.46581298050294517310021547018550336360931396484375,
-        "title" : "aeiou",
-        "category" : "aeiou",
+        "title" : "title",
+        "category" : "category",
         "height" : 0.80082819046101150206595775671303272247314453125
       }
     },
@@ -4814,42 +4859,42 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "escrowtype" : "aeiou",
-        "seller" : "aeiou",
+        "escrowtype" : "escrowtype",
+        "seller" : "seller",
         "sysfee" : 6.02745618307040320615897144307382404804229736328125,
-        "pay_message" : "aeiou",
-        "fee" : "aeiou",
-        "redeem_txid" : "aeiou",
-        "offer" : "aeiou",
-        "total" : "aeiou",
-        "paymemntoption_display" : "aeiou",
+        "pay_message" : "pay_message",
+        "fee" : "fee",
+        "redeem_txid" : "redeem_txid",
+        "offer" : "offer",
+        "total" : "total",
+        "paymemntoption_display" : "paymemntoption_display",
         "expired" : 5.63737665663332876420099637471139430999755859375,
-        "arbiter_feedback" : [ "aeiou" ],
-        "price" : "aeiou",
+        "arbiter_feedback" : [ "arbiter_feedback", "arbiter_feedback" ],
+        "price" : "price",
         "avg_rating" : 2.027123023002321833274663731572218239307403564453125,
-        "escrow" : "aeiou",
+        "escrow" : "escrow",
         "systotal" : 0.80082819046101150206595775671303272247314453125,
-        "currency" : "aeiou",
-        "escrowaddress" : "aeiou",
-        "avg_rating_display" : "aeiou",
+        "currency" : "currency",
+        "escrowaddress" : "escrowaddress",
+        "avg_rating_display" : "avg_rating_display",
         "totalwithfee" : 1.46581298050294517310021547018550336360931396484375,
-        "height" : "aeiou",
+        "height" : "height",
         "avg_seller_feedback" : 7.061401241503109105224211816675961017608642578125,
-        "quantity" : "aeiou",
+        "quantity" : "quantity",
         "paymentoption" : 5.962133916683182377482808078639209270477294921875,
-        "txid" : "aeiou",
-        "offerlink_seller" : "aeiou",
-        "buyer" : "aeiou",
-        "arbiter" : "aeiou",
+        "txid" : "txid",
+        "offerlink_seller" : "offerlink_seller",
+        "buyer" : "buyer",
+        "arbiter" : "arbiter",
         "avg_arbiter_rating" : 9.301444243932575517419536481611430644989013671875,
-        "exttxid" : "aeiou",
-        "seller_feedback" : [ "aeiou" ],
-        "offertitle" : "aeiou",
+        "exttxid" : "exttxid",
+        "seller_feedback" : [ "seller_feedback", "seller_feedback" ],
+        "offertitle" : "offertitle",
         "avg_buyer_rating" : 2.3021358869347654518833223846741020679473876953125,
-        "time" : "aeiou",
-        "buyer_feedback" : [ "aeiou" ],
+        "time" : "time",
+        "buyer_feedback" : [ "buyer_feedback", "buyer_feedback" ],
         "avg_rating_count" : 3.61607674925191080461672754609026014804840087890625,
-        "status" : "aeiou"
+        "status" : "status"
       }
     },
     "EscrowRefundRequest" : {
@@ -4871,6 +4916,12 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "escrowguid" : "escrowguid",
+        "rawtx" : "rawtx",
+        "userrole" : "userrole"
       }
     },
     "EscrowReleaseRequest" : {
@@ -4892,6 +4943,12 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "escrowguid" : "escrowguid",
+        "rawtx" : "rawtx",
+        "userrole" : "userrole"
       }
     },
     "Transaction" : {
@@ -4940,20 +4997,27 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "amount" : "aeiou",
-        "blockhash" : "aeiou",
+        "amount" : "amount",
+        "blockhash" : "blockhash",
         "timereceived" : 5.63737665663332876420099637471139430999755859375,
         "blocktime" : 1.46581298050294517310021547018550336360931396484375,
-        "txid" : "aeiou",
+        "txid" : "txid",
         "details" : [ {
           "amount" : 2.3021358869347654518833223846741020679473876953125,
-          "address" : "aeiou",
-          "label" : "aeiou",
-          "category" : "aeiou",
-          "account" : "aeiou",
+          "address" : "address",
+          "label" : "label",
+          "category" : "category",
+          "account" : "account",
+          "vout" : 7.061401241503109105224211816675961017608642578125
+        }, {
+          "amount" : 2.3021358869347654518833223846741020679473876953125,
+          "address" : "address",
+          "label" : "label",
+          "category" : "category",
+          "account" : "account",
           "vout" : 7.061401241503109105224211816675961017608642578125
         } ],
-        "hex" : "aeiou",
+        "hex" : "hex",
         "time" : 5.962133916683182377482808078639209270477294921875,
         "confirmations" : 0.80082819046101150206595775671303272247314453125,
         "blockindex" : 6.02745618307040320615897144307382404804229736328125
@@ -4988,10 +5052,10 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 2.3021358869347654518833223846741020679473876953125,
-        "address" : "aeiou",
-        "label" : "aeiou",
-        "category" : "aeiou",
-        "account" : "aeiou",
+        "address" : "address",
+        "label" : "label",
+        "category" : "category",
+        "account" : "account",
         "vout" : 7.061401241503109105224211816675961017608642578125
       }
     },
@@ -5059,7 +5123,7 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
-        "syscoinaddress" : "aeiou"
+        "syscoinaddress" : "syscoinaddress"
       }
     },
     "Account" : {
@@ -5088,9 +5152,9 @@ var swaggerSpec =
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
         "involvesWatchonly" : true,
-        "label" : "aeiou",
+        "label" : "label",
         "confirmations" : 6.02745618307040320615897144307382404804229736328125,
-        "account" : "aeiou"
+        "account" : "account"
       }
     },
     "ListSinceBlockResponse" : {
@@ -5107,24 +5171,41 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "lastblock" : "aeiou",
+        "lastblock" : "lastblock",
         "transactions" : [ {
           "amount" : 0.80082819046101150206595775671303272247314453125,
-          "address" : "aeiou",
+          "address" : "address",
           "fee" : 1.46581298050294517310021547018550336360931396484375,
-          "txid" : "aeiou",
-          "label" : "aeiou",
+          "txid" : "txid",
+          "label" : "label",
           "confirmations" : 5.962133916683182377482808078639209270477294921875,
           "vout" : 6.02745618307040320615897144307382404804229736328125,
-          "blockhash" : "aeiou",
+          "blockhash" : "blockhash",
           "timereceived" : 9.301444243932575517419536481611430644989013671875,
           "blocktime" : 2.3021358869347654518833223846741020679473876953125,
-          "comment" : "aeiou",
+          "comment" : "comment",
           "time" : 7.061401241503109105224211816675961017608642578125,
-          "to" : "aeiou",
-          "category" : "aeiou",
+          "to" : "to",
+          "category" : "category",
           "blockindex" : 5.63737665663332876420099637471139430999755859375,
-          "account" : "aeiou"
+          "account" : "account"
+        }, {
+          "amount" : 0.80082819046101150206595775671303272247314453125,
+          "address" : "address",
+          "fee" : 1.46581298050294517310021547018550336360931396484375,
+          "txid" : "txid",
+          "label" : "label",
+          "confirmations" : 5.962133916683182377482808078639209270477294921875,
+          "vout" : 6.02745618307040320615897144307382404804229736328125,
+          "blockhash" : "blockhash",
+          "timereceived" : 9.301444243932575517419536481611430644989013671875,
+          "blocktime" : 2.3021358869347654518833223846741020679473876953125,
+          "comment" : "comment",
+          "time" : 7.061401241503109105224211816675961017608642578125,
+          "to" : "to",
+          "category" : "category",
+          "blockindex" : 5.63737665663332876420099637471139430999755859375,
+          "account" : "account"
         } ]
       }
     },
@@ -5197,21 +5278,21 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
-        "address" : "aeiou",
+        "address" : "address",
         "fee" : 1.46581298050294517310021547018550336360931396484375,
-        "txid" : "aeiou",
-        "label" : "aeiou",
+        "txid" : "txid",
+        "label" : "label",
         "confirmations" : 5.962133916683182377482808078639209270477294921875,
         "vout" : 6.02745618307040320615897144307382404804229736328125,
-        "blockhash" : "aeiou",
+        "blockhash" : "blockhash",
         "timereceived" : 9.301444243932575517419536481611430644989013671875,
         "blocktime" : 2.3021358869347654518833223846741020679473876953125,
-        "comment" : "aeiou",
+        "comment" : "comment",
         "time" : 7.061401241503109105224211816675961017608642578125,
-        "to" : "aeiou",
-        "category" : "aeiou",
+        "to" : "to",
+        "category" : "category",
         "blockindex" : 5.63737665663332876420099637471139430999755859375,
-        "account" : "aeiou"
+        "account" : "account"
       }
     },
     "UnspentListEntry" : {
@@ -5258,15 +5339,15 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "scriptPubKey" : "aeiou",
+        "scriptPubKey" : "scriptPubKey",
         "amount" : 6.02745618307040320615897144307382404804229736328125,
         "ps_rounds" : 5.962133916683182377482808078639209270477294921875,
         "spendable" : true,
         "solvable" : true,
-        "address" : "aeiou",
-        "txid" : "aeiou",
+        "address" : "address",
+        "txid" : "txid",
         "confirmations" : 1.46581298050294517310021547018550336360931396484375,
-        "account" : "aeiou",
+        "account" : "account",
         "vout" : 0.80082819046101150206595775671303272247314453125
       }
     },
@@ -5351,24 +5432,24 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
-        "address" : "aeiou",
+        "address" : "address",
         "instantlock" : true,
-        "bip125-replaceable" : "aeiou",
+        "bip125-replaceable" : "bip125-replaceable",
         "fee" : 1.46581298050294517310021547018550336360931396484375,
-        "txid" : "aeiou",
-        "label" : "aeiou",
-        "otheraccount" : "aeiou",
+        "txid" : "txid",
+        "label" : "label",
+        "otheraccount" : "otheraccount",
         "confirmations" : 5.962133916683182377482808078639209270477294921875,
         "vout" : 6.02745618307040320615897144307382404804229736328125,
-        "blockhash" : "aeiou",
+        "blockhash" : "blockhash",
         "timereceived" : 9.301444243932575517419536481611430644989013671875,
         "trusted" : true,
         "blocktime" : 2.3021358869347654518833223846741020679473876953125,
-        "comment" : "aeiou",
+        "comment" : "comment",
         "time" : 7.061401241503109105224211816675961017608642578125,
-        "category" : "aeiou",
+        "category" : "category",
         "blockindex" : 5.63737665663332876420099637471139430999755859375,
-        "account" : "aeiou"
+        "account" : "account"
       }
     },
     "Message" : {
@@ -5579,27 +5660,27 @@ var swaggerSpec =
         "offer_units" : 5.63737665663332876420099637471139430999755859375,
         "private" : true,
         "expires_on" : 0.80082819046101150206595775671303272247314453125,
-        "description" : "aeiou",
-        "cert" : "aeiou",
-        "title" : "aeiou",
+        "description" : "description",
+        "cert" : "cert",
+        "title" : "title",
         "auction_deposit" : 3.61607674925191080461672754609026014804840087890625,
         "expired" : true,
         "price" : 1.46581298050294517310021547018550336360931396484375,
-        "alias" : "aeiou",
-        "currency" : "aeiou",
+        "alias" : "alias",
+        "currency" : "currency",
         "commission" : 5.962133916683182377482808078639209270477294921875,
         "auction_require_witness" : true,
         "height" : 6.02745618307040320615897144307382404804229736328125,
-        "offertype" : "aeiou",
+        "offertype" : "offertype",
         "quantity" : 2.3021358869347654518833223846741020679473876953125,
-        "address" : "aeiou",
-        "txid" : "aeiou",
-        "offerlink_guid" : "aeiou",
-        "paymentoptions" : "aeiou",
-        "offerlink_seller" : "aeiou",
+        "address" : "address",
+        "txid" : "txid",
+        "offerlink_guid" : "offerlink_guid",
+        "paymentoptions" : "paymentoptions",
+        "offerlink_seller" : "offerlink_seller",
         "auction_reserve_price" : 9.301444243932575517419536481611430644989013671875,
-        "_id" : "aeiou",
-        "category" : "aeiou"
+        "_id" : "_id",
+        "category" : "category"
       }
     },
     "AddMultisigAddressRequest" : {
@@ -5617,6 +5698,11 @@ var swaggerSpec =
           "type" : "string",
           "description" : "DEPRECATED. An account to assign the addresses to."
         }
+      },
+      "example" : {
+        "nrequired" : 0.80082819046101150206595775671303272247314453125,
+        "keysobject" : "keysobject",
+        "account" : "account"
       }
     },
     "AliasClearWhiteListRequest" : {
@@ -5630,6 +5716,10 @@ var swaggerSpec =
           "type" : "string",
           "description" : "a witness alias"
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "owneralias" : "owneralias"
       }
     },
     "AliasUpdateWhitelistRequest" : {
@@ -5650,6 +5740,17 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "entries" : [ {
+          "alias" : "alias",
+          "discount_percentage" : 0.80082819046101150206595775671303272247314453125
+        }, {
+          "alias" : "alias",
+          "discount_percentage" : 0.80082819046101150206595775671303272247314453125
+        } ],
+        "owneralias" : "owneralias"
       }
     },
     "AliasNewRequest" : {
@@ -5687,6 +5788,16 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "aliasname" : "aliasname",
+        "publicvalue" : "publicvalue",
+        "address" : "address",
+        "encryption_privatekey" : "encryption_privatekey",
+        "expire_timestamp" : 6.02745618307040320615897144307382404804229736328125,
+        "encryption_publickey" : "encryption_publickey",
+        "accept_transfers_flags" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "AliasUpdateRequest" : {
@@ -5724,6 +5835,16 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "aliasname" : "aliasname",
+        "publicvalue" : "publicvalue",
+        "address" : "address",
+        "encryption_privatekey" : "encryption_privatekey",
+        "expire_timestamp" : 6,
+        "encryption_publickey" : "encryption_publickey",
+        "accept_transfers_flags" : 0
       }
     },
     "CertNewRequest" : {
@@ -5749,6 +5870,13 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "public" : "public",
+        "alias" : "alias",
+        "title" : "title",
+        "category" : "category"
       }
     },
     "CertTransferRequest" : {
@@ -5774,6 +5902,13 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "public" : "public",
+        "accessflags" : 0.80082819046101150206595775671303272247314453125,
+        "guid" : "guid",
+        "alias" : "alias"
       }
     },
     "CertUpdateRequest" : {
@@ -5799,6 +5934,13 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "public" : "public",
+        "guid" : "guid",
+        "title" : "title",
+        "category" : "category"
       }
     },
     "EscrowClaimRefundRequest" : {
@@ -5838,6 +5980,11 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "escrowguid" : "escrowguid",
+        "rawtx" : "rawtx"
       }
     },
     "EscrowCompleteReleaseRequest" : {
@@ -5855,6 +6002,11 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "escrowguid" : "escrowguid",
+        "rawtx" : "rawtx"
       }
     },
     "EscrowNewRequest" : {
@@ -5924,6 +6076,24 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "bid_in_offer_currency" : 9.301444243932575517419536481611430644989013671875,
+        "extTx" : "extTx",
+        "quantity" : 0,
+        "total_in_payment_option" : 6.02745618307040320615897144307382404804229736328125,
+        "paymentoption" : "paymentoption",
+        "witness_fee" : 2.3021358869347654518833223846741020679473876953125,
+        "arbiter_alias" : "arbiter_alias",
+        "bid_in_payment_option" : 7.061401241503109105224211816675961017608642578125,
+        "network_fee" : 5.962133916683182377482808078639209270477294921875,
+        "offer" : "offer",
+        "shipping_amount" : 1.46581298050294517310021547018550336360931396484375,
+        "witness" : "witness",
+        "buynow" : true,
+        "alias" : "alias",
+        "arbiter_fee" : 5.63737665663332876420099637471139430999755859375,
+        "getamountandaddress" : true
       }
     },
     "AliasPayRequest" : {
@@ -5945,6 +6115,12 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Set to true to subtract fee from amount or false otherwise."
         }
+      },
+      "example" : {
+        "amounts" : "amounts",
+        "instantsend" : true,
+        "aliasfrom" : "aliasfrom",
+        "subtractfeefromamount" : "subtractfeefromamount"
       }
     },
     "GetNewAddressRequest" : {
@@ -5953,6 +6129,9 @@ var swaggerSpec =
           "type" : "string",
           "description" : "DEPRECATED. The account name for the address to be linked to. If not provided, the default account \"\" is used. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created if there is no account by the given name."
         }
+      },
+      "example" : {
+        "account" : "account"
       }
     },
     "ImportAddressRequest" : {
@@ -5974,6 +6153,12 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Add the P2SH version of the script as well"
         }
+      },
+      "example" : {
+        "p2sh" : true,
+        "label" : "label",
+        "rescan" : true,
+        "script" : "script"
       }
     },
     "ImportPrivKeyRequest" : {
@@ -5991,6 +6176,11 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Rescan the wallet for transactions"
         }
+      },
+      "example" : {
+        "syscoinprivkey" : "syscoinprivkey",
+        "label" : "label",
+        "rescan" : true
       }
     },
     "ImportPubKeyRequest" : {
@@ -6008,6 +6198,11 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Rescan the wallet for transactions"
         }
+      },
+      "example" : {
+        "label" : "label",
+        "rescan" : true,
+        "pubkey" : "pubkey"
       }
     },
     "ImportWalletRequest" : {
@@ -6017,6 +6212,9 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The wallet file"
         }
+      },
+      "example" : {
+        "filename" : "filename"
       }
     },
     "MessageNewRequest" : {
@@ -6067,6 +6265,13 @@ var swaggerSpec =
           "type" : "string",
           "description" : "An optional comment, stored in the wallet only."
         }
+      },
+      "example" : {
+        "fromaccount" : "fromaccount",
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "minconf" : "minconf",
+        "toaccount" : "toaccount",
+        "comment" : "comment"
       }
     },
     "OfferAcceptRequest" : {
@@ -6146,6 +6351,13 @@ var swaggerSpec =
           "type" : "string",
           "description" : "witness if any.  Leave '' if not available."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "alias" : "alias",
+        "guid" : "guid",
+        "description" : "description",
+        "commission" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "OfferRemoveWhitelistRequest" : {
@@ -6191,6 +6403,15 @@ var swaggerSpec =
           "type" : "string",
           "description" : "An optional comment to store the name of the person or organization to which you're sending the transaction. This is not part of the transaction, it is just kept in your wallet."
         }
+      },
+      "example" : {
+        "fromaccount" : "fromaccount",
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "minconf" : 6,
+        "addlockconf" : false,
+        "commentto" : "commentto",
+        "comment" : "comment",
+        "tosyscoinaddress" : "tosyscoinaddress"
       }
     },
     "SendManyRequest" : {
@@ -6231,6 +6452,16 @@ var swaggerSpec =
           "description" : "Use anonymized funds only (default: false)",
           "default" : false
         }
+      },
+      "example" : {
+        "fromaccount" : "fromaccount",
+        "use_ps" : false,
+        "amounts" : "amounts",
+        "minconf" : 0,
+        "addlockconf" : false,
+        "use_is" : false,
+        "comment" : "comment",
+        "subtractfeefromamount" : "subtractfeefromamount"
       }
     },
     "SendToAddressRequest" : {
@@ -6267,6 +6498,15 @@ var swaggerSpec =
           "description" : "Use anonymized funds only (default: false)",
           "default" : false
         }
+      },
+      "example" : {
+        "use_ps" : false,
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "syscoinaddress" : "syscoinaddress",
+        "use_is" : false,
+        "commentto" : "commentto",
+        "comment" : "comment",
+        "subtractfeefromamount" : false
       }
     },
     "SignMessageRequest" : {
@@ -6280,6 +6520,10 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The message to create a signature of."
         }
+      },
+      "example" : {
+        "syscoinaddress" : "syscoinaddress",
+        "message" : "message"
       }
     },
     "WalletPassphraseRequest" : {
@@ -6293,6 +6537,10 @@ var swaggerSpec =
           "type" : "number",
           "description" : "The time to keep the decryption key in seconds."
         }
+      },
+      "example" : {
+        "passphrase" : "passphrase",
+        "timeout" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "WalletPassphraseChangeRequest" : {
@@ -6306,6 +6554,10 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The new passphrase"
         }
+      },
+      "example" : {
+        "oldpassphrase" : "oldpassphrase",
+        "newpassphrase" : "newpassphrase"
       }
     },
     "MultiSignatureInfo" : {
@@ -6349,6 +6601,14 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "feedback" : "feedback",
+        "witness" : "witness",
+        "userfrom" : "userfrom",
+        "escrowguid" : "escrowguid",
+        "rating" : 0,
+        "userto" : "userto"
       }
     },
     "GenerateEscrowMultisigRequest" : {
@@ -6369,6 +6629,13 @@ var swaggerSpec =
         "paymentoption" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "arbiter" : "arbiter",
+        "quantity" : 0.80082819046101150206595775671303272247314453125,
+        "offerguid" : "offerguid",
+        "paymentoption" : "paymentoption",
+        "buyer" : "buyer"
       }
     },
     "LoginResponse" : {
@@ -6386,8 +6653,8 @@ var swaggerSpec =
       },
       "example" : {
         "success" : true,
-        "message" : "aeiou",
-        "token" : "aeiou"
+        "message" : "message",
+        "token" : "token"
       }
     },
     "GetBlockResponse" : {
@@ -6473,24 +6740,24 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "tx" : [ "aeiou" ],
+        "tx" : [ "tx", "tx" ],
         "mediantime" : 9.301444243932575517419536481611430644989013671875,
-        "data" : "aeiou",
-        "previousblockhash" : "aeiou",
-        "bits" : "aeiou",
+        "data" : "data",
+        "previousblockhash" : "previousblockhash",
+        "bits" : "bits",
         "weight" : 5.962133916683182377482808078639209270477294921875,
-        "versionHex" : "aeiou",
+        "versionHex" : "versionHex",
         "confirmations" : 0.80082819046101150206595775671303272247314453125,
         "version" : 2.3021358869347654518833223846741020679473876953125,
         "nonce" : 3.61607674925191080461672754609026014804840087890625,
-        "nextblockhash" : "aeiou",
+        "nextblockhash" : "nextblockhash",
         "difficulty" : 2.027123023002321833274663731572218239307403564453125,
-        "chainwork" : "aeiou",
+        "chainwork" : "chainwork",
         "size" : 6.02745618307040320615897144307382404804229736328125,
-        "merkleroot" : "aeiou",
+        "merkleroot" : "merkleroot",
         "strippedsize" : 1.46581298050294517310021547018550336360931396484375,
         "time" : 7.061401241503109105224211816675961017608642578125,
-        "hash" : "aeiou",
+        "hash" : "hash",
         "height" : 5.63737665663332876420099637471139430999755859375
       }
     },
@@ -6554,15 +6821,15 @@ var swaggerSpec =
         "difficulty" : 1.46581298050294517310021547018550336360931396484375,
         "headers" : 6.02745618307040320615897144307382404804229736328125,
         "bip9_softforks" : "{}",
-        "chain" : "aeiou",
-        "chainwork" : "aeiou",
+        "chain" : "chain",
+        "chainwork" : "chainwork",
         "mediantime" : 5.962133916683182377482808078639209270477294921875,
         "verificationprogress" : 5.63737665663332876420099637471139430999755859375,
         "blocks" : 0.80082819046101150206595775671303272247314453125,
         "pruned" : true,
-        "softforks" : [ "{}" ],
+        "softforks" : [ "{}", "{}" ],
         "pruneheight" : 2.3021358869347654518833223846741020679473876953125,
-        "bestblockhash" : "aeiou"
+        "bestblockhash" : "bestblockhash"
       }
     },
     "EncryptWalletRequest" : {
@@ -6572,6 +6839,9 @@ var swaggerSpec =
           "type" : "string",
           "description" : "The pass phrase to encrypt the wallet with. It must be at least 1 character, but should be long."
         }
+      },
+      "example" : {
+        "passphrase" : "passphrase"
       }
     },
     "NetworkInfo" : {
@@ -6617,23 +6887,29 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "localaddresses" : [ "aeiou" ],
+        "localaddresses" : [ "localaddresses", "localaddresses" ],
         "protocolversion" : 6.02745618307040320615897144307382404804229736328125,
         "relayfee" : 5.63737665663332876420099637471139430999755859375,
-        "subversion" : "aeiou",
+        "subversion" : "subversion",
         "timeoffset" : 1.46581298050294517310021547018550336360931396484375,
-        "warnings" : "aeiou",
+        "warnings" : "warnings",
         "localrelay" : true,
         "networks" : [ {
-          "proxy" : "aeiou",
+          "proxy" : "proxy",
           "limited" : true,
           "proxy_randomize_credentials" : true,
-          "name" : "aeiou",
+          "name" : "name",
+          "reachable" : true
+        }, {
+          "proxy" : "proxy",
+          "limited" : true,
+          "proxy_randomize_credentials" : true,
+          "name" : "name",
           "reachable" : true
         } ],
         "version" : 0.80082819046101150206595775671303272247314453125,
         "connections" : 5.962133916683182377482808078639209270477294921875,
-        "localservices" : "aeiou"
+        "localservices" : "localservices"
       }
     },
     "NetworkInfoDetails" : {
@@ -6655,10 +6931,10 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "proxy" : "aeiou",
+        "proxy" : "proxy",
         "limited" : true,
         "proxy_randomize_credentials" : true,
-        "name" : "aeiou",
+        "name" : "name",
         "reachable" : true
       }
     },
@@ -6672,7 +6948,7 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "alias" : "aeiou",
+        "alias" : "alias",
         "discount_percentage" : 0.80082819046101150206595775671303272247314453125
       }
     },
@@ -6708,13 +6984,13 @@ var swaggerSpec =
       },
       "example" : {
         "amount" : 0.80082819046101150206595775671303272247314453125,
-        "address" : "aeiou",
-        "v2address" : "aeiou",
+        "address" : "address",
+        "v2address" : "v2address",
         "ismine" : true,
-        "label" : "aeiou",
+        "label" : "label",
         "confirmations" : 6.02745618307040320615897144307382404804229736328125,
-        "account" : "aeiou",
-        "txids" : [ "aeiou" ]
+        "account" : "account",
+        "txids" : [ "txids", "txids" ]
       }
     },
     "SyscoinAddressEntry" : {
@@ -6733,10 +7009,10 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "address" : "aeiou",
+        "address" : "address",
         "balance" : 0.80082819046101150206595775671303272247314453125,
-        "alias" : "aeiou",
-        "label" : "aeiou"
+        "alias" : "alias",
+        "label" : "label"
       }
     },
     "GetChainTipsResponse" : {
@@ -6762,11 +7038,11 @@ var swaggerSpec =
       },
       "example" : {
         "difficulty" : 6.02745618307040320615897144307382404804229736328125,
-        "chainwork" : "aeiou",
+        "chainwork" : "chainwork",
         "branchlen" : 1.46581298050294517310021547018550336360931396484375,
-        "hash" : "aeiou",
+        "hash" : "hash",
         "height" : 0.80082819046101150206595775671303272247314453125,
-        "status" : "aeiou"
+        "status" : "status"
       }
     },
     "GetSpentInfoResponse" : {
@@ -6779,7 +7055,7 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "txid" : "aeiou",
+        "txid" : "txid",
         "index" : 0.80082819046101150206595775671303272247314453125
       }
     },
@@ -6844,15 +7120,15 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "mixing_mode" : "aeiou",
+        "mixing_mode" : "mixing_mode",
         "entries" : 6.02745618307040320615897144307382404804229736328125,
-        "warnings" : "aeiou",
-        "state" : "aeiou",
-        "addr" : "aeiou",
+        "warnings" : "warnings",
+        "state" : "state",
+        "addr" : "addr",
         "queue" : 0.80082819046101150206595775671303272247314453125,
-        "outpoint" : "aeiou",
-        "status" : "aeiou",
-        "keys_left" : "aeiou"
+        "outpoint" : "outpoint",
+        "status" : "status",
+        "keys_left" : "keys_left"
       }
     },
     "DumpHdInfoResponse" : {
@@ -6868,9 +7144,9 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "hdseed" : "aeiou",
-        "mnemonicpassphrase" : "aeiou",
-        "mnemonic" : "aeiou"
+        "hdseed" : "hdseed",
+        "mnemonicpassphrase" : "mnemonicpassphrase",
+        "mnemonic" : "mnemonic"
       }
     },
     "Asset" : {
@@ -6926,19 +7202,22 @@ var swaggerSpec =
         "can_adjust_interest_rate" : true,
         "total_supply" : 5.962133916683182377482808078639209270477294921875,
         "inputs" : [ {
-          "start" : 5.962133916683182377482808078639209270477294921875,
-          "end" : 5.63737665663332876420099637471139430999755859375
+          "start" : 6.02745618307040320615897144307382404804229736328125,
+          "end" : 1.46581298050294517310021547018550336360931396484375
+        }, {
+          "start" : 6.02745618307040320615897144307382404804229736328125,
+          "end" : 1.46581298050294517310021547018550336360931396484375
         } ],
-        "txid" : "aeiou",
-        "publicvalue" : "aeiou",
+        "txid" : "txid",
+        "publicvalue" : "publicvalue",
         "use_input_ranges" : true,
         "balance" : 1.46581298050294517310021547018550336360931396484375,
         "max_supply" : 5.63737665663332876420099637471139430999755859375,
-        "alias" : "aeiou",
+        "alias" : "alias",
         "interest_rate" : 2.3021358869347654518833223846741020679473876953125,
-        "_id" : "aeiou",
+        "_id" : "_id",
         "time" : 6.02745618307040320615897144307382404804229736328125,
-        "category" : "aeiou",
+        "category" : "category",
         "height" : 0.80082819046101150206595775671303272247314453125
       }
     },
@@ -6952,8 +7231,8 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "start" : 5.962133916683182377482808078639209270477294921875,
-        "end" : 5.63737665663332876420099637471139430999755859375
+        "start" : 6.02745618307040320615897144307382404804229736328125,
+        "end" : 1.46581298050294517310021547018550336360931396484375
       }
     },
     "AssetSendRequest" : {
@@ -6982,6 +7261,33 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "amounts" : [ {
+          "amount" : 0.80082819046101150206595775671303272247314453125,
+          "ranges" : [ {
+            "start" : 6.02745618307040320615897144307382404804229736328125,
+            "end" : 1.46581298050294517310021547018550336360931396484375
+          }, {
+            "start" : 6.02745618307040320615897144307382404804229736328125,
+            "end" : 1.46581298050294517310021547018550336360931396484375
+          } ],
+          "aliasto" : "aliasto"
+        }, {
+          "amount" : 0.80082819046101150206595775671303272247314453125,
+          "ranges" : [ {
+            "start" : 6.02745618307040320615897144307382404804229736328125,
+            "end" : 1.46581298050294517310021547018550336360931396484375
+          }, {
+            "start" : 6.02745618307040320615897144307382404804229736328125,
+            "end" : 1.46581298050294517310021547018550336360931396484375
+          } ],
+          "aliasto" : "aliasto"
+        } ],
+        "memo" : "memo",
+        "asset" : "asset",
+        "aliasfrom" : "aliasfrom"
       }
     },
     "AssetAmount" : {
@@ -7002,6 +7308,17 @@ var swaggerSpec =
             "$ref" : "#/definitions/AssetInput"
           }
         }
+      },
+      "example" : {
+        "amount" : 0.80082819046101150206595775671303272247314453125,
+        "ranges" : [ {
+          "start" : 6.02745618307040320615897144307382404804229736328125,
+          "end" : 1.46581298050294517310021547018550336360931396484375
+        }, {
+          "start" : 6.02745618307040320615897144307382404804229736328125,
+          "end" : 1.46581298050294517310021547018550336360931396484375
+        } ],
+        "aliasto" : "aliasto"
       }
     },
     "AssetAllocation" : {
@@ -7045,16 +7362,19 @@ var swaggerSpec =
       "example" : {
         "balance" : 6.02745618307040320615897144307382404804229736328125,
         "inputs" : [ {
-          "start" : 5.962133916683182377482808078639209270477294921875,
-          "end" : 5.63737665663332876420099637471139430999755859375
+          "start" : 6.02745618307040320615897144307382404804229736328125,
+          "end" : 1.46581298050294517310021547018550336360931396484375
+        }, {
+          "start" : 6.02745618307040320615897144307382404804229736328125,
+          "end" : 1.46581298050294517310021547018550336360931396484375
         } ],
-        "txid" : "aeiou",
-        "alias" : "aeiou",
+        "txid" : "txid",
+        "alias" : "alias",
         "interest_claim_height" : 1.46581298050294517310021547018550336360931396484375,
-        "memo" : "aeiou",
-        "_id" : "aeiou",
-        "asset" : "aeiou",
-        "accumulated_interest" : 2.3021358869347654518833223846741020679473876953125,
+        "memo" : "memo",
+        "_id" : "_id",
+        "asset" : "asset",
+        "accumulated_interest" : 5.962133916683182377482808078639209270477294921875,
         "height" : 0.80082819046101150206595775671303272247314453125
       }
     },
@@ -7084,6 +7404,11 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "alias" : "alias",
+        "asset" : "asset"
       }
     },
     "AssetUpdateRequest" : {
@@ -7112,6 +7437,14 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "public" : "public",
+        "interest_rate" : 6.02745618307040320615897144307382404804229736328125,
+        "asset" : "asset",
+        "category" : "category",
+        "supply" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "AssetNewRequest" : {
@@ -7156,6 +7489,18 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
         }
+      },
+      "example" : {
+        "witness" : "witness",
+        "can_adjust_interest_rate" : true,
+        "public" : "public",
+        "name" : "name",
+        "max_supply" : 6.02745618307040320615897144307382404804229736328125,
+        "alias" : "alias",
+        "interest_rate" : 1.46581298050294517310021547018550336360931396484375,
+        "use_inputranges" : true,
+        "category" : "category",
+        "supply" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "FundRawTransactionRequest" : {
@@ -7166,22 +7511,20 @@ var swaggerSpec =
         "watching" : {
           "type" : "boolean"
         }
+      },
+      "example" : {
+        "hexstring" : "hexstring",
+        "watching" : true
       }
     },
     "SignRawTransactionRequest" : {
       "properties" : {
-        "hex" : {
+        "hexstring" : {
           "type" : "string"
-        },
-        "complete" : {
-          "type" : "boolean"
-        },
-        "errors" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/SignRawTransactionError"
-          }
         }
+      },
+      "example" : {
+        "hexstring" : "hexstring"
       }
     },
     "LockUnspentRequest" : {
@@ -7195,6 +7538,16 @@ var swaggerSpec =
             "$ref" : "#/definitions/LockUnspentTransaction"
           }
         }
+      },
+      "example" : {
+        "unlock" : true,
+        "transactions" : [ {
+          "txid" : "txid",
+          "vout" : 0.80082819046101150206595775671303272247314453125
+        }, {
+          "txid" : "txid",
+          "vout" : 0.80082819046101150206595775671303272247314453125
+        } ]
       }
     },
     "LockUnspentTransaction" : {
@@ -7205,6 +7558,10 @@ var swaggerSpec =
         "vout" : {
           "type" : "number"
         }
+      },
+      "example" : {
+        "txid" : "txid",
+        "vout" : 0.80082819046101150206595775671303272247314453125
       }
     },
     "OfferNewRequest" : {
@@ -7260,6 +7617,25 @@ var swaggerSpec =
         "witness" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "offertype" : "offertype",
+        "private" : true,
+        "quantity" : 0.80082819046101150206595775671303272247314453125,
+        "auction_expires" : 5.962133916683182377482808078639209270477294921875,
+        "description" : "description",
+        "units" : 1.46581298050294517310021547018550336360931396484375,
+        "auction_reserve" : 5.63737665663332876420099637471139430999755859375,
+        "title" : "title",
+        "auction_deposit" : 2.3021358869347654518833223846741020679473876953125,
+        "witness" : "witness",
+        "cert_guid" : "cert_guid",
+        "price" : 6.02745618307040320615897144307382404804229736328125,
+        "alias" : "alias",
+        "currency" : "currency",
+        "category" : "category",
+        "auction_require_witness" : true,
+        "payment_options" : "payment_options"
       }
     },
     "OfferUpdateRequest" : {
@@ -7318,6 +7694,26 @@ var swaggerSpec =
         "witness" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "private" : true,
+        "quantity" : 0.80082819046101150206595775671303272247314453125,
+        "auction_expires" : 5.962133916683182377482808078639209270477294921875,
+        "description" : "description",
+        "auction_reserve" : 5.63737665663332876420099637471139430999755859375,
+        "title" : "title",
+        "auction_deposit" : 2.3021358869347654518833223846741020679473876953125,
+        "witness" : "witness",
+        "cert_guid" : "cert_guid",
+        "price" : 6.02745618307040320615897144307382404804229736328125,
+        "alias" : "alias",
+        "guid" : "guid",
+        "currency" : "currency",
+        "commission" : 1.46581298050294517310021547018550336360931396484375,
+        "category" : "category",
+        "offer_type" : "offer_type",
+        "auction_require_witness" : true,
+        "payment_options" : "payment_options"
       }
     },
     "EscrowCreateRawTransactionDataRequest" : {
@@ -7331,6 +7727,11 @@ var swaggerSpec =
         "satoshis" : {
           "type" : "number"
         }
+      },
+      "example" : {
+        "txid" : "txid",
+        "vout" : 0.80082819046101150206595775671303272247314453125,
+        "satoshis" : 6.02745618307040320615897144307382404804229736328125
       }
     },
     "EscrowBidResponse" : {
@@ -7364,15 +7765,15 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "offer" : "aeiou",
+        "offer" : "offer",
         "bid_in_payment_option_per_unit" : 1.46581298050294517310021547018550336360931396484375,
-        "witness" : "aeiou",
-        "bidder" : "aeiou",
-        "escrow" : "aeiou",
-        "_id" : "aeiou",
+        "witness" : "witness",
+        "bidder" : "bidder",
+        "escrow" : "escrow",
+        "_id" : "_id",
         "bid_in_offer_currency_per_unit" : 6.02745618307040320615897144307382404804229736328125,
         "height" : 0.80082819046101150206595775671303272247314453125,
-        "status" : "aeiou"
+        "status" : "status"
       }
     },
     "EscrowFeedbackResponse" : {
@@ -7406,14 +7807,14 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "offer" : "aeiou",
-        "feedback" : "aeiou",
+        "offer" : "offer",
+        "feedback" : "feedback",
         "feedbackuserfrom" : 5.962133916683182377482808078639209270477294921875,
         "rating" : 1.46581298050294517310021547018550336360931396484375,
-        "escrow" : "aeiou",
+        "escrow" : "escrow",
         "txid" : 0.80082819046101150206595775671303272247314453125,
         "feedbackuserto" : 5.63737665663332876420099637471139430999755859375,
-        "_id" : "aeiou",
+        "_id" : "_id",
         "time" : 6.02745618307040320615897144307382404804229736328125
       }
     },
@@ -7429,6 +7830,10 @@ var swaggerSpec =
             "properties" : { }
           }
         }
+      },
+      "example" : {
+        "addresses" : [ "{}", "{}" ],
+        "hexstring" : "hexstring"
       }
     },
     "GetAddressUTXOsRequest" : {
@@ -7439,6 +7844,42 @@ var swaggerSpec =
             "type" : "string"
           }
         }
+      },
+      "example" : {
+        "addresses" : [ "addresses", "addresses" ]
+      }
+    },
+    "SignRawTransactionResponse" : {
+      "properties" : {
+        "hex" : {
+          "type" : "string"
+        },
+        "complete" : {
+          "type" : "boolean"
+        },
+        "errors" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SignRawTransactionError"
+          }
+        }
+      },
+      "example" : {
+        "hex" : "hex",
+        "complete" : true,
+        "errors" : [ {
+          "sequence" : 6.02745618307040320615897144307382404804229736328125,
+          "scriptSig" : "scriptSig",
+          "txid" : "txid",
+          "error" : "error",
+          "vout" : 0.80082819046101150206595775671303272247314453125
+        }, {
+          "sequence" : 6.02745618307040320615897144307382404804229736328125,
+          "scriptSig" : "scriptSig",
+          "txid" : "txid",
+          "error" : "error",
+          "vout" : 0.80082819046101150206595775671303272247314453125
+        } ]
       }
     },
     "SignRawTransactionError" : {
@@ -7458,6 +7899,23 @@ var swaggerSpec =
         "error" : {
           "type" : "string"
         }
+      },
+      "example" : {
+        "sequence" : 6.02745618307040320615897144307382404804229736328125,
+        "scriptSig" : "scriptSig",
+        "txid" : "txid",
+        "error" : "error",
+        "vout" : 0.80082819046101150206595775671303272247314453125
+      }
+    },
+    "SendRawTransactionResponse" : {
+      "properties" : {
+        "txid" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "txid" : "txid"
       }
     }
   }
