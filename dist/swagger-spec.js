@@ -1537,7 +1537,7 @@ var swaggerSpec =
         }, {
           "name" : "maxtries",
           "in" : "query",
-          "description" : "?How many iterations to try (default = 1000000).",
+          "description" : "﻿How many iterations to try (default = 1000000).",
           "required" : false,
           "type" : "number"
         } ],
@@ -3151,7 +3151,7 @@ var swaggerSpec =
           "200" : {
             "description" : "Success",
             "schema" : {
-              "type" : "string"
+              "$ref" : "#/definitions/SendRawTransactionResponse"
             }
           },
           "default" : {
@@ -3250,7 +3250,7 @@ var swaggerSpec =
           "200" : {
             "description" : "Success",
             "schema" : {
-              "type" : "string"
+              "$ref" : "#/definitions/SignRawTransactionResponse"
             }
           },
           "default" : {
@@ -3631,7 +3631,7 @@ var swaggerSpec =
           "name" : "addresses",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/getAddressUtxosRequest"
+            "$ref" : "#/definitions/GetAddressUTXOsRequest"
           }
         } ],
         "responses" : {
@@ -6712,7 +6712,7 @@ var swaggerSpec =
         },
         "nonce" : {
           "type" : "number",
-          "description" : "?The nonce"
+          "description" : "﻿The nonce"
         },
         "bits" : {
           "type" : "string",
@@ -6720,15 +6720,15 @@ var swaggerSpec =
         },
         "difficulty" : {
           "type" : "number",
-          "description" : "?The difficulty"
+          "description" : "﻿The difficulty"
         },
         "chainwork" : {
           "type" : "string",
-          "description" : "?Expected number of hashes required to produce the chain up to this block (in hex)"
+          "description" : "﻿Expected number of hashes required to produce the chain up to this block (in hex)"
         },
         "previousblockhash" : {
           "type" : "string",
-          "description" : "?The hash of the previous block"
+          "description" : "﻿The hash of the previous block"
         },
         "nextblockhash" : {
           "type" : "string",
@@ -7836,7 +7836,7 @@ var swaggerSpec =
         "hexstring" : "hexstring"
       }
     },
-    "getAddressUtxosRequest" : {
+    "GetAddressUTXOsRequest" : {
       "properties" : {
         "addresses" : {
           "type" : "array",
@@ -7844,6 +7844,78 @@ var swaggerSpec =
             "type" : "string"
           }
         }
+      },
+      "example" : {
+        "addresses" : [ "addresses", "addresses" ]
+      }
+    },
+    "SignRawTransactionResponse" : {
+      "properties" : {
+        "hex" : {
+          "type" : "string"
+        },
+        "complete" : {
+          "type" : "boolean"
+        },
+        "errors" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SignRawTransactionError"
+          }
+        }
+      },
+      "example" : {
+        "hex" : "hex",
+        "complete" : true,
+        "errors" : [ {
+          "sequence" : 6.02745618307040320615897144307382404804229736328125,
+          "scriptSig" : "scriptSig",
+          "txid" : "txid",
+          "error" : "error",
+          "vout" : 0.80082819046101150206595775671303272247314453125
+        }, {
+          "sequence" : 6.02745618307040320615897144307382404804229736328125,
+          "scriptSig" : "scriptSig",
+          "txid" : "txid",
+          "error" : "error",
+          "vout" : 0.80082819046101150206595775671303272247314453125
+        } ]
+      }
+    },
+    "SignRawTransactionError" : {
+      "properties" : {
+        "txid" : {
+          "type" : "string"
+        },
+        "vout" : {
+          "type" : "number"
+        },
+        "scriptSig" : {
+          "type" : "string"
+        },
+        "sequence" : {
+          "type" : "number"
+        },
+        "error" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "sequence" : 6.02745618307040320615897144307382404804229736328125,
+        "scriptSig" : "scriptSig",
+        "txid" : "txid",
+        "error" : "error",
+        "vout" : 0.80082819046101150206595775671303272247314453125
+      }
+    },
+    "SendRawTransactionResponse" : {
+      "properties" : {
+        "txid" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "txid" : "txid"
       }
     }
   }
