@@ -1537,7 +1537,7 @@ var swaggerSpec =
         }, {
           "name" : "maxtries",
           "in" : "query",
-          "description" : "﻿How many iterations to try (default = 1000000).",
+          "description" : "?How many iterations to try (default = 1000000).",
           "required" : false,
           "type" : "number"
         } ],
@@ -5848,7 +5848,7 @@ var swaggerSpec =
       }
     },
     "CertNewRequest" : {
-      "required" : [ "alias", "category", "public", "title", "witness" ],
+      "required" : [ "alias", "category", "title", "witness" ],
       "properties" : {
         "alias" : {
           "type" : "string",
@@ -5858,7 +5858,7 @@ var swaggerSpec =
           "type" : "string",
           "description" : "title, 256 bytes max."
         },
-        "public" : {
+        "publicvalue" : {
           "type" : "string",
           "description" : "public data, 256 characters max."
         },
@@ -5873,7 +5873,7 @@ var swaggerSpec =
       },
       "example" : {
         "witness" : "witness",
-        "public" : "public",
+        "publicvalue" : "publicvalue",
         "alias" : "alias",
         "title" : "title",
         "category" : "category"
@@ -5890,7 +5890,7 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Alias to transfer this certificate to."
         },
-        "public" : {
+        "publicvalue" : {
           "type" : "string",
           "description" : "public data, 256 characters max."
         },
@@ -5905,14 +5905,14 @@ var swaggerSpec =
       },
       "example" : {
         "witness" : "witness",
-        "public" : "public",
+        "publicvalue" : "publicvalue",
         "accessflags" : 0.80082819046101150206595775671303272247314453125,
         "guid" : "guid",
         "alias" : "alias"
       }
     },
     "CertUpdateRequest" : {
-      "required" : [ "guid", "public", "title", "witness" ],
+      "required" : [ "guid", "title", "witness" ],
       "properties" : {
         "guid" : {
           "type" : "string",
@@ -5922,7 +5922,7 @@ var swaggerSpec =
           "type" : "string",
           "description" : "certificate title, 255 bytes max."
         },
-        "public" : {
+        "publicvalue" : {
           "type" : "string",
           "description" : "Public certificate data, 1024 characters max."
         },
@@ -5937,7 +5937,7 @@ var swaggerSpec =
       },
       "example" : {
         "witness" : "witness",
-        "public" : "public",
+        "publicvalue" : "publicvalue",
         "guid" : "guid",
         "title" : "title",
         "category" : "category"
@@ -6712,7 +6712,7 @@ var swaggerSpec =
         },
         "nonce" : {
           "type" : "number",
-          "description" : "﻿The nonce"
+          "description" : "?The nonce"
         },
         "bits" : {
           "type" : "string",
@@ -6720,15 +6720,15 @@ var swaggerSpec =
         },
         "difficulty" : {
           "type" : "number",
-          "description" : "﻿The difficulty"
+          "description" : "?The difficulty"
         },
         "chainwork" : {
           "type" : "string",
-          "description" : "﻿Expected number of hashes required to produce the chain up to this block (in hex)"
+          "description" : "?Expected number of hashes required to produce the chain up to this block (in hex)"
         },
         "previousblockhash" : {
           "type" : "string",
-          "description" : "﻿The hash of the previous block"
+          "description" : "?The hash of the previous block"
         },
         "nextblockhash" : {
           "type" : "string",
@@ -7417,7 +7417,7 @@ var swaggerSpec =
           "type" : "string",
           "description" : "Asset name."
         },
-        "public" : {
+        "publicvalue" : {
           "type" : "string",
           "description" : "Public data, 512 characters max."
         },
@@ -7440,7 +7440,7 @@ var swaggerSpec =
       },
       "example" : {
         "witness" : "witness",
-        "public" : "public",
+        "publicvalue" : "publicvalue",
         "interest_rate" : 6.02745618307040320615897144307382404804229736328125,
         "asset" : "asset",
         "category" : "category",
@@ -7457,9 +7457,9 @@ var swaggerSpec =
           "type" : "string",
           "description" : "An alias you own."
         },
-        "public" : {
+        "publicvalue" : {
           "type" : "string",
-          "description" : "Public data, 512 characters max."
+          "description" : "Public data, 256 characters max."
         },
         "category" : {
           "type" : "string",
@@ -7492,8 +7492,8 @@ var swaggerSpec =
       },
       "example" : {
         "witness" : "witness",
+        "publicvalue" : "publicvalue",
         "can_adjust_interest_rate" : true,
-        "public" : "public",
         "name" : "name",
         "max_supply" : 6.02745618307040320615897144307382404804229736328125,
         "alias" : "alias",
