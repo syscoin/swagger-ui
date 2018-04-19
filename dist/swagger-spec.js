@@ -4785,7 +4785,7 @@ var swaggerSpec =
         "total" : {
           "type" : "string"
         },
-        "totalwithfee" : {
+        "total_with_fee" : {
           "type" : "number"
         },
         "currency" : {
@@ -4877,8 +4877,8 @@ var swaggerSpec =
         "currency" : "currency",
         "escrowaddress" : "escrowaddress",
         "avg_rating_display" : "avg_rating_display",
-        "totalwithfee" : 1.46581298050294517310021547018550336360931396484375,
         "height" : "height",
+        "total_with_fee" : 1.46581298050294517310021547018550336360931396484375,
         "avg_seller_feedback" : 7.061401241503109105224211816675961017608642578125,
         "quantity" : "quantity",
         "paymentoption" : 5.962133916683182377482808078639209270477294921875,
@@ -5627,7 +5627,7 @@ var swaggerSpec =
         "quantity" : {
           "type" : "number"
         },
-        "private" : {
+        "privatevalue" : {
           "type" : "boolean"
         },
         "description" : {
@@ -5658,7 +5658,6 @@ var swaggerSpec =
       "example" : {
         "auction_expires_on" : 7.061401241503109105224211816675961017608642578125,
         "offer_units" : 5.63737665663332876420099637471139430999755859375,
-        "private" : true,
         "expires_on" : 0.80082819046101150206595775671303272247314453125,
         "description" : "description",
         "cert" : "cert",
@@ -5675,6 +5674,7 @@ var swaggerSpec =
         "quantity" : 2.3021358869347654518833223846741020679473876953125,
         "address" : "address",
         "txid" : "txid",
+        "privatevalue" : true,
         "offerlink_guid" : "offerlink_guid",
         "paymentoptions" : "paymentoptions",
         "offerlink_seller" : "offerlink_seller",
@@ -7606,7 +7606,7 @@ var swaggerSpec =
         "payment_options" : {
           "type" : "string"
         },
-        "private" : {
+        "privatevalue" : {
           "type" : "boolean"
         },
         "units" : {
@@ -7633,10 +7633,10 @@ var swaggerSpec =
       },
       "example" : {
         "offertype" : "offertype",
-        "private" : true,
         "quantity" : 0.80082819046101150206595775671303272247314453125,
         "auction_expires" : 5.962133916683182377482808078639209270477294921875,
         "description" : "description",
+        "privatevalue" : true,
         "units" : 1.46581298050294517310021547018550336360931396484375,
         "auction_reserve" : 5.63737665663332876420099637471139430999755859375,
         "title" : "title",
@@ -7677,7 +7677,7 @@ var swaggerSpec =
         "currency" : {
           "type" : "string"
         },
-        "private" : {
+        "privatevalue" : {
           "type" : "boolean"
         },
         "cert_guid" : {
@@ -7709,10 +7709,10 @@ var swaggerSpec =
         }
       },
       "example" : {
-        "private" : true,
         "quantity" : 0.80082819046101150206595775671303272247314453125,
         "auction_expires" : 5.962133916683182377482808078639209270477294921875,
         "description" : "description",
+        "privatevalue" : true,
         "auction_reserve" : 5.63737665663332876420099637471139430999755859375,
         "title" : "title",
         "auction_deposit" : 2.3021358869347654518833223846741020679473876953125,
