@@ -1537,7 +1537,7 @@ var swaggerSpec =
         }, {
           "name" : "maxtries",
           "in" : "query",
-          "description" : "?How many iterations to try (default = 1000000).",
+          "description" : "How many iterations to try (default = 1000000).",
           "required" : false,
           "type" : "number"
         } ],
@@ -7150,9 +7150,12 @@ var swaggerSpec =
       }
     },
     "Asset" : {
-      "required" : [ "_id" ],
+      "required" : [ "guid" ],
       "properties" : {
-        "_id" : {
+        "guid" : {
+          "type" : "string"
+        },
+        "symbol" : {
           "type" : "string"
         },
         "txid" : {
@@ -7196,9 +7199,13 @@ var swaggerSpec =
           "items" : {
             "$ref" : "#/definitions/AssetInput"
           }
+        },
+        "precision" : {
+          "type" : "number"
         }
       },
       "example" : {
+        "symbol" : "symbol",
         "can_adjust_interest_rate" : true,
         "total_supply" : 5.962133916683182377482808078639209270477294921875,
         "inputs" : [ {
@@ -7208,14 +7215,15 @@ var swaggerSpec =
           "start" : 6.02745618307040320615897144307382404804229736328125,
           "end" : 1.46581298050294517310021547018550336360931396484375
         } ],
+        "precision" : 7.061401241503109105224211816675961017608642578125,
         "txid" : "txid",
         "publicvalue" : "publicvalue",
         "use_input_ranges" : true,
         "balance" : 1.46581298050294517310021547018550336360931396484375,
         "max_supply" : 5.63737665663332876420099637471139430999755859375,
+        "guid" : "guid",
         "alias" : "alias",
         "interest_rate" : 2.3021358869347654518833223846741020679473876953125,
-        "_id" : "_id",
         "time" : 6.02745618307040320615897144307382404804229736328125,
         "category" : "category",
         "height" : 0.80082819046101150206595775671303272247314453125
@@ -7240,7 +7248,7 @@ var swaggerSpec =
       "properties" : {
         "asset" : {
           "type" : "string",
-          "description" : "Asset name."
+          "description" : "Asset guid."
         },
         "aliasfrom" : {
           "type" : "string",
@@ -7394,7 +7402,7 @@ var swaggerSpec =
       "properties" : {
         "asset" : {
           "type" : "string",
-          "description" : "Asset name."
+          "description" : "Asset guid."
         },
         "alias" : {
           "type" : "string",
@@ -7415,7 +7423,7 @@ var swaggerSpec =
       "properties" : {
         "asset" : {
           "type" : "string",
-          "description" : "Asset name."
+          "description" : "Asset guid."
         },
         "publicvalue" : {
           "type" : "string",
@@ -7449,7 +7457,7 @@ var swaggerSpec =
     },
     "AssetNewRequest" : {
       "properties" : {
-        "name" : {
+        "symbol" : {
           "type" : "string",
           "description" : "name, 20 characters max."
         },
@@ -7464,6 +7472,10 @@ var swaggerSpec =
         "category" : {
           "type" : "string",
           "description" : "Category, 256 characters max. Defaults to assets."
+        },
+        "precision" : {
+          "type" : "number",
+          "description" : "Precision of balances. Must be between 0 and 8. The lower it is the higher possible max_supply is available since the supply is represented as a 64 bit integer. With a precision of 8 the max supply is 10 billion."
         },
         "supply" : {
           "type" : "number",
@@ -7491,16 +7503,17 @@ var swaggerSpec =
         }
       },
       "example" : {
+        "symbol" : "symbol",
         "witness" : "witness",
         "publicvalue" : "publicvalue",
         "can_adjust_interest_rate" : true,
-        "name" : "name",
-        "max_supply" : 6.02745618307040320615897144307382404804229736328125,
+        "precision" : 0.80082819046101150206595775671303272247314453125,
+        "max_supply" : 1.46581298050294517310021547018550336360931396484375,
         "alias" : "alias",
-        "interest_rate" : 1.46581298050294517310021547018550336360931396484375,
+        "interest_rate" : 5.962133916683182377482808078639209270477294921875,
         "use_inputranges" : true,
         "category" : "category",
-        "supply" : 0.80082819046101150206595775671303272247314453125
+        "supply" : 6.02745618307040320615897144307382404804229736328125
       }
     },
     "FundRawTransactionRequest" : {
