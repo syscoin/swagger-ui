@@ -180,7 +180,7 @@ var swaggerSpec =
     },
     "/assetallocationcollectinterest" : {
       "post" : {
-        "tags" : [ "Asset", "AssetAllocation" ],
+        "tags" : [ "Asset"],
         "description" : "Collect interest on this asset allocation if an interest rate is set on this asset.",
         "operationId" : "assetallocationcollectinterest",
         "parameters" : [ {
