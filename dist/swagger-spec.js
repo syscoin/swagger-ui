@@ -180,7 +180,7 @@ var swaggerSpec =
     },
     "/assetallocationcollectinterest" : {
       "post" : {
-        "tags" : [ "Asset"],
+        "tags" : [ "Asset" ],
         "description" : "Collect interest on this asset allocation if an interest rate is set on this asset.",
         "operationId" : "assetallocationcollectinterest",
         "parameters" : [ {
@@ -6140,23 +6140,27 @@ var swaggerSpec =
           "description" : "Alias to pay from"
         },
         "amounts" : {
-          "type" : "string",
-          "description" : "A stringified JSON object with aliases and amounts. { \"address\":amount, ... } (numeric or string) The syscoin alias is the key, the numeric amount (can be string) in SYS is the value."
+          "$ref" : "#/definitions/AliasPayRequest_amounts"
         },
         "instantsend" : {
           "type" : "boolean",
-          "description" : "Set to true to use InstantSend to send this transaction or false otherwise."
+          "description" : "Set to true to use InstantSend to send this transaction or false otherwise.",
+          "default" : false
         },
         "subtractfeefromamount" : {
-          "type" : "string",
-          "description" : "Set to true to subtract fee from amount or false otherwise."
+          "type" : "array",
+          "example" : [ "alias1", "alias2" ],
+          "description" : "An addresses array to subtract fee from them.",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "example" : {
-        "amounts" : "amounts",
-        "instantsend" : true,
+        "amounts" : "{\"alias1\":0.02,\"alias2\":0.4,\"alias3\":0.004}",
+        "instantsend" : false,
         "aliasfrom" : "aliasfrom",
-        "subtractfeefromamount" : "subtractfeefromamount"
+        "subtractfeefromamount" : [ "alias1", "alias2" ]
       }
     },
     "GetNewAddressRequest" : {
@@ -7433,7 +7437,7 @@ var swaggerSpec =
         "status" : 0.80082819046101150206595775671303272247314453125
       }
     },
-    "AssetAllocationCollectInterestRequest" : {
+    "AssetTransferRequest" : {
       "required" : [ "alias", "asset" ],
       "properties" : {
         "asset" : {
@@ -7442,7 +7446,7 @@ var swaggerSpec =
         },
         "alias" : {
           "type" : "string",
-          "description" : "Alias to which this allocation belongs."
+          "description" : "Alias to transfer this asset to."
         },
         "witness" : {
           "type" : "string",
@@ -7455,7 +7459,7 @@ var swaggerSpec =
         "asset" : "asset"
       }
     },
-    "AssetTransferRequest" : {
+    "AssetAllocationCollectInterestRequest" : {
       "required" : [ "alias", "asset" ],
       "properties" : {
         "asset" : {
@@ -7464,7 +7468,7 @@ var swaggerSpec =
         },
         "alias" : {
           "type" : "string",
-          "description" : "Alias to transfer this asset to."
+          "description" : "Alias that holds this asset allocation."
         },
         "witness" : {
           "type" : "string",
@@ -7988,6 +7992,15 @@ var swaggerSpec =
       "example" : {
         "txid" : "txid"
       }
+    },
+    "AliasPayRequest_amounts" : {
+      "properties" : {
+        "alias" : {
+          "type" : "number"
+        }
+      },
+      "description" : "An object with aliases (pay to) and amounts. { \"address\":amount, ... } (numeric or string) The syscoin alias is the key, the numeric amount (can be string) in SYS is the value.",
+      "example" : "{\"alias1\":0.02,\"alias2\":0.4,\"alias3\":0.004}"
     }
   }
 }
