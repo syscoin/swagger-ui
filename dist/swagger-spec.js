@@ -178,6 +178,42 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
+    "/assetallocationcollectinterest" : {
+      "post" : {
+        "tags" : [ "Asset", "AssetAllocation" ],
+        "description" : "Collect interest on this asset allocation if an interest rate is set on this asset.",
+        "operationId" : "assetallocationcollectinterest",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/AssetAllocationCollectInterestRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
     "/assetallocationinfo" : {
       "get" : {
         "tags" : [ "Asset" ],
@@ -7395,6 +7431,28 @@ var swaggerSpec =
       },
       "example" : {
         "status" : 0.80082819046101150206595775671303272247314453125
+      }
+    },
+    "AssetAllocationCollectInterestRequest" : {
+      "required" : [ "asset", "alias" ],
+      "properties" : {
+        "asset" : {
+          "type" : "string",
+          "description" : "Asset guid."
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "Alias to which this allocation belongs."
+        },
+        "witness" : {
+          "type" : "string",
+          "description" : "Witness alias name that will sign for web-of-trust notarization of this transaction."
+        }
+      },
+      "example" : {
+        "witness" : "witness",
+        "alias" : "alias",
+        "asset" : "asset"
       }
     },
     "AssetTransferRequest" : {
