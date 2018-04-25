@@ -7434,7 +7434,7 @@ var swaggerSpec =
       }
     },
     "AssetAllocationCollectInterestRequest" : {
-      "required" : [ "asset", "alias" ],
+      "required" : [ "alias", "asset" ],
       "properties" : {
         "asset" : {
           "type" : "string",
