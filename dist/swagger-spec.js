@@ -827,6 +827,45 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
+    "/aliasaddscript" : {
+      "post" : {
+        "tags" : [ "Aliases" ],
+        "description" : "add a redeem script to alias",
+        "operationId" : "aliasaddscript",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/AliasAddScriptRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "500" : {
+            "description" : "unable to call aliasaddscript",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
     "/aliasclearwhitelist" : {
       "post" : {
         "tags" : [ "Aliases" ],
@@ -4839,7 +4878,7 @@ var swaggerSpec =
         "paymemntoption_display" : {
           "type" : "string"
         },
-        "redeem_txid" : {
+        "redeem_script" : {
           "type" : "string"
         },
         "txid" : {
@@ -4900,7 +4939,6 @@ var swaggerSpec =
         "sysfee" : 6.02745618307040320615897144307382404804229736328125,
         "pay_message" : "pay_message",
         "fee" : "fee",
-        "redeem_txid" : "redeem_txid",
         "offer" : "offer",
         "total" : "total",
         "paymemntoption_display" : "paymemntoption_display",
@@ -4926,6 +4964,7 @@ var swaggerSpec =
         "exttxid" : "exttxid",
         "seller_feedback" : [ "seller_feedback", "seller_feedback" ],
         "offertitle" : "offertitle",
+        "redeem_script" : "redeem_script",
         "avg_buyer_rating" : 7.061401241503109105224211816675961017608642578125,
         "time" : "time",
         "buyer_feedback" : [ "buyer_feedback", "buyer_feedback" ],
@@ -7991,6 +8030,16 @@ var swaggerSpec =
       },
       "example" : {
         "txid" : "txid"
+      }
+    },
+    "AliasAddScriptRequest" : {
+      "properties" : {
+        "script" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "script" : "script"
       }
     },
     "AliasPayRequest_amounts" : {
