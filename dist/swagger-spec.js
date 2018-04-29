@@ -6076,7 +6076,7 @@ var swaggerSpec =
       }
     },
     "EscrowNewRequest" : {
-      "required" : [ "alias", "arbiter_alias", "arbiter_fee", "bid_in_offer_currency", "bid_in_payment_option", "buynow", "extTx", "getamountandaddress", "network_fee", "offer", "paymentoption", "quantity", "shipping_amount", "total_in_payment_option", "witness_fee" ],
+      "required" : [ "alias", "arbiter_alias", "arbiter_fee", "buynow", "extTx", "getamountandaddress", "network_fee", "offer", "paymentoption", "quantity", "shipping_amount", "total_in_payment_option", "witness_fee" ],
       "properties" : {
         "getamountandaddress" : {
           "type" : "boolean",
