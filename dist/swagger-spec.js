@@ -6076,7 +6076,7 @@ var swaggerSpec =
       }
     },
     "EscrowNewRequest" : {
-      "required" : [ "alias", "arbiter_alias", "arbiter_fee", "bid_in_offer_currency", "bid_in_payment_option", "buynow", "extTx", "getamountandaddress", "network_fee", "offer", "paymentoption", "quantity", "shipping_amount", "total_in_payment_option", "witness_fee" ],
+      "required" : [ "alias", "arbiter_alias", "arbiter_fee", "bid_in_offer_currency", "bid_in_payment_option", "buynow", "extTx", "getamountandaddress", "network_fee", "offer", "paymentoption", "quantity", "shipping_amount", "witness_fee" ],
       "properties" : {
         "getamountandaddress" : {
           "type" : "boolean",
@@ -6782,7 +6782,7 @@ var swaggerSpec =
         },
         "nonce" : {
           "type" : "number",
-          "description" : "﻿The nonce"
+          "description" : "?The nonce"
         },
         "bits" : {
           "type" : "string",
@@ -6790,15 +6790,15 @@ var swaggerSpec =
         },
         "difficulty" : {
           "type" : "number",
-          "description" : "﻿The difficulty"
+          "description" : "?The difficulty"
         },
         "chainwork" : {
           "type" : "string",
-          "description" : "﻿Expected number of hashes required to produce the chain up to this block (in hex)"
+          "description" : "?Expected number of hashes required to produce the chain up to this block (in hex)"
         },
         "previousblockhash" : {
           "type" : "string",
-          "description" : "﻿The hash of the previous block"
+          "description" : "?The hash of the previous block"
         },
         "nextblockhash" : {
           "type" : "string",
