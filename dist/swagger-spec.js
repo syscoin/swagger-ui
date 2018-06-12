@@ -6076,7 +6076,7 @@ var swaggerSpec =
       }
     },
     "EscrowNewRequest" : {
-      "required" : [ "alias", "arbiter_alias", "arbiter_fee", "bid_in_offer_currency", "bid_in_payment_option", "buynow", "extTx", "getamountandaddress", "network_fee", "offer", "paymentoption", "quantity", "shipping_amount", "witness_fee" ],
+      "required" : [ "alias", "arbiter_alias", "arbiter_fee", "bid_in_offer_currency", "bid_in_payment_option", "buynow", "extTx", "getamountandaddress", "network_fee", "offer", "paymentoption", "price_per_unit_in_payment_option", "quantity", "shipping_amount", "witness_fee" ],
       "properties" : {
         "getamountandaddress" : {
           "type" : "boolean",
@@ -6102,7 +6102,7 @@ var swaggerSpec =
           "type" : "boolean",
           "description" : "Specify whether the escrow involves purchasing offer for the full offer price if set to true, or through a bidding auction if set to false. If buynow is false, an initial deposit may be used to secure a bid if required by the seller."
         },
-        "total_in_payment_option" : {
+        "price_per_unit_in_payment_option" : {
           "type" : "number",
           "description" : "Total amount of the offer price. Amount is in paymentOption currency. It is per unit of purchase."
         },
@@ -6144,10 +6144,10 @@ var swaggerSpec =
         }
       },
       "example" : {
+        "price_per_unit_in_payment_option" : 6.02745618307040320615897144307382404804229736328125,
         "bid_in_offer_currency" : 9.301444243932575517419536481611430644989013671875,
         "extTx" : "extTx",
         "quantity" : 0,
-        "total_in_payment_option" : 6.02745618307040320615897144307382404804229736328125,
         "paymentoption" : "paymentoption",
         "witness_fee" : 2.3021358869347654518833223846741020679473876953125,
         "arbiter_alias" : "arbiter_alias",
