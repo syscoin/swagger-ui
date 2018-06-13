@@ -5561,7 +5561,7 @@ var swaggerSpec =
           "type" : "string"
         },
         "paymentoption" : {
-          "type" : "number"
+          "type" : "string"
         },
         "paymentoption_display" : {
           "type" : "string"
