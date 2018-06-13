@@ -363,6 +363,47 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
+    "/listassetallocationtransactions" : {
+      "get" : {
+        "tags" : [ "Asset" ],
+        "description" : "Show assets transfer history",
+        "operationId" : "listassetallocationtransactions",
+        "parameters" : [ {
+          "name" : "count",
+          "in" : "query",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "name" : "options",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/Asset"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
     "/login" : {
       "get" : {
         "tags" : [ "Blockmarket" ],
@@ -1078,6 +1119,45 @@ var swaggerSpec =
         "security" : [ {
           "token" : [ ]
         } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/aliasbalancemulti" : {
+      "get" : {
+        "tags" : [ "Aliases" ],
+        "description" : "Returns an array of balances based on an array of aliases passed in, internally calls aliasbalance for each alias.",
+        "operationId" : "aliasbalancemulti",
+        "parameters" : [ {
+          "name" : "aliases",
+          "in" : "query",
+          "description" : "(array, required) The syscoin aliases to find balances for. Must be an array.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instantsend",
+          "in" : "query",
+          "description" : "(boolean, optional) Check for balance available to instant send. Default is false.",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "number"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ],
+        "x-swagger-router-controller" : "Aliases"
       },
       "x-swagger-router-controller" : "rpc"
     },
@@ -2968,7 +3048,7 @@ var swaggerSpec =
     "/getaddressbalance" : {
       "get" : {
         "tags" : [ "General" ],
-        "description" : "get address balance ",
+        "description" : "Returns the balance for an address(es) (requires addressindex to be enabled).",
         "operationId" : "getaddressbalance",
         "parameters" : [ {
           "name" : "addresses",
@@ -2978,6 +3058,11 @@ var swaggerSpec =
           "items" : {
             "type" : "string"
           }
+        }, {
+          "name" : "separated_output",
+          "in" : "query",
+          "required" : false,
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
