@@ -457,6 +457,68 @@ var swaggerSpec =
       },
       "x-swagger-router-controller" : "rpc"
     },
+    "/resendwallettransactions" : {
+      "get" : {
+        "tags" : [ "General" ],
+        "description" : "Immediately re-broadcast unconfirmed wallet transactions to all peers.",
+        "operationId" : "resendwallettransactions",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
+    "/setaccount" : {
+      "post" : {
+        "tags" : [ "General" ],
+        "description" : "Sets a label to an account that is stored off-chain in wallet.dat.",
+        "operationId" : "setaccount",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "request",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/SetAccountRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "default" : {
+            "description" : "Error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "token" : [ ]
+        } ]
+      },
+      "x-swagger-router-controller" : "rpc"
+    },
     "/getblockchaininfo" : {
       "get" : {
         "tags" : [ "General" ],
@@ -4253,7 +4315,7 @@ var swaggerSpec =
           "type" : "string"
         },
         "vote-signal" : {
-          "type" : "number"
+          "type" : "string"
         },
         "vote-outcome" : {
           "type" : "string"
@@ -4267,10 +4329,10 @@ var swaggerSpec =
       },
       "example" : {
         "masternode-tx-index" : 0.80082819046101150206595775671303272247314453125,
-        "vote-signal" : 6.02745618307040320615897144307382404804229736328125,
+        "vote-signal" : "vote-signal",
         "masternode-tx-hash" : "masternode-tx-hash",
         "governance-hash" : "governance-hash",
-        "time" : 1.46581298050294517310021547018550336360931396484375,
+        "time" : 6.02745618307040320615897144307382404804229736328125,
         "vote-sig" : "vote-sig",
         "vote-outcome" : "vote-outcome"
       }
@@ -4848,7 +4910,7 @@ var swaggerSpec =
           "type" : "number"
         },
         "offer_title" : {
-          "type" : "number"
+          "type" : "string"
         },
         "reseller" : {
           "type" : "string"
@@ -4928,25 +4990,25 @@ var swaggerSpec =
       },
       "example" : {
         "seller" : "seller",
-        "total_without_fee" : 2.3021358869347654518833223846741020679473876953125,
-        "role" : 6.8468526983526398765889098285697400569915771484375,
+        "total_without_fee" : 5.63737665663332876420099637471139430999755859375,
+        "role" : 1.489415909854170383397331534069962799549102783203125,
         "acknowledged" : true,
         "redeem_txid" : "redeem_txid",
-        "offer_title" : 1.46581298050294517310021547018550336360931396484375,
+        "offer_title" : "offer_title",
         "offer" : "offer",
         "expired" : true,
-        "shipping" : 1.231513536777255612975068288506008684635162353515625,
-        "arbiterfee" : 2.027123023002321833274663731572218239307403564453125,
-        "commission" : 3.61607674925191080461672754609026014804840087890625,
+        "shipping" : 7.3862819483858839220147274318151175975799560546875,
+        "arbiterfee" : 3.61607674925191080461672754609026014804840087890625,
+        "commission" : 9.301444243932575517419536481611430644989013671875,
         "currency" : "currency",
         "escrowaddress" : "escrowaddress",
-        "height" : 1.489415909854170383397331534069962799549102783203125,
-        "total_with_fee" : 5.63737665663332876420099637471139430999755859375,
-        "quantity" : 5.962133916683182377482808078639209270477294921875,
-        "witnessfee" : 7.3862819483858839220147274318151175975799560546875,
-        "total_or_bid_in_payment_option_per_unit" : 9.301444243932575517419536481611430644989013671875,
+        "height" : 1.024645700144157789424070870154537260532379150390625,
+        "total_with_fee" : 5.962133916683182377482808078639209270477294921875,
+        "quantity" : 1.46581298050294517310021547018550336360931396484375,
+        "witnessfee" : 4.1456080298839363962315474054776132106781005859375,
+        "total_or_bid_in_payment_option_per_unit" : 7.061401241503109105224211816675961017608642578125,
         "paymentoption" : "paymentoption",
-        "networkfee" : 4.1456080298839363962315474054776132106781005859375,
+        "networkfee" : 2.027123023002321833274663731572218239307403564453125,
         "reseller" : "reseller",
         "txid" : "txid",
         "buyer" : "buyer",
@@ -4955,12 +5017,12 @@ var swaggerSpec =
         "arbiter" : "arbiter",
         "buynow" : true,
         "exttxid" : "exttxid",
-        "deposit" : 1.024645700144157789424070870154537260532379150390625,
+        "deposit" : 1.231513536777255612975068288506008684635162353515625,
         "redeem_script" : "redeem_script",
         "_id" : "_id",
         "time" : 0.80082819046101150206595775671303272247314453125,
-        "bid_in_offer_currency_per_unit" : 7.061401241503109105224211816675961017608642578125,
-        "status" : 7.4577447736837658709418974467553198337554931640625
+        "bid_in_offer_currency_per_unit" : 2.3021358869347654518833223846741020679473876953125,
+        "status" : 6.8468526983526398765889098285697400569915771484375
       }
     },
     "EscrowRefundRequest" : {
@@ -5561,7 +5623,7 @@ var swaggerSpec =
           "type" : "string"
         },
         "paymentoption" : {
-          "type" : "number"
+          "type" : "string"
         },
         "paymentoption_display" : {
           "type" : "string"
@@ -6782,7 +6844,7 @@ var swaggerSpec =
         },
         "nonce" : {
           "type" : "number",
-          "description" : "?The nonce"
+          "description" : "﻿The nonce"
         },
         "bits" : {
           "type" : "string",
@@ -6790,15 +6852,15 @@ var swaggerSpec =
         },
         "difficulty" : {
           "type" : "number",
-          "description" : "?The difficulty"
+          "description" : "﻿The difficulty"
         },
         "chainwork" : {
           "type" : "string",
-          "description" : "?Expected number of hashes required to produce the chain up to this block (in hex)"
+          "description" : "﻿Expected number of hashes required to produce the chain up to this block (in hex)"
         },
         "previousblockhash" : {
           "type" : "string",
-          "description" : "?The hash of the previous block"
+          "description" : "﻿The hash of the previous block"
         },
         "nextblockhash" : {
           "type" : "string",
@@ -7930,14 +7992,14 @@ var swaggerSpec =
         },
         "addresses" : {
           "type" : "array",
+          "example" : [ "list-of-addresses", "last-address-in-list-is-used-for-funding" ],
           "items" : {
-            "type" : "object",
-            "properties" : { }
+            "type" : "string"
           }
         }
       },
       "example" : {
-        "addresses" : [ "{}", "{}" ],
+        "addresses" : [ "list-of-addresses", "last-address-in-list-is-used-for-funding" ],
         "hexstring" : "hexstring"
       }
     },
@@ -8031,6 +8093,21 @@ var swaggerSpec =
       },
       "example" : {
         "script" : "script"
+      }
+    },
+    "SetAccountRequest" : {
+      "required" : [ "account", "address" ],
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "account" : {
+          "type" : "string"
+        }
+      },
+      "example" : {
+        "address" : "address",
+        "account" : "account"
       }
     },
     "AliasPayRequest_amounts" : {
