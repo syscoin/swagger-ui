@@ -31,7 +31,7 @@ var swaggerSpec =
   "paths" : {
     "/login" : {
       "get" : {
-        "tags" : [ "Blockmarket" ],
+        "tags" : [ "Spark" ],
         "description" : "Returns a session token for use with subsquent protected calls.",
         "operationId" : "login",
         "parameters" : [ {
@@ -56,11 +56,11 @@ var swaggerSpec =
           }
         }
       },
-      "x-swagger-router-controller" : "blockmarket"
+      "x-swagger-router-controller" : "spark"
     },
     "/storedata" : {
       "post" : {
-        "tags" : [ "Blockmarket" ],
+        "tags" : [ "Spark" ],
         "description" : "Store an arbitrary piece of data on a decentralized network of data storage warehouses and return the client an array of URLs through which the data can be accessed.",
         "operationId" : "storedata",
         "parameters" : [ {
@@ -89,7 +89,7 @@ var swaggerSpec =
           "token" : [ ]
         } ]
       },
-      "x-swagger-router-controller" : "blockmarket"
+      "x-swagger-router-controller" : "spark"
     },
     "/getblock" : {
       "get" : {
